@@ -1,19 +1,15 @@
-"use client";
+import { Metadata } from "next";
+import { ResumeView } from "@/components/resume/ResumeView";
 
-import { siteConfig } from "@/config/site.config";
-import { PlaceholderPage } from "@/components/placeholder-page";
-import { FileText } from "lucide-react";
+export const metadata: Metadata = {
+  title: "Resume | Chintan Goyal",
+  description: "Professional experience and skills flight log.",
+};
 
 export default function ResumePage() {
-  // For now, just show the placeholder page
-  // TODO: Add file checking logic later
   return (
-    <PlaceholderPage
-      title="Resume Coming Soon"
-      message="I'm currently updating my resume. Please check back later or reach out directly for more information about my experience and background."
-      icon={<FileText className="h-16 w-16" />}
-      actionText="Email Me"
-      actionLink={`mailto:${siteConfig.social.email}`}
-    />
+    <div className="container px-4 py-24 min-h-screen">
+      <ResumeView />
+    </div>
   );
 }

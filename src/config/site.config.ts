@@ -44,7 +44,7 @@ export const siteConfig = {
   // DOCUMENTS (paths relative to /public)
   // ============================================
   documents: {
-    resume: "/resume.pdf",        // Set to "" if not available
+    resume: "/resume",            // Set to "" if not available
     cv: "",                       // Full CV (optional)
     portfolio: "",                // PDF portfolio (optional)
   },
@@ -75,7 +75,7 @@ export const siteConfig = {
     showBlog: true,
     showLibrary: true,
     showThoughts: true,
-    showSystemsMap: true,
+    showSystemsMap: false,
     enableAnimations: true,
   },
 } as const;

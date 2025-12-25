@@ -22,14 +22,17 @@ import {
   Moon,
   Sun,
   Laptop,
+  Sparkles,
 } from "lucide-react";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   home: Home,
-  projects: FolderKanban,
-  stack: Layers,
-  library: BookOpen,
-  writing: PenLine,
+  "deep-dive": Layers,
+  "deep-projects": FolderKanban,
+  "deep-stack": Layers,
+  "deep-library": BookOpen,
+  "deep-writing": PenLine,
+  "deep-thoughts": Sparkles,
   "theme-toggle": CommandIcon,
   "theme-dark": Moon,
   "theme-light": Sun,
@@ -74,6 +77,14 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         element?.scrollIntoView({ behavior: "smooth" });
       } else if (action.endsWith(".pdf")) {
         window.open(action, "_blank");
+      } else if (action.startsWith("deep-dive:")) {
+        // Handle deep-dive tab switching
+        const tabId = action.split(":")[1];
+        const deepDiveElement = document.querySelector("#deep-dive");
+        deepDiveElement?.scrollIntoView({ behavior: "smooth" });
+
+        // Dispatch custom event for DeepDiveTabs to handle tab switching
+        window.dispatchEvent(new CustomEvent("deepDiveTabChange", { detail: tabId }));
       } else {
         router.push(action);
       }

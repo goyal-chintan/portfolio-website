@@ -18,6 +18,7 @@ import {
   Mail,
   Menu,
   X,
+  FileText,
 } from "lucide-react";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -26,6 +27,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Stack: Layers,
   Library: BookOpen,
   Writing: PenLine,
+  Resume: FileText,
   Contact: Mail,
 };
 
@@ -33,6 +35,25 @@ export function Navigation() {
   const [commandOpen, setCommandOpen] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
+
+  const handleDeepDiveNav = React.useCallback((href: string) => {
+    const tabMap: Record<string, string> = {
+      "#projects": "projects",
+      "#stack": "stack",
+      "#library": "library",
+      "#writing": "writing",
+      "#thoughts": "thoughts",
+    };
+
+    const tab = tabMap[href];
+    if (!tab) return false;
+
+    const deepDiveEl = document.querySelector("#deep-dive");
+    deepDiveEl?.scrollIntoView({ behavior: "smooth" });
+    window.dispatchEvent(new CustomEvent("deepDiveTabChange", { detail: tab }));
+    window.history.pushState(null, "", href);
+    return true;
+  }, []);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -85,7 +106,12 @@ export function Navigation() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="group relative flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
+                onClick={(event) => {
+                  if (handleDeepDiveNav(item.href)) {
+                    event.preventDefault();
+                  }
+                }}
+                className="group relative flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-foreground/70 hover:text-foreground hover:bg-muted/60 transition-all"
               >
                 {Icon && <Icon className="h-4 w-4" />}
                 <span className="hidden lg:inline">{item.name}</span>
@@ -95,9 +121,6 @@ export function Navigation() {
 
           {/* Separator */}
           <div className="w-px h-6 bg-border mx-1" />
-
-          {/* Theme Toggle */}
-          <ThemeToggle />
 
           {/* Command Palette Trigger */}
           <CommandPaletteTrigger onClick={() => setCommandOpen(true)} />
@@ -160,8 +183,13 @@ export function Navigation() {
                     <Link
                       key={item.name}
                       href={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+                      onClick={(event) => {
+                        if (handleDeepDiveNav(item.href)) {
+                          event.preventDefault();
+                        }
+                        setMobileMenuOpen(false);
+                      }}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-foreground/80 hover:text-foreground hover:bg-muted/60 transition-colors"
                     >
                       {Icon && <Icon className="h-4 w-4" />}
                       <span>{item.name}</span>
@@ -202,7 +230,7 @@ export function Footer() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm text-foreground/70 hover:text-foreground transition-colors"
               >
                 {item.name}
               </Link>
@@ -213,4 +241,3 @@ export function Footer() {
     </footer>
   );
 }
-

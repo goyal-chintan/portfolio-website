@@ -1,14 +1,15 @@
 import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site.config";
-import { Navigation, Footer } from "@/components/navigation";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/theme-provider";
-import { AmbientBackground } from "@/components/ambient-background";
+import { SpaceBackground } from "@/components/visuals/SpaceBackground";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: siteConfig.seo.title,
   description: siteConfig.seo.description,
-  keywords: siteConfig.seo.keywords,
+  keywords: [...siteConfig.seo.keywords],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
   openGraph: {
@@ -45,18 +46,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className="min-h-screen bg-background text-foreground antialiased transition-colors duration-300">
+    <html lang="en" suppressHydrationWarning>
+      <body className="min-h-screen bg-background text-foreground antialiased transition-colors duration-500">
         <ThemeProvider>
           {/* Noise overlay for texture */}
           <div className="noise-overlay" aria-hidden="true" />
 
-          {/* Ambient background */}
-          <AmbientBackground />
+          {/* Space background (Legacy import, will be replaced in next step) */}
+          <SpaceBackground />
 
-          <Navigation />
+          <Navbar />
 
-          <main className="relative">{children}</main>
+          <main className="relative pt-20">{children}</main>
 
           <Footer />
         </ThemeProvider>
@@ -64,4 +65,3 @@ export default function RootLayout({
     </html>
   );
 }
-

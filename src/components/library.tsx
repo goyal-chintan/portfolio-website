@@ -38,7 +38,7 @@ function BookCard({ book, compact = false }: BookCardProps) {
           {/* Book info */}
           <div className="flex flex-col flex-grow min-w-0">
             <div className="flex items-start justify-between gap-2 mb-1">
-              <h3 className="font-semibold text-foreground text-sm leading-tight line-clamp-2 group-hover:text-accent transition-colors">
+              <h3 className="font-semibold text-foreground text-sm leading-tight line-clamp-2 group-hover:text-foreground dark:group-hover:text-accent transition-colors">
                 {book.title}
               </h3>
             </div>
@@ -105,7 +105,7 @@ export function LibraryPreview() {
                 />
               </div>
               <div className="min-w-0">
-                <h3 className="text-sm font-medium text-foreground line-clamp-1 group-hover:text-accent transition-colors">
+                <h3 className="text-sm font-medium text-foreground line-clamp-1 group-hover:text-foreground dark:group-hover:text-accent transition-colors">
                   {book.title}
                 </h3>
                 <p className="text-xs text-muted-foreground">{book.author}</p>
@@ -139,4 +139,3 @@ export function LibrarySection() {
     </section>
   );
 }
-

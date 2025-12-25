@@ -32,7 +32,7 @@ function ProjectCard({ project, compact = false }: ProjectCardProps) {
           {/* Header */}
           <div className="flex items-start justify-between mb-3">
             <div className="space-y-1">
-              <h3 className="font-semibold text-foreground group-hover:text-accent transition-colors">
+              <h3 className="font-semibold text-foreground group-hover:text-foreground dark:group-hover:text-accent transition-colors">
                 {project.title}
               </h3>
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -105,7 +105,7 @@ export function FeaturedProjects() {
           <div key={project.id} className="group">
             <div className="p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
               <div className="flex items-start justify-between mb-1">
-                <h3 className="text-sm font-medium text-foreground group-hover:text-accent transition-colors">
+                <h3 className="text-sm font-medium text-foreground group-hover:text-foreground dark:group-hover:text-accent transition-colors">
                   {project.title}
                 </h3>
                 <div className="flex items-center gap-1 text-muted-foreground">
@@ -128,7 +128,17 @@ export function FeaturedProjects() {
         ))}
       </div>
       
-      <Button variant="ghost" size="sm" className="w-full">
+      <Button
+        variant="ghost"
+        size="sm"
+        className="w-full"
+        onClick={() => {
+          const deepDiveEl = document.querySelector("#deep-dive");
+          deepDiveEl?.scrollIntoView({ behavior: "smooth" });
+          window.dispatchEvent(new CustomEvent("deepDiveTabChange", { detail: "projects" }));
+          window.history.pushState(null, "", "#projects");
+        }}
+      >
         View all projects →
       </Button>
     </div>
@@ -153,4 +163,3 @@ export function ProjectsSection() {
     </section>
   );
 }
-

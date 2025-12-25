@@ -36,6 +36,39 @@ export const profile = {
 } as const;
 
 // ============================================================================
+// EXPERIENCE DATA
+// ============================================================================
+
+export interface Experience {
+  company: string;
+  role: string;
+  period: string;
+  description: string;
+  logo?: string;
+}
+
+export const experience: Experience[] = [
+  {
+    company: "Plume Design Inc",
+    role: "Senior Data & Platform Engineer",
+    period: "2023 - Present",
+    description: "Architecting the next-gen data platform processing petabytes of telemetry from 50M+ devices. Leading the transition to Lakehouse architecture."
+  },
+  {
+    company: "DataCo Global",
+    role: "Data Engineer II",
+    period: "2021 - 2023",
+    description: "Built real-time CDC pipelines reducing data latency from hours to seconds. Optimized Spark jobs for 40% cost reduction."
+  },
+  {
+    company: "TechStart",
+    role: "Software Engineer",
+    period: "2019 - 2021",
+    description: "Developed backend microservices in Go and Python. Implemented the first automated CI/CD pipelines for the team."
+  }
+];
+
+// ============================================================================
 // TECH STACK DATA
 // ============================================================================
 
@@ -365,6 +398,7 @@ export const navigation: NavItem[] = [
   { name: "Stack", href: "#stack", shortcut: "S" },
   { name: "Library", href: "#library", shortcut: "L" },
   { name: "Writing", href: "#writing", shortcut: "W" },
+  { name: "Resume", href: "/resume", shortcut: "R" },
   { name: "Contact", href: "#contact", shortcut: "C" },
 ];
 
@@ -384,10 +418,12 @@ export interface CommandItem {
 export const commands: CommandItem[] = [
   // Navigation
   { id: "home", name: "Go to Home", shortcut: "H", action: "/", group: "navigation" },
-  { id: "projects", name: "View Projects", shortcut: "P", action: "#projects", group: "navigation" },
-  { id: "stack", name: "View Tech Stack", shortcut: "S", action: "#stack", group: "navigation" },
-  { id: "library", name: "View Library", shortcut: "L", action: "#library", group: "navigation" },
-  { id: "writing", name: "View Writing", shortcut: "W", action: "#writing", group: "navigation" },
+  { id: "deep-dive", name: "Deep Dive", shortcut: "D", action: "#deep-dive", group: "navigation" },
+  { id: "deep-projects", name: "Deep Dive: Projects", shortcut: "P", action: "deep-dive:projects", group: "navigation" },
+  { id: "deep-stack", name: "Deep Dive: Stack", shortcut: "S", action: "deep-dive:stack", group: "navigation" },
+  { id: "deep-library", name: "Deep Dive: Library", shortcut: "L", action: "deep-dive:library", group: "navigation" },
+  { id: "deep-writing", name: "Deep Dive: Writing", shortcut: "W", action: "deep-dive:writing", group: "navigation" },
+  { id: "deep-thoughts", name: "Deep Dive: Thoughts", shortcut: "T", action: "deep-dive:thoughts", group: "navigation" },
   // Theme
   { id: "theme-toggle", name: "Toggle theme", shortcut: "T", action: "theme:toggle", group: "theme" },
   { id: "theme-dark", name: "Theme: Dark", action: "theme:dark", group: "theme" },
@@ -398,7 +434,7 @@ export const commands: CommandItem[] = [
   { id: "linkedin", name: "Open LinkedIn", action: "https://linkedin.com/in/chintangoyal", group: "social" },
   { id: "twitter", name: "Open Twitter", action: "https://twitter.com/chintangoyal", group: "social" },
   // Actions
-  { id: "resume", name: "Download Resume", action: "/resume.pdf", group: "actions" },
+  { id: "resume", name: "View Resume", action: "/resume", group: "actions" },
   { id: "contact", name: "Contact Me", shortcut: "C", action: "#contact", group: "actions" },
 ];
 
@@ -418,4 +454,3 @@ export const stats: Stat[] = [
   { label: "Years of Experience", value: "8+", description: "In data & platform engineering" },
   { label: "Cost Reduction", value: "40%", description: "In cloud infrastructure" },
 ];
-

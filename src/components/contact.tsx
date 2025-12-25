@@ -58,11 +58,11 @@ export function ContactSection() {
           >
             <div className="flex items-center justify-between w-full mb-3">
               <div className="p-2 rounded-lg bg-muted/50 group-hover:bg-accent/20 transition-colors">
-                <link.icon className="h-5 w-5 text-muted-foreground group-hover:text-accent transition-colors" />
+                <link.icon className="h-5 w-5 text-muted-foreground group-hover:text-foreground dark:group-hover:text-accent transition-colors" />
               </div>
               <ArrowUpRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
-            <h3 className="font-medium text-foreground group-hover:text-accent transition-colors">
+            <h3 className="font-medium text-foreground group-hover:text-foreground dark:group-hover:text-accent transition-colors">
               {link.name}
             </h3>
             <p className="text-sm text-muted-foreground">{link.description}</p>
@@ -114,4 +114,3 @@ export function ContactPreview() {
     </div>
   );
 }
-

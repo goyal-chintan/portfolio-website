@@ -380,7 +380,7 @@ function SystemsMapSvg({
         </linearGradient>
       </defs>
 
-      {/* Edges */}
+      {/* Constellation Lines (Edges) */}
       {EDGES.map((e, idx) => {
         const a = getNode(e.from);
         const b = getNode(e.to);
@@ -395,8 +395,9 @@ function SystemsMapSvg({
               y1={a.y}
               x2={b.x}
               y2={b.y}
-              stroke={isHot ? "url(#edgeGradient)" : "hsl(var(--foreground) / 0.08)"}
-              strokeWidth={isHot ? 0.8 : 0.5}
+              stroke={isHot ? "hsl(var(--ring) / 0.4)" : "hsl(var(--foreground) / 0.12)"}
+              strokeWidth={isHot ? 1.2 : 0.8}
+              strokeLinecap="round"
               opacity={isHot ? 1 : 0.9}
             />
           </g>
@@ -412,20 +413,44 @@ function SystemsMapSvg({
 
         return (
           <g key={n.id} opacity={dim ? 0.35 : 1}>
+            {/* Star glow */}
             <circle
               cx={n.x}
               cy={n.y}
-              r={isSelected ? 3.6 : isActive ? 3.4 : 3}
-              fill="hsl(var(--card) / 0.85)"
-              stroke={
-                isSelected
-                  ? "hsl(var(--ring) / 0.8)"
-                  : isActive
-                    ? "hsl(var(--ring) / 0.55)"
-                    : "hsl(var(--border) / 0.9)"
-              }
-              strokeWidth={isSelected ? 1.2 : 1}
+              r={isSelected ? 4.5 : isActive ? 4 : 3.5}
+              fill="hsl(var(--ring))"
+              fillOpacity={isSelected ? 0.4 : isActive ? 0.25 : 0.1}
+              filter="blur(0.5px)"
             />
+            {/* Star core */}
+            <circle
+              cx={n.x}
+              cy={n.y}
+              r={isSelected ? 3.5 : isActive ? 3 : 2.5}
+              fill="hsl(var(--foreground))"
+              stroke="hsl(var(--ring))"
+              strokeWidth={isSelected ? 1.2 : isActive ? 1 : 0.8}
+              strokeOpacity={isSelected ? 0.8 : isActive ? 0.6 : 0.4}
+            />
+            {/* Star cross pattern */}
+            <g opacity={isSelected ? 0.9 : isActive ? 0.7 : 0.5}>
+              <line
+                x1={n.x - 3}
+                y1={n.y}
+                x2={n.x + 3}
+                y2={n.y}
+                stroke="hsl(var(--foreground))"
+                strokeWidth={0.6}
+              />
+              <line
+                x1={n.x}
+                y1={n.y - 3}
+                x2={n.x}
+                y2={n.y + 3}
+                stroke="hsl(var(--foreground))"
+                strokeWidth={0.6}
+              />
+            </g>
             <circle
               cx={n.x}
               cy={n.y}

@@ -44,6 +44,9 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        "glass-panel": "hsl(var(--glass-panel) / <alpha-value>)",
+        "glass-border": "hsl(var(--glass-border) / <alpha-value>)",
+        "accent-glow": "hsl(var(--accent-glow) / <alpha-value>)",
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
@@ -61,8 +64,22 @@ export default {
         float: "float 6s ease-in-out infinite",
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         typing: "typing 3.5s steps(40, end), blink 0.75s step-end infinite",
+        "orbit-slow": "orbit 60s linear infinite",
+        "orbit-reverse": "orbit-reverse 80s linear infinite",
       },
       keyframes: {
+        orbit: {
+          "0%": { transform: "translate(0, 0) rotate(0deg)" },
+          "33%": { transform: "translate(30px, 50px) rotate(120deg)" },
+          "66%": { transform: "translate(-20px, 20px) rotate(240deg)" },
+          "100%": { transform: "translate(0, 0) rotate(360deg)" },
+        },
+        "orbit-reverse": {
+          "0%": { transform: "translate(0, 0) rotate(0deg)" },
+          "33%": { transform: "translate(-30px, -50px) rotate(-120deg)" },
+          "66%": { transform: "translate(20px, -20px) rotate(-240deg)" },
+          "100%": { transform: "translate(0, 0) rotate(-360deg)" },
+        },
         fadeIn: {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },

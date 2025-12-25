@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/config/site.config";
 import { stats } from "@/lib/data"; // Keep using existing stats for now
-import { getActiveSocialLinks, hasDocument } from "@/lib/config-helpers";
+import { getActiveSocialLinks, getDocumentUrl } from "@/lib/config-helpers";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Github, Linkedin, Mail, MapPin } from "lucide-react";
@@ -12,6 +12,7 @@ import { ArrowRight, Github, Linkedin, Mail, MapPin } from "lucide-react";
 export function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const activeSocialLinks = getActiveSocialLinks();
+  const resumeLink = getDocumentUrl("resume");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -83,14 +84,24 @@ export function Hero() {
       <div className="space-y-6 pt-6">
         {/* CTA Buttons */}
         <div className="flex flex-wrap gap-3">
-          <Button variant="default" size="lg" className="group">
+          <Button
+            variant="default"
+            size="lg"
+            className="group"
+            onClick={() => {
+              const deepDiveEl = document.querySelector("#deep-dive");
+              deepDiveEl?.scrollIntoView({ behavior: "smooth" });
+              window.dispatchEvent(new CustomEvent("deepDiveTabChange", { detail: "projects" }));
+              window.history.pushState(null, "", "#projects");
+            }}
+          >
             View Projects
             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </Button>
-          {hasDocument("resume") && (
+          {resumeLink && (
             <Button variant="glass" size="lg" asChild>
-              <a href="/resume" target="_blank" rel="noopener noreferrer">
-                Download Resume
+              <a href={resumeLink} target="_blank" rel="noopener noreferrer">
+                View Resume
               </a>
             </Button>
           )}
@@ -153,4 +164,3 @@ export function StatsCard() {
     </div>
   );
 }
-

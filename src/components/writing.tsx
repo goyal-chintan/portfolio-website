@@ -36,7 +36,7 @@ function BlogPostCard({ post, compact = false }: BlogPostCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="font-semibold text-foreground mb-2 group-hover:text-accent transition-colors flex items-start gap-2">
+          <h3 className="font-semibold text-foreground mb-2 group-hover:text-foreground dark:group-hover:text-accent transition-colors flex items-start gap-2">
             <span className="line-clamp-2">{post.title}</span>
             <ArrowUpRight className="h-4 w-4 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
           </h3>
@@ -117,7 +117,7 @@ export function WritingPreview() {
                   <span>•</span>
                   <span>{post.readTime}</span>
                 </div>
-                <h3 className="text-sm font-medium text-foreground line-clamp-2 group-hover:text-accent transition-colors">
+                <h3 className="text-sm font-medium text-foreground line-clamp-2 group-hover:text-foreground dark:group-hover:text-accent transition-colors">
                   {post.title}
                 </h3>
               </div>
@@ -194,4 +194,3 @@ export function WritingSection() {
     </section>
   );
 }
-
