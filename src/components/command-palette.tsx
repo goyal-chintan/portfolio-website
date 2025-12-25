@@ -14,7 +14,7 @@ import {
   PenLine,
   Github,
   Linkedin,
-  Twitter,
+  X,
   Mail,
   FileText,
   Search,
@@ -39,7 +39,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "theme-system": Laptop,
   github: Github,
   linkedin: Linkedin,
-  twitter: Twitter,
+  twitter: X,
   contact: Mail,
   resume: FileText,
 };
@@ -224,4 +224,3 @@ export function CommandPaletteTrigger({
     </button>
   );
 }
-

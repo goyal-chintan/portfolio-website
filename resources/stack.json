@@ -1,0 +1,24 @@
+{
+  "categories": [
+    {
+      "name": "Languages",
+      "items": ["Scala", "Python", "Java", "SQL", "Cypher", "Bash", "Perl"]
+    },
+    {
+      "name": "Data Frameworks",
+      "items": ["Spark", "Databricks", "Hadoop", "EMR", "EC2", "Lambda", "MapReduce", "Spark MLlib", "YARN", "Sqoop", "Kafka", "GCP Dataproc", "BigQuery", "Pub/Sub"]
+    },
+    {
+      "name": "Databases and Table Formats",
+      "items": ["Hive", "Snowflake", "Delta Lake", "Glue", "Athena", "Neo4J", "DB2", "Sybase", "SQL Server", "MySQL", "Yugabyte"]
+    },
+    {
+      "name": "Orchestration and DevOps",
+      "items": ["Step Functions", "Shell Scripting", "Git", "Autosys", "Liquibase", "Jenkins", "Jira", "Azure DevOps", "Bitbucket", "Airflow"]
+    },
+    {
+      "name": "Cloud, Storage, and Formats",
+      "items": ["AWS", "Azure", "HDFS", "S3", "EBS", "ADLS", "Blob Storage", "Cloud Storage", "Parquet", "ORC", "Delta", "Avro", "JSON", "XML", "CSV", "Columnar", "Linux"]
+    }
+  ]
+}

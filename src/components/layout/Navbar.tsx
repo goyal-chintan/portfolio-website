@@ -6,46 +6,74 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { content } from "@/config/content.generated";
+import { Home } from "lucide-react";
 
-const navItems = [
-    { name: "Home", href: "/" },
-    { name: "Work", href: "/#projects" },
-    { name: "Stack", href: "/#stack" },
-    { name: "Resume", href: "/resume" },
-    { name: "Writing", href: "/#writing" },
-];
+const navItems = content.nav.primary.map((item) => ({
+    name: item.label,
+    href: item.href,
+    type: item.type,
+}));
 
 export function Navbar() {
     const pathname = usePathname();
     const [hovered, setHovered] = React.useState<string | null>(null);
-    const [active, setActive] = React.useState<string>("Home");
+    const [active, setActive] = React.useState<string>(navItems[0]?.name ?? "Home");
+    const [dockRight, setDockRight] = React.useState(false);
 
     // Handle active state based on hash or path
     React.useEffect(() => {
-        // If we're on a separate page (Resume), that's valid
-        if (pathname === "/resume") {
-            setActive("Resume");
-            return;
-        }
-
         if (pathname === "/") {
-            // For Home, we default to Home unless a specific hash is present
             const handleHash = () => {
                 const hash = window.location.hash;
-                if (hash.includes("projects")) setActive("Work");
-                else if (hash.includes("stack")) setActive("Stack");
-                else if (hash.includes("writing")) setActive("Writing");
+                if (hash.includes("contact")) setActive("Contact");
                 else setActive("Home");
             };
 
-            handleHash(); // Check on mount
-            window.addEventListener("hashchange", handleHash); // Check on hash change
+            handleHash();
+            window.addEventListener("hashchange", handleHash);
             return () => window.removeEventListener("hashchange", handleHash);
         }
+
+        setActive("");
     }, [pathname]);
 
+    React.useEffect(() => {
+        const handleScroll = () => {
+            const threshold = window.innerHeight * 0.22;
+            if (window.innerWidth <= 768) {
+                setDockRight(false);
+                return;
+            }
+            const hero = document.querySelector("#hero");
+            if (hero instanceof HTMLElement) {
+                const rect = hero.getBoundingClientRect();
+                const heroBottomRatio = rect.bottom / window.innerHeight;
+                setDockRight(window.scrollY >= threshold || heroBottomRatio < 0.7);
+                return;
+            }
+            setDockRight(window.scrollY >= threshold);
+        };
+
+        handleScroll();
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        window.addEventListener("resize", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("resize", handleScroll);
+        };
+    }, []);
+
     return (
-        <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+        <div
+            className={cn(
+                "fixed z-50 px-4 pointer-events-none transition-[top,right,transform] duration-200 ease-out",
+                dockRight
+                    ? "right-6 top-6"
+                    : "top-6 left-0 right-0 flex justify-center"
+            )}
+            style={dockRight ? { maxWidth: "fit-content" } : undefined}
+        >
             <nav
                 className={cn(
                     "pointer-events-auto",
@@ -69,35 +97,48 @@ export function Navbar() {
                             {(hovered === item.name || active === item.name) && (
                                 <motion.div
                                     layoutId="nav-pill"
-                                    className={cn(
-                                        "absolute inset-0 rounded-full -z-10",
-                                        active === item.name ? "bg-primary/10" : "bg-secondary"
-                                    )}
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.95 }}
-                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                                />
-                            )}
-                        </AnimatePresence>
+                                className={cn(
+                                    "absolute inset-0 rounded-full -z-10",
+                                    active === item.name ? "bg-primary/10" : "bg-secondary"
+                                )}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                transition={{ type: "spring", bounce: 0.15, duration: 0.3 }}
+                            />
+                        )}
+                    </AnimatePresence>
 
-                        <span
-                            className={cn(
-                                "relative z-10",
-                                "transition-colors duration-200",
-                                active === item.name ? "text-primary" : "text-muted-foreground",
-                                hovered === item.name && active !== item.name && "text-primary"
-                            )}
-                        >
-                            {item.name}
-                        </span>
+                        {item.name === "Home" ? (
+                            <span
+                                className={cn(
+                                    "relative z-10 flex items-center justify-center",
+                                    "transition-colors duration-200",
+                                    active === item.name ? "text-primary" : "text-muted-foreground",
+                                    hovered === item.name && active !== item.name && "text-primary"
+                                )}
+                                aria-label="Home"
+                            >
+                                <Home className="h-4 w-4" />
+                            </span>
+                        ) : (
+                            <span
+                                className={cn(
+                                    "relative z-10",
+                                    "transition-colors duration-200",
+                                    active === item.name ? "text-primary" : "text-muted-foreground",
+                                    hovered === item.name && active !== item.name && "text-primary"
+                                )}
+                            >
+                                {item.name}
+                            </span>
+                        )}
 
                         {/* Active Glow for "Interstellar" vibe */}
                         {active === item.name && (
                             <motion.div
-                                layoutId="nav-glow"
                                 className="absolute inset-0 rounded-full bg-accent/20 blur-lg -z-20"
-                                transition={{ duration: 0.3 }}
+                                transition={{ duration: 0.2 }}
                             />
                         )}
                     </Link>

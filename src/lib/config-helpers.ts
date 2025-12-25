@@ -37,3 +37,4 @@ export function getSiteInfo() {
 export function getDocumentUrl(doc: keyof typeof siteConfig.documents): string | null {
   return siteConfig.documents[doc] || null;
 }
+

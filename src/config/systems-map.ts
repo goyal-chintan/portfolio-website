@@ -125,3 +125,4 @@ export const systemEdges: SystemEdge[] = [
   { from: "observe", to: "stream", type: "control" },
   { from: "observe", to: "batch", type: "control" },
 ];
+

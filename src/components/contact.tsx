@@ -1,37 +1,37 @@
 "use client";
 
-import { profile } from "@/lib/data";
+import { content } from "@/config/content.generated";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, Twitter, ArrowUpRight } from "lucide-react";
+import { Mail, Github, Linkedin, X, ArrowUpRight } from "lucide-react";
 
 const socialLinks = [
   {
     name: "GitHub",
-    href: profile.social.github,
+    href: content.profile.social.github,
     icon: Github,
     description: "Check out my code",
   },
   {
     name: "LinkedIn",
-    href: profile.social.linkedin,
+    href: content.profile.social.linkedin,
     icon: Linkedin,
     description: "Let's connect professionally",
   },
   {
-    name: "Twitter",
-    href: profile.social.twitter,
-    icon: Twitter,
+    name: "X",
+    href: content.profile.social.twitter,
+    icon: X,
     description: "Follow my thoughts",
   },
   {
     name: "Email",
-    href: `mailto:${profile.social.email}`,
+    href: `mailto:${content.profile.social.email}`,
     icon: Mail,
     description: "Get in touch directly",
   },
-];
+].filter((link) => Boolean(link.href));
 
 export function ContactSection() {
   return (
@@ -74,7 +74,7 @@ export function ContactSection() {
               <p className="text-sm text-muted-foreground">
                 {link.name === "GitHub" ? "Observe my craft" :
                   link.name === "LinkedIn" ? "Professional orbit" :
-                    link.name === "Twitter" ? "Stream of consciousness" :
+                    link.name === "X" ? "Stream of consciousness" :
                       "Direct transmission"}
               </p>
             </div>
@@ -89,7 +89,7 @@ export function ContactSection() {
           className="rounded-full px-10 h-16 text-lg font-semibold bg-primary text-primary-foreground hover:scale-105 active:scale-95 transition-all duration-300 shadow-2xl shadow-primary/20"
           asChild
         >
-          <a href={`mailto:${profile.social.email}`}>
+          <a href={`mailto:${content.profile.social.email}`}>
             <Mail className="h-5 w-5 mr-3" />
             Initiate Conversation
           </a>

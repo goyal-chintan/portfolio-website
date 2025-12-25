@@ -1,3 +1,5 @@
+import { content } from "@/config/content.generated";
+
 export interface Project {
   id: string;
   title: string;
@@ -11,80 +13,32 @@ export interface Project {
     github?: string;
     demo?: string;
     article?: string;
+    resume?: string;
   };
   metrics?: {
     label: string;
     value: string;
   }[];
+  openSource?: boolean;
+  linkStatus?: string;
+  privacyNote?: string;
 }
 
-export const projects: Project[] = [
-  {
-    id: "datavinci",
-    title: "DataVinci Platform",
-    year: "2023",
-    description: "Petabyte-scale data platform powering analytics for 50M+ devices.",
-    tags: ["Spark", "Delta Lake", "BigQuery", "Scala"],
-    status: "production",
-    featured: true,
-    links: {
-      github: "",  // Leave empty if private
-    },
-    metrics: [
-      { label: "Daily Volume", value: "100TB+" },
-      { label: "Devices", value: "50M+" },
-    ],
+export const projects: Project[] = content.projects.map((project) => ({
+  id: project.id,
+  title: project.name,
+  year: project.period,
+  description: project.summary,
+  longDescription: project.body,
+  tags: project.tags ?? [],
+  status: project.status,
+  featured: true,
+  links: {
+    github: project.link?.primary?.type === "github" ? project.link.primary.url : undefined,
+    resume: project.link?.primary?.type === "resume" ? project.link.primary.url : undefined,
   },
-  {
-    id: "streamline",
-    title: "Streamline CDC",
-    year: "2022",
-    description: "Real-time Change Data Capture system for seamless data synchronization.",
-    tags: ["Kafka", "Debezium", "Flink", "PostgreSQL"],
-    status: "production",
-    featured: true,
-    links: {
-      github: "https://github.com/example/streamline",
-    },
-  },
-  {
-    id: "spark-autotuner",
-    title: "Spark Autotuner Copilot",
-    year: "2024",
-    description: "LLM-powered assistant that analyzes Spark jobs and recommends optimal configurations.",
-    tags: ["Python", "LangChain", "RAG", "Spark", "Vector DB"],
-    status: "development",
-    featured: true,
-    links: {
-      github: "https://github.com/example/spark-autotuner",
-    },
-  },
-  {
-    id: "mesh-guardian",
-    title: "Mesh Guardian",
-    year: "2024",
-    description: "AIOps assistant for WiFi mesh network diagnostics and troubleshooting.",
-    tags: ["LangGraph", "Python", "Vertex AI", "GCP"],
-    status: "development",
-    featured: false,
-    links: {
-      demo: "https://demo.example.com/mesh-guardian",
-    },
-  },
-  {
-    id: "query-optimizer",
-    title: "Query Cost Optimizer",
-    year: "2021",
-    description: "Automated analysis and optimization of BigQuery workloads.",
-    tags: ["BigQuery", "Python", "Terraform", "Cost Optimization"],
-    status: "production",
-    featured: false,
-    links: {
-      github: "",
-    },
-    metrics: [
-      { label: "Cost Reduction", value: "40%" },
-      { label: "Queries Optimized", value: "10K+" },
-    ],
-  },
-];
+  metrics: project.metrics,
+  openSource: project.open_source,
+  linkStatus: project.link_status,
+  privacyNote: project.privacy_note,
+}));

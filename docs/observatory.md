@@ -330,3 +330,4 @@ Command palette:
 - Respect `prefers-reduced-motion`: reduce transition duration or disable.
 
 
+asdfas=plok0jhigvucyxtrszea/Users/chintan/Library/Metadata/CoreSpotlight/PasteboardHistory/2025-12-25_20-36-01.png

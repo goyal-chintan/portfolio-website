@@ -1,0 +1,17 @@
+{
+  "primary": [
+    {
+      "id": "home",
+      "label": "Home",
+      "href": "/",
+      "type": "route"
+    },
+    {
+      "id": "contact",
+      "label": "Contact",
+      "href": "/#contact",
+      "type": "scroll"
+    }
+  ],
+  "theme_toggle": true
+}

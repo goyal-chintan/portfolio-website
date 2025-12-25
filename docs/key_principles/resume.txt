@@ -1,0 +1,65 @@
+Chintan Goyal
+linkedin.com/chintan-goyal
+Phone: +91 9462010301
+mail.chintan.goyal@gmail.com
+
+Experience
+Senior data & platform engineer
+Plume Design InC
+Aug’23-present
+Multi Cloud Architecture and Strategy for Data Platform
+Enabled key ISPs on GCPs like Jio having 15 million customers to onboard, by making existing data platform cloud agnostic and flawlessly run on GCP with AWS by leading the owning and technical architecture, design and implementation to enabled multi-cloud compatibility.
+Reduced infrastructure cost by 30% and Data quality issues by 50% by developing real-time streaming solution for AWS Lambda-based Yugabyte DB ingestion framework to Spark Streaming Framework for 40 GB/hour load using benchmarking based on cost and latency analysis for file-based ingestion option available across markets.
+Working on cost optimisations of cloud spend and data pipelines using deep archival strategy for 50 PB data, better resource and cluster optimization, identifying specific areas to reduce cost by 20% ( $150k / month) .
+Saved 100k monthly by choosing specific workloads from spark-streaming to Athena and Bigquery + Biglake from delta to json using to enable. 
+Saved ~2 Millions Databricks cost Made the compute cloud agnostic by developing key architecture layers to shift workloads from Databricks to EKS based cluster in order to save DBU. 
+Open Sourced: -Project Lumos - Pluggable Technology agnostic metadata and Data Governance Framework
+Saved 400+ effort hours annually + work of 10 full time engineers to track the bugs by Ideating, designing a firm recognized platform framework to handle the scattered data assets by enabling data democratization, discovery, cataloging, lineage, documentation with versioned assets
+Led a team of motivated SDEs to develop it as a non-sponsored side project on weekends which became First priority for the org after our tech demo.
+Ideated, led and designed the project to solve any organisation’s end to end data management needs
+Senior Data & Platform engineer
+MORGAN STANLEY
+May’21-jul'23
+Data Platform for Global Trade Settlements Platform
+Reduced reporting turnaround time by 1.5 weeks to business users by enabling data discoverability to extract reports directly by strategising next-generation self-service data platform via Spark and Spring Boot based backend query engine ingesting from multiple databases and data lakes.
+Enabled low latency query response by 40% for OLTP SQL Server by Implementing hourly archival and optimised indexing on Type 2 SCD tables.
+Saved 120 effort hours/week in ownership assignment of trade fails by innovating solution using Java Drools rule Engine based Spring Batch app using CQRS design pattern through test-driven development (TDD) ensuring data quality with unit and integration tests.
+Owned critical trade fails data warehouse, created and maintained ETLs on Snowflake, DB2, Sybase, and CDC-enabled ELT pipelines using advance SQL with data governance and data quality protocols to save $10 million while mentoring devs on Collibra-based data cataloging.
+Anomaly Detection Using Knowledge Graph for Transactional Fraud | Technology Innovation Program 
+Implemented knowledge graph to solve and explore complex relations in transactional data for anomalies and linkages using Neo4J in a team of 4, collaborating with cross-functional domain experts.
+Won 3rd place out of 70 teams in firmed tech innovation competition performing dimensional modeling, exploratory data analysis (EDA) discovering transactional frauds using matplotlib, pandas, numpy, data cleaning, feature extraction, and performed end-to-end SDLC.
+Data Engineer
+FRACTAL ANALYTICS
+April’19-May'21
+COVID-19 India Data Platform with Prime Minister’s Office, NITI AYOG, NASSCOM
+Contributed to Data Platform, Ingestion, Data Modelling, ETL development, and Data Warehousing in a team of 4 representing Fractal’s Data Engineering.
+Designed scalable server-less architecture using AWS Athena, Glue, and Lambda Functions to support various hospital readiness, and virus spread dashboards for Central and multiple State Governments. 
+Improved disease spread (RT) & capacity failure predictions model outputs by 45% by adding district/ward level granularity by owning ingestion framework of open-sourced patient data through REST APIs calls by lambda functions to parse and process JSONs with geo-specific mappings and glue crawlers.
+Led discussions with Mapbox and Infosys to utilise offerings with data privacy and data security for ambiguous PII and movement data of containment zones.
+Collaborated with cross-functional teams from NASSCOM, AWS India, etc to design Infrastructure, and ensure data integrity and governance.
+Data Platform for European Health Tech Giant
+Designed and deployed large-scale, reliable, complex, cost-effective data platform sourcing integrating & processing massive data pipelines consisting of clickstreams, sales, social media, reviews & ratings, etc into data lakes in SAFe agile development.
+Reduced infrastructure cost by 40% in building a data lake for Black Friday Sale on AWS and achieved hourly reporting using EBS cost cutting, dynamically scaled, memory-optimised EMRs, S3 pruning, predicate pushdown, and root cause analysis by data observability and data monitoring by cloud-watch.
+Improved execution time by 3x (45 min to ~12-13) of Scala-Spark-based pipeline eliminating bottlenecks via dataframe persistence, caching & broadcasting
+Saved 24 effort hours weekly across multiple regions by automating campaign analytics by solving dynamic campaign extraction challenge to deliver reports using batch processing 
+Data Engineer
+INFOSYS LIMITED
+March’17-April’19
+Developed advance SQL based ETLs and Spark-Scala scripts to run on 500 PB cluster while optimising them for batch Hive loads
+Skills & Exposure
+Programming Language:  Scala, Python, Java, SQL, Cypher query language, Bash, Perl
+Data Engineering Frameworks: Spark, Databricks, Hadoop, EMR, EC2, Lambda, Map Reduce, Spark MLlib, YARN, Scoop, Kafka, GCP Dataproc, BigQuery, PubSub
+Databases and Table Formats: Hive, Snowflake, Delta Lake, Glue, Athena, Neo4J, DB2, Sybase, SQL Server, MySQL, Yugabyte
+Orchestration, CI/CD, and Version Control: Step Functions, Shell Scripting, GIT, Autosys, Liquibase, Jenkins, Jira, Azure DevOps, Bitbucket, Airflow
+Cloud, OS, Storage & File Formats: AWS, Azure, HDFS, S3, EBS, ADLS, Blob Storage, Cloud Storage, Parquet, ORC, Delta, Avro, JSONs,XMLs, CSV, Columnar, Linux,
+Machine Learning Algorithms (Implementation Level): Linear Regression, Logistic Regression, Decision Trees, Random Forests, KNN, SVM, sklearn
+Awards and Achievements
+Outstanding Delivery, Morgan Stanley.
+3rd Place, Technology Innovation Program, Morgan Stanley.
+Corona Warrior, NASSCOMM
+S.M.A.R.T Award, end-to-end Solution, Fractal
+
+Education & Certification
+Master of Science in Computer Science, WOOLF University, 2023-2025, Ongoing ( Ongoing avg marks 97%, GPA 4 )*
+Big Data Application: Machine Learning at Scale
+Bachelor of Technology in Mechanical Engineering, Rajasthan Technical University, 2012-2016

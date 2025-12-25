@@ -47,11 +47,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen bg-background text-foreground antialiased transition-colors duration-500">
+      <body className="relative min-h-screen bg-background text-foreground antialiased transition-colors duration-500">
         <ThemeProvider>
-          {/* Noise overlay for texture */}
-          <div className="noise-overlay" aria-hidden="true" />
-
           {/* Space background (Legacy import, will be replaced in next step) */}
           <SpaceBackground />
 

@@ -12,6 +12,102 @@ export default async function WritingPostPage({ params }: { params: Promise<{ sl
   const post = blogPosts.find((p) => p.slug === slug);
   if (!post) notFound();
 
+  const renderBody = (body?: string) => {
+    if (!body) return null;
+    const lines = body.split(/\r?\n/);
+    const blocks: Array<{ type: string; content: string[] }> = [];
+
+    const pushBlock = (type: string, content: string[]) => {
+      if (content.length) blocks.push({ type, content });
+    };
+
+    let current: string[] = [];
+    let currentType = "paragraph";
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) {
+        pushBlock(currentType, current);
+        current = [];
+        currentType = "paragraph";
+        continue;
+      }
+
+      if (trimmed.startsWith("## ")) {
+        pushBlock(currentType, current);
+        current = [trimmed.replace(/^## /, "")];
+        currentType = "h2";
+        pushBlock(currentType, current);
+        current = [];
+        currentType = "paragraph";
+        continue;
+      }
+
+      if (trimmed.startsWith("### ")) {
+        pushBlock(currentType, current);
+        current = [trimmed.replace(/^### /, "")];
+        currentType = "h3";
+        pushBlock(currentType, current);
+        current = [];
+        currentType = "paragraph";
+        continue;
+      }
+
+      if (trimmed.startsWith("- ")) {
+        if (currentType !== "list") {
+          pushBlock(currentType, current);
+          current = [];
+          currentType = "list";
+        }
+        current.push(trimmed.replace(/^- /, ""));
+        continue;
+      }
+
+      if (currentType !== "paragraph") {
+        pushBlock(currentType, current);
+        current = [];
+        currentType = "paragraph";
+      }
+      current.push(trimmed);
+    }
+    pushBlock(currentType, current);
+
+    return (
+      <div className="space-y-6">
+        {blocks.map((block, index) => {
+          if (block.type === "h2") {
+            return (
+              <h2 key={`${block.type}-${index}`} className="text-2xl md:text-3xl font-semibold tracking-tight">
+                {block.content[0]}
+              </h2>
+            );
+          }
+          if (block.type === "h3") {
+            return (
+              <h3 key={`${block.type}-${index}`} className="text-xl md:text-2xl font-semibold tracking-tight">
+                {block.content[0]}
+              </h3>
+            );
+          }
+          if (block.type === "list") {
+            return (
+              <ul key={`${block.type}-${index}`} className="list-disc pl-6 space-y-2 text-muted-foreground">
+                {block.content.map((item, itemIndex) => (
+                  <li key={`${block.type}-${index}-${itemIndex}`}>{item}</li>
+                ))}
+              </ul>
+            );
+          }
+          return (
+            <p key={`${block.type}-${index}`} className="text-base text-muted-foreground leading-relaxed">
+              {block.content.join(" ")}
+            </p>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen py-24">
       <div className="max-w-3xl mx-auto px-4 space-y-10">
@@ -29,6 +125,12 @@ export default async function WritingPostPage({ params }: { params: Promise<{ sl
             <span>{post.date}</span>
             <span>·</span>
             <span>{post.readTime}</span>
+            {post.status && (
+              <>
+                <span>·</span>
+                <span className="uppercase tracking-widest">{post.status}</span>
+              </>
+            )}
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -54,14 +156,7 @@ export default async function WritingPostPage({ params }: { params: Promise<{ sl
         <Separator className="opacity-60" />
 
         <article className="prose prose-neutral dark:prose-invert max-w-none">
-          <h2>Draft</h2>
-          <p>
-            This post page is live and shareable, but the full content is still being written.
-          </p>
-          <p>
-            If you want, I can generate a clean long-form structure (sections, diagrams, and key takeaways) and
-            you can fill it in over time.
-          </p>
+          {renderBody(post.body)}
         </article>
       </div>
     </div>

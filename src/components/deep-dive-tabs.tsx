@@ -6,12 +6,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import {
-  Github,
-  Globe,
   ArrowUpRight,
   Sparkles,
   BookOpen
@@ -55,7 +52,38 @@ export function DeepDiveTabs() {
     const hash = window.location.hash;
     if (hash && HASH_TAB[hash]) {
       setActiveTab(HASH_TAB[hash]);
+      const deepDiveEl = document.querySelector("#deep-dive");
+      deepDiveEl?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+  }, []);
+
+  React.useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash && HASH_TAB[hash]) {
+        setActiveTab(HASH_TAB[hash]);
+        const deepDiveEl = document.querySelector("#deep-dive");
+        deepDiveEl?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+
+    const handleDeepDiveEvent = (event: Event) => {
+      if (!(event instanceof CustomEvent)) return;
+      const next = event.detail as TabId;
+      if (TAB_HASH[next]) {
+        setActiveTab(next);
+        window.history.pushState(null, "", TAB_HASH[next]);
+      }
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    window.addEventListener("popstate", handleHashChange);
+    window.addEventListener("deepDiveTabChange", handleDeepDiveEvent as EventListener);
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+      window.removeEventListener("popstate", handleHashChange);
+      window.removeEventListener("deepDiveTabChange", handleDeepDiveEvent as EventListener);
+    };
   }, []);
 
   const openDetail = (type: string, idOrName: string) => {
@@ -95,35 +123,89 @@ export function DeepDiveTabs() {
                 </p>
               </div>
             </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {projects.map((p) => (
-                <motion.div
-                  key={p.id}
-                  whileHover={{ scale: 1.02, y: -4 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="card-glass p-6 md:p-8 flex flex-col justify-between cursor-pointer"
-                  onClick={() => openDetail("project", p.id)}
-                >
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest">{p.year}</span>
-                      <ArrowUpRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+            {(() => {
+              const openSource = projects.filter((p) => p.openSource);
+              const professional = projects.filter((p) => !p.openSource);
+              const renderProject = (p: typeof projects[number]) => {
+                const primaryLink = p.links.github ?? p.links.resume;
+                const isGithub = Boolean(p.links.github);
+                return (
+                  <motion.div
+                    key={p.id}
+                    whileHover={{ scale: 1.02, y: -4 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="card-glass p-6 md:p-8 flex flex-col justify-between"
+                  >
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest">{p.year}</span>
+                        {primaryLink && (
+                          <ArrowUpRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                        )}
+                      </div>
+                      <div className="space-y-2">
+                        <h4 className="text-xl font-bold tracking-tight">{p.title}</h4>
+                        <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">
+                          {p.description}
+                        </p>
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      <h4 className="text-xl font-bold tracking-tight">{p.title}</h4>
-                      <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">
-                        {p.description}
-                      </p>
+                    <div className="flex flex-wrap gap-2 pt-6">
+                      {p.tags.slice(0, 3).map((t) => (
+                        <Badge key={t} variant="secondary" className="px-2 py-0 text-[10px] bg-secondary/50 border-white/5">{t}</Badge>
+                      ))}
                     </div>
-                  </div>
-                  <div className="flex flex-wrap gap-2 pt-6">
-                    {p.tags.slice(0, 3).map((t) => (
-                      <Badge key={t} variant="secondary" className="px-2 py-0 text-[10px] bg-secondary/50 border-white/5">{t}</Badge>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+                    <div className="flex items-center justify-between pt-6">
+                      {p.openSource && p.linkStatus === "pending" && (
+                        <Badge variant="outline" className="text-[10px] font-mono uppercase tracking-widest">
+                          Open source (link pending)
+                        </Badge>
+                      )}
+                      {p.privacyNote && !p.links.github && (
+                        <span className="text-[11px] text-muted-foreground">{p.privacyNote}</span>
+                      )}
+                      {primaryLink && (
+                        isGithub ? (
+                          <a
+                            href={primaryLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs font-semibold uppercase tracking-widest text-primary"
+                          >
+                            GitHub
+                          </a>
+                        ) : (
+                          <Link href={primaryLink} className="text-xs font-semibold uppercase tracking-widest text-primary">
+                            Resume
+                          </Link>
+                        )
+                      )}
+                    </div>
+                  </motion.div>
+                );
+              };
+
+              return (
+                <div className="space-y-10">
+                  {openSource.length > 0 && (
+                    <div className="space-y-4">
+                      <h4 className="text-lg font-semibold tracking-tight">Open Source</h4>
+                      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        {openSource.map(renderProject)}
+                      </div>
+                    </div>
+                  )}
+                  {professional.length > 0 && (
+                    <div className="space-y-4">
+                      <h4 className="text-lg font-semibold tracking-tight">Professional</h4>
+                      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        {professional.map(renderProject)}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
           </div>
         );
 
@@ -333,15 +415,13 @@ export function DeepDiveTabs() {
     }
   };
 
-  const detailProject =
-    detail?.type === "project" ? projects.find((p) => p.id === detail.id) : undefined;
   const detailStack =
     detail?.type === "stack" ? techStack.find((c) => c.name === detail.name) : undefined;
   const detailBook =
     detail?.type === "book" ? books.find((b) => b.id === detail.id) : undefined;
 
   return (
-    <div id="deep-dive" className="space-y-12">
+    <div id="deep-dive" className="space-y-12 scroll-mt-40">
       <div className="text-center space-y-6">
         <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">Deep Dive</h2>
         <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
@@ -355,11 +435,13 @@ export function DeepDiveTabs() {
           const next = v as TabId;
           setActiveTab(next);
           window.history.pushState(null, "", TAB_HASH[next]);
+          const deepDiveEl = document.querySelector("#deep-dive");
+          deepDiveEl?.scrollIntoView({ behavior: "smooth", block: "start" });
         }}
         className="w-full"
       >
-        <div className="flex justify-center pb-8">
-          <TabsList className="inline-flex h-auto p-2 bg-glass-panel/10 backdrop-blur-xl rounded-full border border-white/5 shadow-2xl">
+        <div className="flex justify-center pb-8 sticky top-24 z-30">
+          <TabsList className="inline-flex h-auto p-2 bg-glass-panel/20 backdrop-blur-xl rounded-full border border-white/5 shadow-2xl">
             {availableTabs.map((tab) => (
               <TabsTrigger
                 key={tab.id}
@@ -407,35 +489,6 @@ export function DeepDiveTabs() {
         }}
       >
         <DialogContent className="max-w-3xl rounded-[2.5rem] p-8 md:p-12 border-white/5 bg-glass-panel/60 backdrop-blur-3xl">
-          {detail?.type === "project" && detailProject && (
-            <DialogHeader className="space-y-6">
-              <div className="flex items-center justify-between">
-                <DialogTitle className="text-3xl md:text-5xl font-bold tracking-tight">{detailProject.title}</DialogTitle>
-                <Badge variant="outline" className="text-xs font-mono">{detailProject.year}</Badge>
-              </div>
-              <DialogDescription className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-                {detailProject.longDescription ?? detailProject.description}
-              </DialogDescription>
-
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 pt-4">
-                {detailProject.links.github && (
-                  <Button variant="outline" className="rounded-full h-12" asChild>
-                    <a href={detailProject.links.github} target="_blank" rel="noopener noreferrer">
-                      <Github className="h-4 w-4 mr-2" /> GitHub
-                    </a>
-                  </Button>
-                )}
-                {detailProject.links.demo && (
-                  <Button className="rounded-full h-12 bg-primary text-primary-foreground" asChild>
-                    <a href={detailProject.links.demo} target="_blank" rel="noopener noreferrer">
-                      <Globe className="h-4 w-4 mr-2" /> Live Demo
-                    </a>
-                  </Button>
-                )}
-              </div>
-            </DialogHeader>
-          )}
-
           {detail?.type === "stack" && detailStack && (
             <DialogHeader className="space-y-6">
               <DialogTitle className="text-4xl font-bold tracking-tight">{detailStack.name}</DialogTitle>

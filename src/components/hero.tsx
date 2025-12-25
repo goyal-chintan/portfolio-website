@@ -2,12 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import { siteConfig } from "@/config/site.config";
-import { stats } from "@/lib/data";
+import { content } from "@/config/content.generated";
 import { getActiveSocialLinks, getDocumentUrl } from "@/lib/config-helpers";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Github, Linkedin, Mail, MapPin } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail, X } from "lucide-react";
 
 export function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -23,6 +22,7 @@ export function Hero() {
 
   return (
     <motion.div
+      id="hero"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -65,15 +65,6 @@ export function Hero() {
 
         {/* Meta Bar - Enhanced Detail */}
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-mono pt-2">
-          <div className="flex items-center gap-2 text-muted-foreground/70">
-            <MapPin className="h-4 w-4" />
-            <span>{siteConfig.location}</span>
-          </div>
-          <div className="w-[1px] h-4 bg-border/40 hidden md:block" />
-          <div className="text-muted-foreground/70">
-            <span className="text-primary/60 mr-2">@</span>
-            {siteConfig.company}
-          </div>
           {siteConfig.availability.status === "open" && (
             <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[11px] font-bold uppercase tracking-widest">
               <span className="relative flex h-1.5 w-1.5 align-middle">
@@ -93,7 +84,9 @@ export function Hero() {
             className="group relative bg-foreground text-background hover:bg-foreground/90 rounded-full px-8 h-14 text-base font-semibold transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-xl shadow-foreground/10"
             onClick={() => {
               const deepDiveEl = document.querySelector("#deep-dive");
-              deepDiveEl?.scrollIntoView({ behavior: "smooth" });
+              deepDiveEl?.scrollIntoView({ behavior: "smooth", block: "start" });
+              window.dispatchEvent(new CustomEvent("deepDiveTabChange", { detail: "projects" }));
+              window.history.pushState(null, "", "#projects");
             }}
           >
             View My Work
@@ -113,14 +106,6 @@ export function Hero() {
             </Button>
           )}
 
-          <Button
-            variant="ghost"
-            size="lg"
-            className="rounded-full px-8 h-14 text-base font-medium transition-all duration-300 hover:scale-[1.03] active:scale-95 border border-transparent hover:border-border"
-            asChild
-          >
-            <Link href="/#contact">Let&apos;s Connect</Link>
-          </Button>
         </div>
 
         {/* Social - Prominent & Interactive */}
@@ -130,7 +115,7 @@ export function Hero() {
               const iconMap = {
                 github: Github,
                 linkedin: Linkedin,
-                twitter: Mail,
+                twitter: X,
                 email: Mail,
                 calendar: Mail,
                 website: Mail,
@@ -161,7 +146,7 @@ export function Hero() {
 export function StatsCard() {
   return (
     <div className="grid grid-cols-2 gap-y-12 gap-x-8">
-      {stats.map((stat) => (
+      {content.profile.stats.map((stat) => (
         <motion.div
           key={stat.label}
           whileHover={{ y: -4, scale: 1.02 }}

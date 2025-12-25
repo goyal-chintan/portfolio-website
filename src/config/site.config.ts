@@ -1,52 +1,40 @@
 // src/config/site.config.ts
 
+import { content } from "@/config/content.generated";
+
 export const siteConfig = {
   // ============================================
-  // PERSONAL INFO (Edit these!)
+  // PERSONAL INFO (from resources/profile.json)
   // ============================================
-  name: "Chintan Goyal",
-  title: "Senior Data & Platform Engineer",
-  company: "Plume Design Inc",
-  location: "Hyderabad, India",
+  name: content.profile.name,
+  title: content.profile.title,
+  company: content.profile.company,
+  location: content.profile.location,
 
-  tagline: "Building data platforms at scale. Architecting the future.",
-
-  bio: `Deep thinker. Systems builder. I design and scale data platforms
-        that power real-time decisions for millions of devices.`,
+  tagline: content.profile.tagline,
+  bio: content.profile.bio,
 
   // Rotating roles in hero
-  roles: [
-    "Data Engineer",
-    "Platform Architect",
-    "Systems Thinker",
-    "Future CTO",
-  ],
+  roles: content.profile.roles ?? [],
 
   // Status badge
   availability: {
-    status: "open", // "open" | "busy" | "not-looking"
-    message: "Open to opportunities",
+    status: content.profile.availability.status, // "open" | "busy" | "not-looking"
+    message: content.profile.availability.note,
   },
 
   // ============================================
-  // SOCIAL LINKS (Leave empty string to hide)
+  // SOCIAL LINKS (from resources/profile.json)
   // ============================================
-  social: {
-    github: "https://github.com/chintangoyal",
-    linkedin: "https://linkedin.com/in/chintangoyal",
-    twitter: "https://twitter.com/chintangoyal",
-    email: "chintan@example.com",
-    calendar: "", // Calendly/Cal.com link (optional)
-    website: "", // Other website (optional)
-  },
+  social: content.profile.social,
 
   // ============================================
   // DOCUMENTS (paths relative to /public)
   // ============================================
   documents: {
-    resume: "/resume",            // Set to "" if not available
-    cv: "",                       // Full CV (optional)
-    portfolio: "",                // PDF portfolio (optional)
+    resume: "/resume",
+    cv: "",
+    portfolio: "",
   },
 
   // ============================================
@@ -57,7 +45,7 @@ export const siteConfig = {
     description: "Staff-level Data & Platform Engineer building scalable systems.",
     keywords: ["Data Engineer", "Platform Engineer", "Staff Engineer", "Spark", "Kafka"],
     ogImage: "/og-image.png",     // Social share image
-    twitterHandle: "@chintangoyal",
+    twitterHandle: "@gchintn",
   },
 
   // ============================================

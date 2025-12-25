@@ -10,7 +10,7 @@ import { DeepDiveTabs } from "@/components/deep-dive-tabs";
 export default function HomePage() {
   return (
     <ImmersiveLayout>
-      <div className="max-w-6xl mx-auto space-y-24 px-6 md:px-12 pb-24 pt-32">
+      <div className="max-w-6xl mx-auto space-y-32 px-6 md:px-12 pb-40 pt-40">
 
         {/* HERO SECTION - Wide and Open */}
         <section>

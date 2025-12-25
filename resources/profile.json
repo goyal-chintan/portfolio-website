@@ -1,0 +1,50 @@
+{
+  "name": "Chintan Goyal",
+  "title": "Senior Data and Platform Engineer",
+  "tagline": "Architecting data platforms at scale. Systems thinker with a bias for rigor.",
+  "bio": "I design and scale data platforms that power real-time decisions for millions of devices. My focus is on distributed systems, reliability, and cost-aware architecture with measurable outcomes.",
+  "location": "Hyderabad, India",
+  "timezone": "Asia/Kolkata (IST)",
+  "company": "Plume Design Inc",
+  "email": "mail.chintan.goyal@gmail.com",
+  "phone": "+91 9462010301",
+  "linkedin": "https://linkedin.com/chintan-goyal",
+  "roles": [
+    "Data Engineer",
+    "Platform Architect",
+    "Systems Thinker",
+    "Future CTO"
+  ],
+  "social": {
+    "github": "https://github.com/goyal-chintan",
+    "linkedin": "https://linkedin.com/chintan-goyal",
+    "twitter": "https://x.com/gchintn",
+    "email": "mail.chintan.goyal@gmail.com",
+    "calendar": "",
+    "website": ""
+  },
+  "availability": {
+    "status": "open",
+    "note": "Open to ambitious data and platform challenges."
+  },
+  "stats": [
+    { "label": "Devices", "value": "50M+" },
+    { "label": "Data Footprint", "value": "50PB" },
+    { "label": "Cost Saved", "value": "2M USD" },
+    { "label": "Customers Enabled", "value": "15M" }
+  ],
+  "focus_areas": [
+    "Distributed systems",
+    "Data platforms and pipelines",
+    "Cloud reliability and observability",
+    "Performance and cost optimization",
+    "System design and architecture"
+  ],
+  "brand_keywords": [
+    "deep thinking",
+    "systems",
+    "clarity",
+    "rigor",
+    "precision"
+  ]
+}

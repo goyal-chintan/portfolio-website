@@ -1,0 +1,91 @@
+{
+  "summary": "Senior Data & Platform Engineer focused on multi-cloud architectures, scalable data platforms, and cost-aware systems design.",
+  "experience": [
+    {
+      "company": "Plume Design Inc",
+      "role": "Senior Data & Platform Engineer",
+      "period": "Aug 2023 - Present",
+      "highlights": [
+        "Led multi-cloud architecture to onboard ISP customers on GCP while maintaining AWS parity; enabled 15M customers.",
+        "Reduced infrastructure cost by 30% and data quality issues by 50% by migrating YugabyteDB ingestion from Lambda to Spark Streaming at 40 GB/hour.",
+        "Designed deep archival strategy for 50 PB of data; identified 20% cost reduction (~150k USD/month).",
+        "Saved ~2M USD in Databricks costs by shifting workloads to EKS-based clusters and optimizing DBUs.",
+        "Open-sourced Project Lumos: pluggable metadata and governance framework; saved 400+ hours/year and reduced bug triage effort across teams."
+      ]
+    },
+    {
+      "company": "Morgan Stanley",
+      "role": "Senior Data & Platform Engineer",
+      "period": "May 2021 - Jul 2023",
+      "highlights": [
+        "Built self-service data platform for global trade settlements; reduced reporting turnaround by 1.5 weeks.",
+        "Improved OLTP SQL Server latency by 40% via hourly archival and optimized indexing on Type-2 SCD tables.",
+        "Saved 120 hours/week by automating ownership assignment of trade fails using a Drools-based CQRS pipeline.",
+        "Owned critical data warehouse across Snowflake/DB2/Sybase/CDC pipelines; saved 10M USD with governance and quality protocols.",
+        "Led an innovation project using Neo4J knowledge graphs for fraud detection; 3rd place among 70 teams."
+      ]
+    },
+    {
+      "company": "Fractal Analytics",
+      "role": "Data Engineer",
+      "period": "Apr 2019 - May 2021",
+      "highlights": [
+        "Built COVID-19 India data platform with PMO/NITI AYOG/NASSCOM; improved prediction accuracy by 45% with district-level granularity.",
+        "Designed serverless ingestion and modeling on AWS Athena/Glue/Lambda for national dashboards.",
+        "Led cross-functional discussions with Mapbox and Infosys on privacy/security for movement data.",
+        "Delivered a European health tech data platform; reduced infra cost by 40% and improved pipeline runtime 3x.",
+        "Automated campaign analytics to save 24 hours/week across regions."
+      ]
+    },
+    {
+      "company": "Infosys Limited",
+      "role": "Data Engineer",
+      "period": "Mar 2017 - Apr 2019",
+      "highlights": [
+        "Developed SQL ETLs and Spark-Scala pipelines on 500 PB clusters; optimized batch Hive loads for reliability."
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "category": "Programming",
+      "items": ["Scala", "Python", "Java", "SQL", "Cypher", "Bash", "Perl"]
+    },
+    {
+      "category": "Data Engineering Frameworks",
+      "items": ["Spark", "Databricks", "Hadoop", "EMR", "EC2", "Lambda", "MapReduce", "Spark MLlib", "YARN", "Sqoop", "Kafka", "GCP Dataproc", "BigQuery", "Pub/Sub"]
+    },
+    {
+      "category": "Databases and Table Formats",
+      "items": ["Hive", "Snowflake", "Delta Lake", "Glue", "Athena", "Neo4J", "DB2", "Sybase", "SQL Server", "MySQL", "Yugabyte"]
+    },
+    {
+      "category": "Orchestration and DevOps",
+      "items": ["Step Functions", "Shell Scripting", "Git", "Autosys", "Liquibase", "Jenkins", "Jira", "Azure DevOps", "Bitbucket", "Airflow"]
+    },
+    {
+      "category": "Cloud, Storage, and Formats",
+      "items": ["AWS", "Azure", "HDFS", "S3", "EBS", "ADLS", "Blob Storage", "Cloud Storage", "Parquet", "ORC", "Delta", "Avro", "JSON", "XML", "CSV", "Columnar", "Linux"]
+    }
+  ],
+  "awards": [
+    "Outstanding Delivery, Morgan Stanley",
+    "3rd Place, Technology Innovation Program, Morgan Stanley",
+    "Corona Warrior, NASSCOM",
+    "S.M.A.R.T Award, end-to-end Solution, Fractal"
+  ],
+  "education": [
+    {
+      "program": "Master of Science in Computer Science",
+      "institution": "Woolf University",
+      "period": "2023 - 2025 (ongoing)",
+      "notes": "GPA 4.0, average marks 97%"
+    },
+    {
+      "program": "Bachelor of Technology in Mechanical Engineering",
+      "institution": "Rajasthan Technical University",
+      "period": "2012 - 2016",
+      "notes": ""
+    }
+  ]
+}

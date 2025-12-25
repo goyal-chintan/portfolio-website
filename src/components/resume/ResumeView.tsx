@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Download, Github, Linkedin, Building2 } from "lucide-react";
-import { profile, experience, techStack } from "@/lib/data";
+import { Github, Linkedin, Building2, Twitter } from "lucide-react";
+import { content } from "@/config/content.generated";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -26,6 +26,26 @@ const itemVariants = {
 };
 
 export function ResumeView() {
+    const profile = content.profile;
+    const resume = content.resume;
+    const socialButtons = [
+        {
+            label: "GitHub",
+            href: profile.social.github,
+            icon: Github,
+        },
+        {
+            label: "LinkedIn",
+            href: profile.social.linkedin,
+            icon: Linkedin,
+        },
+        {
+            label: "X",
+            href: profile.social.twitter,
+            icon: Twitter,
+        },
+    ].filter((item) => Boolean(item.href));
+
     return (
         <motion.div
             variants={containerVariants}
@@ -71,22 +91,17 @@ export function ResumeView() {
                 </div>
 
                 <motion.div className="flex flex-wrap gap-3 items-start" variants={itemVariants}>
-                    <Button variant="outline" size="sm" asChild>
-                        <a href={profile.social.github} target="_blank" rel="noopener noreferrer">
-                            <Github className="w-4 h-4 mr-2" />
-                            GitHub
-                        </a>
-                    </Button>
-                    <Button variant="outline" size="sm" asChild>
-                        <a href={profile.social.linkedin} target="_blank" rel="noopener noreferrer">
-                            <Linkedin className="w-4 h-4 mr-2" />
-                            LinkedIn
-                        </a>
-                    </Button>
-                    <Button className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-accent/20">
-                        <Download className="w-4 h-4 mr-2" />
-                        Download PDF
-                    </Button>
+                    {socialButtons.map((button) => {
+                        const Icon = button.icon;
+                        return (
+                            <Button key={button.label} variant="outline" size="sm" asChild>
+                                <a href={button.href} target="_blank" rel="noopener noreferrer">
+                                    <Icon className="w-4 h-4 mr-2" />
+                                    {button.label}
+                                </a>
+                            </Button>
+                        );
+                    })}
                 </motion.div>
             </div>
 
@@ -100,7 +115,7 @@ export function ResumeView() {
                         </h2>
 
                         <div className="relative border-l border-border ml-2 space-y-10">
-                            {experience.map((job, idx) => (
+                            {resume.experience.map((job, idx) => (
                                 <div key={idx} className="relative pl-8">
                                     {/* Timeline Dot */}
                                     <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-accent ring-4 ring-background" />
@@ -115,9 +130,11 @@ export function ResumeView() {
 
                                         <div className="text-base font-medium text-primary/80">{job.company}</div>
 
-                                        <p className="text-muted-foreground leading-relaxed">
-                                            {job.description}
-                                        </p>
+                                        <ul className="space-y-2 text-muted-foreground leading-relaxed">
+                                            {job.highlights.map((highlight) => (
+                                                <li key={highlight}>• {highlight}</li>
+                                            ))}
+                                        </ul>
                                     </div>
                                 </div>
                             ))}
@@ -130,16 +147,15 @@ export function ResumeView() {
                     <motion.div variants={itemVariants}>
                         <h2 className="text-xl font-semibold mb-6">About</h2>
                         <p className="text-muted-foreground leading-relaxed text-sm">
-                            {profile.bio}
+                            {resume.summary}
                         </p>
                     </motion.div>
 
                     {/* Iterate over Tech Categories */}
-                    {techStack.map((cat) => (
-                        <motion.div key={cat.name} variants={itemVariants}>
+                    {resume.skills.map((cat) => (
+                        <motion.div key={cat.category} variants={itemVariants}>
                             <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-2">
-                                <cat.icon className="w-4 h-4" />
-                                {cat.name}
+                                {cat.category}
                             </h3>
                             <div className="flex flex-wrap gap-2">
                                 {cat.items.map((item) => (
