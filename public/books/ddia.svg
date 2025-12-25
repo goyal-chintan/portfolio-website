@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="560" viewBox="0 0 400 560">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0a0a"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="560" rx="26" fill="url(#g)"/>
+  <rect x="22" y="22" width="356" height="516" rx="18" fill="none" stroke="rgba(255,255,255,0.14)"/>
+  <circle cx="70" cy="86" r="6" fill="rgba(100,116,139,0.9)"/>
+  <circle cx="92" cy="106" r="3" fill="rgba(5,150,105,0.8)"/>
+  <circle cx="112" cy="80" r="2.5" fill="rgba(100,116,139,0.7)"/>
+  <line x1="70" y1="86" x2="92" y2="106" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <line x1="70" y1="86" x2="112" y2="80" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
+  <text x="44" y="170" fill="#e5e7eb" font-family="Inter, system-ui, -apple-system, Segoe UI, sans-serif" font-size="28" font-weight="700">Designing</text>
+  <text x="44" y="206" fill="#e5e7eb" font-family="Inter, system-ui, -apple-system, Segoe UI, sans-serif" font-size="28" font-weight="700">Data-Intensive</text>
+  <text x="44" y="242" fill="#e5e7eb" font-family="Inter, system-ui, -apple-system, Segoe UI, sans-serif" font-size="28" font-weight="700">Applications</text>
+  <text x="44" y="292" fill="#a1a1aa" font-family="JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">systems • storage • streaming</text>
+  <text x="44" y="470" fill="#cbd5e1" font-family="Inter, system-ui, -apple-system, Segoe UI, sans-serif" font-size="16" font-weight="600">Martin Kleppmann</text>
+  <text x="44" y="506" fill="#94a3b8" font-family="JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">library/chintan</text>
+</svg>
+
+
