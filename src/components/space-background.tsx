@@ -4,6 +4,7 @@ import * as React from "react";
 import { useReducedMotion } from "framer-motion";
 import { StarfieldCanvas } from "@/components/starfield-canvas";
 import { ConstellationOverlay } from "@/components/constellation-overlay";
+import { SpaceObjects } from "@/components/visuals/space-objects";
 
 export function SpaceBackground() {
   const reducedMotion = useReducedMotion();
@@ -49,9 +50,8 @@ export function SpaceBackground() {
       {/* 3. Constellations (vector overlay) */}
       <ConstellationOverlay className="opacity-0 dark:opacity-100" />
 
-      {/* 4. Planets/Orbits */}
-      <div className="absolute space-planet-1 space-planet-drift" />
-      <div className="absolute space-orbit-1 space-orbit-drift" />
+      {/* 4. Space Objects (Planets, Galaxy, etc.) */}
+      <SpaceObjects />
 
       {/* 5. Cursor Glow (desktop only) */}
       <div className="absolute inset-0 cursor-glow space-cursor-glow" />

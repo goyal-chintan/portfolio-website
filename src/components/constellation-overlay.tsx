@@ -10,10 +10,11 @@ export function ConstellationOverlay({
 }) {
   return (
     <svg
-      className={cn("constellation-overlay absolute inset-0 h-full w-full", className)}
+      className={cn("constellation-overlay absolute inset-0 h-full w-full animate-spin-slow-reverse", className)}
       viewBox="0 0 1000 600"
       preserveAspectRatio="xMidYMid slice"
       aria-hidden="true"
+      style={{ animationDuration: "300s" }}
     >
       <defs>
         <filter id="constellation-glow" x="-30%" y="-30%" width="160%" height="160%">

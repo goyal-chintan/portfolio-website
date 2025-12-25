@@ -1,6 +1,7 @@
 export interface Project {
   id: string;
   title: string;
+  year: string;
   description: string;
   longDescription?: string;
   tags: string[];
@@ -21,6 +22,7 @@ export const projects: Project[] = [
   {
     id: "datavinci",
     title: "DataVinci Platform",
+    year: "2023",
     description: "Petabyte-scale data platform powering analytics for 50M+ devices.",
     tags: ["Spark", "Delta Lake", "BigQuery", "Scala"],
     status: "production",
@@ -36,6 +38,7 @@ export const projects: Project[] = [
   {
     id: "streamline",
     title: "Streamline CDC",
+    year: "2022",
     description: "Real-time Change Data Capture system for seamless data synchronization.",
     tags: ["Kafka", "Debezium", "Flink", "PostgreSQL"],
     status: "production",
@@ -47,6 +50,7 @@ export const projects: Project[] = [
   {
     id: "spark-autotuner",
     title: "Spark Autotuner Copilot",
+    year: "2024",
     description: "LLM-powered assistant that analyzes Spark jobs and recommends optimal configurations.",
     tags: ["Python", "LangChain", "RAG", "Spark", "Vector DB"],
     status: "development",
@@ -58,6 +62,7 @@ export const projects: Project[] = [
   {
     id: "mesh-guardian",
     title: "Mesh Guardian",
+    year: "2024",
     description: "AIOps assistant for WiFi mesh network diagnostics and troubleshooting.",
     tags: ["LangGraph", "Python", "Vertex AI", "GCP"],
     status: "development",
@@ -69,6 +74,7 @@ export const projects: Project[] = [
   {
     id: "query-optimizer",
     title: "Query Cost Optimizer",
+    year: "2021",
     description: "Automated analysis and optimization of BigQuery workloads.",
     tags: ["BigQuery", "Python", "Terraform", "Cost Optimization"],
     status: "production",
