@@ -10,4 +10,8 @@ export interface Book {
 
 import { content } from "@/config/content.generated";
 
-export const books: Book[] = (content.library.books ?? []) as Book[];
+export const books: Book[] = Array.from(content.library.books ?? []);
+
+
+
+

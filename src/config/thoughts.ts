@@ -7,4 +7,8 @@ export interface Thought {
 
 import { content } from "@/config/content.generated";
 
-export const thoughts: Thought[] = (content.thoughts.thoughts ?? []) as Thought[];
+export const thoughts: Thought[] = Array.from(content.thoughts.thoughts ?? []);
+
+
+
+

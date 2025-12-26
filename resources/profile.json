@@ -46,5 +46,21 @@
     "clarity",
     "rigor",
     "precision"
-  ]
+  ],
+  "about": {
+    "headline": "The operating system behind the engineering.",
+    "current_focus": "Scaling distributed data platforms and architecting systems that explain themselves.",
+    "lifestyle": [
+      { "id": "fuel", "title": "Fuel", "value": "Ethiopian Yirgacheffe", "detail": "V60 Pour Over", "why": "Ritual + repeatability. A slow start reduces context switching and sharpens decisions." },
+      { "id": "input", "title": "Input", "value": "Keychron Q1 Pro", "detail": "Mechanical tactility", "why": "Tactile feedback keeps me deliberate under load—fewer mistakes, lower fatigue in long sessions." },
+      { "id": "audio", "title": "Audio", "value": "Sony WH-1000XM5", "detail": "Deep focus", "why": "Noise cancellation creates a controlled environment for deep work and design reviews." },
+      { "id": "center", "title": "Center", "value": "Vipassana", "detail": "The internal OS", "why": "Attention training shows up in incidents and tradeoffs: calmer response, clearer reasoning." }
+    ],
+    "journey": [
+      { "period": "2023 — Present", "role": "Senior Data & Platform Engineer", "company": "Plume Design Inc", "active": true },
+      { "period": "2021 — 2023", "role": "Senior Data & Platform Engineer", "company": "Morgan Stanley" },
+      { "period": "2019 — 2021", "role": "Data Engineer", "company": "Fractal Analytics" },
+      { "period": "2017 — 2019", "role": "Data Engineer", "company": "Infosys" }
+    ]
+  }
 }

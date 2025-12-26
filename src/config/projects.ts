@@ -24,21 +24,25 @@ export interface Project {
   privacyNote?: string;
 }
 
-export const projects: Project[] = content.projects.map((project) => ({
-  id: project.id,
-  title: project.name,
-  year: project.period,
-  description: project.summary,
-  longDescription: project.body,
-  tags: project.tags ?? [],
-  status: project.status,
-  featured: true,
-  links: {
-    github: project.link?.primary?.type === "github" ? project.link.primary.url : undefined,
-    resume: project.link?.primary?.type === "resume" ? project.link.primary.url : undefined,
-  },
-  metrics: project.metrics,
-  openSource: project.open_source,
-  linkStatus: project.link_status,
-  privacyNote: project.privacy_note,
-}));
+export const projects: Project[] = content.projects.map((project) => {
+  const linkType = String(project.link?.primary?.type ?? "");
+  const linkUrl = project.link?.primary?.url;
+  return {
+    id: project.id,
+    title: project.name,
+    year: project.period,
+    description: project.summary,
+    longDescription: project.body,
+    tags: Array.from(project.tags ?? []),
+    status: project.status,
+    featured: true,
+    links: {
+      github: linkType === "github" ? linkUrl : undefined,
+      resume: linkType === "resume" ? linkUrl : undefined,
+    },
+    metrics: project.metrics ? project.metrics.map((m) => ({ label: m.label, value: m.value })) : undefined,
+    openSource: project.open_source,
+    linkStatus: project.link_status,
+    privacyNote: project.privacy_note,
+  };
+});

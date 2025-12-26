@@ -7,21 +7,26 @@ import Image from "next/image";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { BentoCard, BentoGrid } from "@/components/bento-grid";
 import { cn } from "@/lib/utils";
 import {
   ArrowUpRight,
   Sparkles,
-  BookOpen
+  BookOpen,
+  Coffee,
+  Keyboard,
+  Headphones
 } from "lucide-react";
 
 // Content (config-driven)
+import { content } from "@/config/content.generated";
 import { projects } from "@/config/projects";
 import { techStack } from "@/config/tech-stack";
 import { books } from "@/config/books";
 import { blogPosts } from "@/config/posts";
 import { thoughts } from "@/config/thoughts";
 
-type TabId = "projects" | "writing" | "stack" | "library" | "thoughts";
+type TabId = "about" | "projects" | "writing" | "stack" | "library" | "thoughts";
 
 interface TabItem {
   id: TabId;
@@ -29,6 +34,7 @@ interface TabItem {
 }
 
 const TAB_HASH: Record<TabId, string> = {
+  about: "#about",
   projects: "#projects",
   writing: "#writing",
   stack: "#stack",
@@ -46,6 +52,7 @@ export function DeepDiveTabs() {
   const [activeTab, setActiveTab] = React.useState<TabId>("projects");
   const [detail, setDetail] = React.useState<{ type: string; id?: string; name?: string } | null>(null);
   const [detailOpen, setDetailOpen] = React.useState(false);
+  const [expandedLifestyleId, setExpandedLifestyleId] = React.useState<string | null>(null);
 
 
   React.useEffect(() => {
@@ -101,6 +108,7 @@ export function DeepDiveTabs() {
   };
 
   const availableTabs: TabItem[] = [
+    { id: "about", label: "About" },
     { id: "projects", label: "Projects" },
     { id: "writing", label: "Writing" },
     { id: "stack", label: "Stack" },
@@ -108,10 +116,158 @@ export function DeepDiveTabs() {
     { id: "thoughts", label: "Thoughts" },
   ];
 
+  const profile = content.profile;
+  const about = profile.about;
+
+  const lifestyleIcons: Record<string, typeof Coffee> = {
+    fuel: Coffee,
+    input: Keyboard,
+    audio: Headphones,
+    center: Sparkles,
+  };
+
 
 
   const renderTabContent = (id: TabId) => {
     switch (id) {
+      case "about":
+        return (
+          <div className="space-y-12">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <div className="space-y-4">
+                <h3 className="text-3xl font-bold tracking-tight">About</h3>
+                <p className="text-muted-foreground max-w-2xl text-lg line-clamp-2">
+                  {about.headline}
+                </p>
+              </div>
+            </div>
+
+            <div
+              className={cn(
+                "card-glass p-6 md:p-8 transition-all duration-500",
+                "hover:bg-glass-panel/60"
+              )}
+            >
+              <div className="space-y-3">
+                <div className="text-[11px] font-mono text-muted-foreground/70 uppercase tracking-widest">
+                  Current Focus
+                </div>
+                <p className="text-lg text-foreground/90 leading-relaxed line-clamp-2">
+                  {about.current_focus}
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h4 className="text-xl font-semibold tracking-tight">System Specs</h4>
+                <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
+                  The hardware and habits powering the engineering
+                </span>
+              </div>
+
+              <BentoGrid>
+                {about.lifestyle.map((item) => {
+                  const Icon = lifestyleIcons[item.id] ?? Sparkles;
+                  const isExpanded = expandedLifestyleId === item.id;
+                  return (
+                    <BentoCard
+                      key={item.id}
+                      colSpan={item.id === "center" ? 2 : 1}
+                      rowSpan={1}
+                      padding="md"
+                      className={cn(
+                        "flex flex-col gap-4 cursor-pointer",
+                        "focus-visible:ring-2 focus-visible:ring-primary/20"
+                      )}
+                      tabIndex={0}
+                      onClick={() => setExpandedLifestyleId((prev) => (prev === item.id ? null : item.id))}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setExpandedLifestyleId((prev) => (prev === item.id ? null : item.id));
+                        }
+                      }}
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3">
+                        <div className="inline-flex p-3 rounded-2xl bg-primary/5 border border-primary/10">
+                          <Icon className="h-5 w-5 text-primary/80" />
+                        </div>
+                        <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground/60">
+                          {item.title}
+                        </div>
+                        </div>
+                        <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/50">
+                          {isExpanded ? "Close" : "Details"}
+                        </div>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="text-lg font-semibold tracking-tight text-foreground line-clamp-1">
+                          {item.value}
+                        </div>
+                        {item.detail && (
+                          <div className="text-sm text-muted-foreground line-clamp-1">
+                            {item.detail}
+                          </div>
+                        )}
+                        {item.why && (
+                          <AnimatePresence initial={false}>
+                            {isExpanded && (
+                              <motion.div
+                                key="why"
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                                className="pt-3"
+                              >
+                                <p className="text-sm text-muted-foreground leading-relaxed">
+                                  {item.why}
+                                </p>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        )}
+                      </div>
+                    </BentoCard>
+                  );
+                })}
+              </BentoGrid>
+            </div>
+
+            <div className="space-y-6">
+              <h4 className="text-xl font-semibold tracking-tight">Journey</h4>
+              <div className="relative border-l border-border/30 ml-2 space-y-8">
+                {about.journey.map((step) => {
+                  const isActive = "active" in step && step.active === true;
+                  return (
+                    <div key={`${step.period}-${step.company}`} className="relative pl-8">
+                      <div
+                        className={cn(
+                          "absolute -left-[6px] top-1.5 w-3 h-3 rounded-full border-4 border-background",
+                          isActive ? "bg-primary" : "bg-muted-foreground/30"
+                        )}
+                      />
+                      <div className="space-y-2">
+                        <div className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
+                          {step.period}
+                        </div>
+                        <div className="text-lg font-semibold tracking-tight text-foreground">
+                          {step.role}
+                        </div>
+                        <div className={cn("text-sm", isActive ? "text-primary/80" : "text-muted-foreground")}>
+                          {step.company}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        );
+
       case "projects":
         return (
           <div className="space-y-12">
@@ -129,13 +285,30 @@ export function DeepDiveTabs() {
               const renderProject = (p: typeof projects[number]) => {
                 const primaryLink = p.links.github ?? p.links.resume;
                 const isGithub = Boolean(p.links.github);
+                const isClickable = Boolean(primaryLink);
                 return (
                   <motion.div
                     key={p.id}
-                    whileHover={{ scale: 1.02, y: -4 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="card-glass p-6 md:p-8 flex flex-col justify-between"
+                    whileHover={isClickable ? { scale: 1.02, y: -4 } : undefined}
+                    whileTap={isClickable ? { scale: 0.98 } : undefined}
+                    className={cn(
+                      "group card-glass p-6 md:p-8 flex flex-col justify-between relative",
+                      isClickable ? "cursor-pointer" : "cursor-default"
+                    )}
                   >
+                    {primaryLink && (
+                      isGithub ? (
+                        <a
+                          href={primaryLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="absolute inset-0 z-10 rounded-2xl"
+                          aria-label={`Open ${p.title} on GitHub`}
+                        />
+                      ) : (
+                        <Link href={primaryLink} className="absolute inset-0 z-10 rounded-2xl" aria-label={`Open ${p.title} in resume`} />
+                      )
+                    )}
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest">{p.year}</span>
@@ -165,20 +338,9 @@ export function DeepDiveTabs() {
                         <span className="text-[11px] text-muted-foreground">{p.privacyNote}</span>
                       )}
                       {primaryLink && (
-                        isGithub ? (
-                          <a
-                            href={primaryLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs font-semibold uppercase tracking-widest text-primary"
-                          >
-                            GitHub
-                          </a>
-                        ) : (
-                          <Link href={primaryLink} className="text-xs font-semibold uppercase tracking-widest text-primary">
-                            Resume
-                          </Link>
-                        )
+                        <span className="text-xs font-semibold uppercase tracking-widest text-primary">
+                          {isGithub ? "GitHub" : "Resume"}
+                        </span>
                       )}
                     </div>
                   </motion.div>
@@ -299,7 +461,18 @@ export function DeepDiveTabs() {
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="group flex flex-col md:flex-row gap-8 p-8 card-glass hover:bg-glass-panel/60 transition-all duration-500"
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.995 }}
+                    onClick={() => openDetail("stack", cat.name)}
+                    className="group flex flex-col md:flex-row gap-8 p-8 card-glass hover:bg-glass-panel/60 transition-all duration-500 cursor-pointer"
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        openDetail("stack", cat.name);
+                      }
+                    }}
                   >
                     <div className="md:w-1/3 space-y-4">
                       <div className="inline-flex p-3 rounded-2xl bg-primary/5 text-primary border border-primary/10">
@@ -310,6 +483,9 @@ export function DeepDiveTabs() {
                         <p className="text-sm text-muted-foreground leading-relaxed italic border-l-2 border-primary/20 pl-4">
                           {cat.description}
                         </p>
+                        <div className="text-[11px] font-mono text-muted-foreground/60 uppercase tracking-widest">
+                          Click to expand
+                        </div>
                       </div>
                     </div>
 
@@ -318,7 +494,7 @@ export function DeepDiveTabs() {
                         <div key={t} className="group/item relative">
                           <Badge
                             variant="secondary"
-                            className="px-5 py-2.5 rounded-full text-sm font-medium bg-secondary/30 hover:bg-primary/10 hover:text-primary hover:border-primary/30 border border-transparent transition-all duration-300"
+                            className="px-5 py-2.5 rounded-full text-sm font-medium bg-secondary/30 border border-transparent"
                           >
                             {t}
                           </Badge>
@@ -435,8 +611,6 @@ export function DeepDiveTabs() {
           const next = v as TabId;
           setActiveTab(next);
           window.history.pushState(null, "", TAB_HASH[next]);
-          const deepDiveEl = document.querySelector("#deep-dive");
-          deepDiveEl?.scrollIntoView({ behavior: "smooth", block: "start" });
         }}
         className="w-full"
       >
@@ -457,7 +631,7 @@ export function DeepDiveTabs() {
                   <motion.div
                     layoutId="deep-dive-pill"
                     className="absolute inset-0 bg-primary/10 rounded-full -z-10"
-                    transition={{ type: "spring", bounce: 0.15, duration: 0.6 }}
+                    transition={{ type: "spring", bounce: 0.12, duration: 0.45 }}
                   >
                     <div className="absolute inset-0 rounded-full bg-accent/5 blur-md" />
                   </motion.div>
@@ -471,10 +645,10 @@ export function DeepDiveTabs() {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="pt-4"
           >
             {renderTabContent(activeTab)}

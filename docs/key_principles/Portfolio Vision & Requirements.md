@@ -77,12 +77,16 @@ This portfolio presents you as a **systems thinker** and **platform builder** wi
 - Theme toggle
 
 ### 5.3 Deep Dive tabs (the only content navigation)
-- Tabs: Work, Writing, Stack, Library, Thoughts
+- Tabs: About, Work, Writing, Stack, Library, Thoughts (CR‑001 approved)
 - Must support:
   - URL hash sync (shareable)
   - back/forward restore
   - programmatic tab selection (for CTAs and command palette)
   - sticky behavior (segmented control remains accessible)
+
+Notes:
+- Default active tab remains Work (hero CTA contract remains “View My Work”).
+- About is a Deep Dive surface only (no new top-nav content navigation).
 
 ---
 
@@ -196,10 +200,17 @@ All 15 checks pass. If any fail, the build is REJECTED and must loop.
 - Run the content generation/validation step.
 - Verify no new dead links or placeholders.
 
+Runbook: `docs/key_principles/Codex-mini Implementation Runbook (v1).md`
+
 ### 11.2 Adding features
 - Must answer: “What user problem does this solve?”
 - Must include interaction states and DoD criteria.
 - Must pass STRICT MODE again.
+
+### 11.3 Documenting new requirements
+- Any requirement not already covered here must be raised as a controlled change request before implementation: `docs/key_principles/Codex Critique + Revised Plan (v1).md`
+
+vNext spec (proposed): `docs/key_principles/Deep Space vNext — Apple-Grade Product & Interaction Spec (v1).md`
 
 ---
 
@@ -208,4 +219,3 @@ All 15 checks pass. If any fail, the build is REJECTED and must loop.
 - No flashy particle storms.
 - No complicated project micro-sites.
 - No “random” UI elements that exist only because they look cool.
-

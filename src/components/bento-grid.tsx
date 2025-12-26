@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion, useSpring, type HTMLMotionProps } from "framer-motion";
 import { staggerItem, hoverLift } from "./motion";
 
 interface BentoGridProps {
@@ -23,9 +23,7 @@ export function BentoGrid({ className, children }: BentoGridProps) {
   );
 }
 
-interface BentoCardProps {
-  className?: string;
-  children: React.ReactNode;
+interface BentoCardProps extends HTMLMotionProps<"div"> {
   colSpan?: 1 | 2 | 3;
   rowSpan?: 1 | 2;
   glass?: boolean;
@@ -54,7 +52,6 @@ const paddingClasses = {
 };
 
 export function BentoCard({
-  className,
   children,
   colSpan = 1,
   rowSpan = 1,
@@ -63,6 +60,10 @@ export function BentoCard({
   padding = "md",
   tilt = false,
   tiltMaxDeg = 4,
+  className,
+  onMouseMove,
+  onMouseLeave,
+  ...props
 }: BentoCardProps) {
   const reducedMotion = useReducedMotion();
   const rotateX = useMotionValue(0);
@@ -73,6 +74,7 @@ export function BentoCard({
 
   return (
     <motion.div
+      {...props}
       variants={staggerItem}
       whileHover={hover ? hoverLift : undefined}
       style={
@@ -85,6 +87,7 @@ export function BentoCard({
           : undefined
       }
       onMouseMove={(e) => {
+        onMouseMove?.(e);
         if (!tilt || reducedMotion) return;
         const rect = e.currentTarget.getBoundingClientRect();
         const px = (e.clientX - rect.left) / rect.width - 0.5;
@@ -92,7 +95,8 @@ export function BentoCard({
         rotateX.set(-py * tiltMaxDeg);
         rotateY.set(px * tiltMaxDeg);
       }}
-      onMouseLeave={() => {
+      onMouseLeave={(e) => {
+        onMouseLeave?.(e);
         if (!tilt) return;
         rotateX.set(0);
         rotateY.set(0);
@@ -157,4 +161,3 @@ export function BentoTall({ children, className, tilt = false }: BentoHeroProps)
     </BentoCard>
   );
 }
-

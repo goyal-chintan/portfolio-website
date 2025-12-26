@@ -18,8 +18,12 @@ export const blogPosts: BlogPost[] = content.writing.map((post) => ({
   excerpt: post.summary,
   date: post.date,
   readTime: post.read_time,
-  tags: post.tags ?? [],
+  tags: Array.from(post.tags ?? []),
   slug: post.id,
   status: post.status,
   body: post.body,
 }));
+
+
+
+

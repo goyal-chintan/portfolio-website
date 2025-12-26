@@ -1,4 +1,4 @@
-import { Layers, Database, Cloud, Cpu, GitBranch, Activity, type LucideIcon } from "lucide-react";
+import { Layers, Database, Cloud, Cpu, type LucideIcon } from "lucide-react";
 import { content } from "@/config/content.generated";
 
 export interface TechItem {
@@ -27,5 +27,8 @@ export const techStack: TechCategory[] = content.stack.categories.map((category)
   name: category.name,
   description: category.name,
   icon: iconByName[category.name] ?? Layers,
-  items: category.items,
+  items: Array.from(category.items),
 }));
+
+
+

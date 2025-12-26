@@ -8,7 +8,7 @@ import * as React from "react";
 export function SpaceBackground() {
     const { resolvedTheme } = useTheme();
     const isDark = resolvedTheme === "dark";
-    const reduceMotion = useReducedMotion();
+    const reduceMotion = useReducedMotion() ?? false;
 
     return (
         <div

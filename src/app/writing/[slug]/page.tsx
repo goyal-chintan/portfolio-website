@@ -128,7 +128,9 @@ export default async function WritingPostPage({ params }: { params: Promise<{ sl
             {post.status && (
               <>
                 <span>·</span>
-                <span className="uppercase tracking-widest">{post.status}</span>
+                <span className="uppercase tracking-widest">
+                  {post.status === "draft" ? "Work in progress" : post.status}
+                </span>
               </>
             )}
           </div>
@@ -144,6 +146,19 @@ export default async function WritingPostPage({ params }: { params: Promise<{ sl
           <p className="text-base text-muted-foreground leading-relaxed">
             {post.excerpt}
           </p>
+
+          {post.status === "draft" && (
+            <div className="rounded-2xl border border-primary/10 bg-primary/5 p-4 md:p-5">
+              <div className="flex flex-wrap items-center gap-3">
+                <Badge variant="secondary" className="text-[11px] uppercase tracking-widest">
+                  Work in progress
+                </Badge>
+                <span className="text-xs text-muted-foreground">
+                  This piece is being refined. Expect a final draft with diagrams and deeper tradeoffs soon.
+                </span>
+              </div>
+            </div>
+          )}
 
           <Button variant="outline" size="sm" asChild>
             <Link href="/#writing">
