@@ -35,17 +35,19 @@ These are preserved unless explicitly changed via a Change Request:
 5) `v2-design/05_MOTION_SYSTEM.md`  
 6) `v2-design/06_COMPONENT_SPECS.md`  
 7) `v2-design/07_SCREEN_SPECS.md`  
-8) `v2-design/08_STACK_V2_LENS_SPEC.md`  
-9) `v2-design/09_SPOTLIGHT_PROJECT_BRIEF_SPEC.md`  
-10) `v2-design/10_CONTENT_MODEL_V2.md`  
-11) `v2-design/11_QA_PROTOCOL_V2.md`  
-12) `v2-design/12_EVIDENCE_PACK_V2.md`  
-13) `v2-design/13_IMPLEMENTATION_PLAN_V2.md`  
-14) `v2-design/14_DECISION_LOG.md` (append‑only)  
-15) `v2-design/15_CHANGE_REQUESTS.md` (append‑only)
+8) `v2-design/07A_ABOUT_TAB_V2_SPEC.md`  
+9) `v2-design/08_STACK_V2_LENS_SPEC.md`  
+10) `v2-design/09_SPOTLIGHT_PROJECT_BRIEF_SPEC.md`  
+11) `v2-design/10_CONTENT_MODEL_V2.md`  
+12) `v2-design/11_QA_PROTOCOL_V2.md`  
+13) `v2-design/12_EVIDENCE_PACK_V2.md`  
+14) `v2-design/13_IMPLEMENTATION_PLAN_V2.md`  
+15) `v2-design/14_DECISION_LOG.md` (append‑only)  
+16) `v2-design/15_CHANGE_REQUESTS.md` (append‑only)  
+17) `v2-design/16_LEVEL_ZERO_RATIONALE.md`
+18) `v2-design/17_UI_UX_SPEC_MATRIX.md`
 
 ## Decision policy (non‑negotiable)
 
 - If a decision is not in `v2-design/14_DECISION_LOG.md`, it is not decided.
 - Execution models must **stop** when ambiguity exists, and request a Decision Log entry.
-

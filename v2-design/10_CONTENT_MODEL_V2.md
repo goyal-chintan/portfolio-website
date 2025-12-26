@@ -30,6 +30,14 @@ Add domain-level proof:
 
 This enables the “Domain Proof” panel without per-skill evidence clutter.
 
+### 2.3 Spotlight project additions (required for v2 Spotlight)
+
+Add to exactly one `resources/projects/*.md` frontmatter:
+- `spotlight: true`
+- `brief` object (see `v2-design/09_SPOTLIGHT_PROJECT_BRIEF_SPEC.md`)
+
+Validation must enforce spotlight uniqueness and required `brief.*` fields.
+
 ## 3) Validation rules (hard gates)
 
 Validation script must fail the build if:
@@ -37,6 +45,8 @@ Validation script must fail the build if:
 - any referenced IDs do not exist
 - any required fields are missing
 - any URLs are invalid
+- spotlight project is invalid (missing brief or multiple spotlights)
+- stack domain proof references unknown IDs
 
 ## 4) Cross-reference graph (optional, recommended)
 
@@ -46,4 +56,3 @@ Optional v2 enhancement:
 - This graph powers “related proof” surfaces.
 
 If implemented, it must be validated and deterministic.
-

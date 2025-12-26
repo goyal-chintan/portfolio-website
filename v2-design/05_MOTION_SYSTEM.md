@@ -45,6 +45,37 @@ Goal: feel like a scene change, not a CSS class flip.
 - Surfaces re-light (border + glass adjustments) during the same interval.
 - No flash of unstyled content.
 
+#### 4.2.1 Theme choreography timeline (explicit)
+
+Total duration: **900–1100ms** (target 1000ms).
+
+At **t=0ms** (toggle press):
+- press feedback triggers immediately (<= 50ms)
+- start crossfade “scene change”
+
+**t=0–200ms**
+- foreground text remains stable (no sudden color flip)
+- background begins subtle fade (dark base → light base or vice versa)
+
+**t=200–650ms**
+- starfield opacity ramps:
+  - dark→light: stars fade to 0
+  - light→dark: stars fade in after base settles (avoid sudden dots)
+- glass surfaces re-light:
+  - borders adjust alpha
+  - surface fills adjust alpha
+
+**t=650–1000ms**
+- secondary layers settle:
+  - milky way / planet layers fade in/out (theme dependent)
+  - avoid any sudden “pop” of large assets
+- final contrast snap is allowed only in last ~150ms (so it feels deliberate)
+
+No step may cause:
+- a white flash
+- a black flash
+- a sudden full inversion of every surface at once
+
 ### 4.3 Stack domain selection (“lens”)
 
 Goal: selection changes emphasis, not layout.
@@ -59,4 +90,3 @@ When `prefers-reduced-motion`:
 - Disable shooting stars + long drift loops.
 - Keep essential fades for state changes (tab switch, dialog open).
 - Avoid continuous rotation/parallax.
-

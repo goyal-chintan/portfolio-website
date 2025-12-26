@@ -40,11 +40,36 @@ CTA row:
 
 ## 5) Data model
 
-Spotlight content must be resources-driven.
+Spotlight content must be resources-driven and deterministic.
 
-Either:
-- Reuse project markdown frontmatter + body, OR
-- Add `profile.spotlight_project` in `resources/profile.json`
+### Decision (recommended)
 
-Validation must fail if spotlight references unknown IDs.
+Use **project markdown frontmatter** as the single source of truth:
+- Exactly **one** project may set `spotlight: true`.
+- The Mission Brief content lives in a `brief` frontmatter block.
 
+### Frontmatter schema (example)
+
+```yaml
+spotlight: true
+brief:
+  thesis: "One sentence: why this project matters."
+  problem: "1–2 lines."
+  constraints:
+    - "Constraint 1"
+    - "Constraint 2"
+  approach:
+    - "Approach bullet 1"
+    - "Approach bullet 2"
+  proof:
+    - "Proof bullet (numbers/outcomes)"
+    - "Proof bullet"
+  next: "1–2 lines: what you’d do next."
+  writing_slug: "portfolio-as-a-product" # optional
+```
+
+### Validation rules
+
+- Exactly one `spotlight: true` project exists (or zero, in which case Spotlight UI is hidden).
+- If `spotlight: true`, `brief.problem`, `brief.approach[]`, `brief.proof[]` must exist.
+- If `brief.writing_slug` exists, it must reference a real writing post ID.

@@ -42,6 +42,30 @@ Allowed spacing units: 4, 8, 12, 16, 24, 32, 40, 48, 64, 80, 96, 128.
   - background: theme‑aware translucent fill
   - never reduce text contrast
 
+### 2.6 Shadows (preset, use only these)
+
+Define as variables and keep consistent:
+
+- `shadow-sm`: `0 10px 30px rgba(0,0,0,0.25)`
+- `shadow-md`: `0 18px 50px rgba(0,0,0,0.35)`
+- `shadow-lg`: `0 30px 90px rgba(0,0,0,0.45)`
+
+Light mode should use softer shadows (lower alpha).
+
+### 2.7 Glass presets (explicit)
+
+Dark:
+- glass background: `rgba(10,12,18,0.45)` (example)
+- glass border: `rgba(255,255,255,0.08)`
+- glass highlight: `rgba(255,255,255,0.06)` (optional top gradient)
+
+Light:
+- glass background: `rgba(255,255,255,0.55)`
+- glass border: `rgba(15,23,42,0.10)`
+- glass highlight: `rgba(255,255,255,0.70)` (optional top gradient)
+
+Note: These are target values; implementation may tune slightly but must preserve contrast.
+
 ### 2.5 Color system
 
 Define as CSS variables:
@@ -89,4 +113,3 @@ Light:
 - Body text contrast: **>= 4.5:1**
 - Large text (>= 24px or >= 19px bold): **>= 3:1**
 - Focus ring must be visible in both themes.
-
