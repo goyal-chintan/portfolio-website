@@ -195,6 +195,31 @@ function validateProfile() {
     return;
   }
 
+  const projects = readMarkdownDir("projects").map((entry) => entry.frontmatter.id).filter(Boolean);
+  const writing = readMarkdownDir("writing").map((entry) => entry.frontmatter.id).filter(Boolean);
+  const projectIds = new Set(projects);
+  const writingIds = new Set(writing);
+
+  const validateEvidence = (evidence, fieldPrefix) => {
+    if (!evidence || typeof evidence !== "object") return;
+    const projectsRef = evidence.projects ?? [];
+    const writingRef = evidence.writing ?? [];
+    if (!Array.isArray(projectsRef) || !Array.isArray(writingRef)) {
+      report("ABOUT_EVIDENCE", `${fieldPrefix} evidence projects/writing must be arrays`, filePath);
+      return;
+    }
+    for (const pid of projectsRef) {
+      if (!projectIds.has(pid)) {
+        report("ABOUT_EVIDENCE_PROJECT", `${fieldPrefix} references unknown project id ${pid}`, filePath);
+      }
+    }
+    for (const wid of writingRef) {
+      if (!writingIds.has(wid)) {
+        report("ABOUT_EVIDENCE_WRITING", `${fieldPrefix} references unknown writing id ${wid}`, filePath);
+      }
+    }
+  };
+
   ensureNonEmptyString(data.about.headline, "about.headline", filePath);
   ensureNonEmptyString(data.about.current_focus, "about.current_focus", filePath);
 
@@ -228,13 +253,48 @@ function validateProfile() {
     }
     let activeCount = 0;
     for (const item of data.about.journey) {
+      ensureNonEmptyString(item.id, "about.journey.id", filePath);
       ensureNonEmptyString(item.period, "about.journey.period", filePath);
       ensureNonEmptyString(item.role, "about.journey.role", filePath);
       ensureNonEmptyString(item.company, "about.journey.company", filePath);
+      ensureNonEmptyString(item.summary, "about.journey.summary", filePath);
+      if (item.evidence) {
+        validateEvidence(item.evidence, `about.journey.${item.id}`);
+      }
       if (item.active === true) activeCount += 1;
+      if (item.highlights && !Array.isArray(item.highlights)) {
+        report("ABOUT_JOURNEY_HIGHLIGHTS", "about.journey.highlights must be an array", filePath);
+      }
+      if (item.milestones && !Array.isArray(item.milestones)) {
+        report("ABOUT_JOURNEY_MILESTONES", "about.journey.milestones must be an array", filePath);
+      }
+      if (Array.isArray(item.milestones)) {
+        for (const milestone of item.milestones) {
+          ensureNonEmptyString(milestone.date, "about.journey.milestones.date", filePath);
+          ensureNonEmptyString(milestone.title, "about.journey.milestones.title", filePath);
+          ensureNonEmptyString(milestone.detail, "about.journey.milestones.detail", filePath);
+          if (milestone.evidence) {
+            validateEvidence(milestone.evidence, `about.journey.${item.id}.milestones.${milestone.title}`);
+          }
+        }
+      }
     }
     if (activeCount > 1) {
       report("ABOUT_JOURNEY_ACTIVE", "about.journey can have at most one active item", filePath);
+    }
+  }
+
+  if (!data.about.site_story || typeof data.about.site_story !== "object") {
+    report("ABOUT_SITE_STORY", "about.site_story must exist", filePath);
+    return;
+  }
+  ensureNonEmptyString(data.about.site_story.short, "about.site_story.short", filePath);
+  if (!Array.isArray(data.about.site_story.long_outline) || data.about.site_story.long_outline.length === 0) {
+    report("ABOUT_SITE_STORY_OUTLINE", "about.site_story.long_outline must be a non-empty array", filePath);
+  } else {
+    for (const section of data.about.site_story.long_outline) {
+      ensureNonEmptyString(section.title, "about.site_story.long_outline.title", filePath);
+      ensureNonEmptyString(section.body, "about.site_story.long_outline.body", filePath);
     }
   }
 }
@@ -335,11 +395,98 @@ function validateWriting() {
   }
 }
 
+function validateStack() {
+  const { filePath, data } = readJson("stack.json");
+  const projects = readMarkdownDir("projects").map((entry) => entry.frontmatter.id).filter(Boolean);
+  const writing = readMarkdownDir("writing").map((entry) => entry.frontmatter.id).filter(Boolean);
+  const projectIds = new Set(projects);
+  const writingIds = new Set(writing);
+
+  if (!Array.isArray(data.domains) || data.domains.length === 0) {
+    report("STACK_DOMAINS", "stack.domains must be a non-empty array", filePath);
+  } else {
+    const domainIds = new Set();
+    for (const domain of data.domains) {
+      ensureNonEmptyString(domain.id, "stack.domains.id", filePath);
+      ensureNonEmptyString(domain.label, "stack.domains.label", filePath);
+      ensureNonEmptyString(domain.summary, "stack.domains.summary", filePath);
+      if (typeof domain.x !== "number" || typeof domain.y !== "number") {
+        report("STACK_DOMAINS_COORD", "stack.domains x/y must be numbers", filePath);
+      }
+      if (domain.id) {
+        if (domainIds.has(domain.id)) {
+          report("STACK_DOMAINS_DUP", "stack.domains ids must be unique", filePath);
+        }
+        domainIds.add(domain.id);
+      }
+    }
+  }
+
+  if (!Array.isArray(data.categories) || data.categories.length === 0) {
+    report("STACK_CATEGORIES", "stack.categories must be a non-empty array", filePath);
+    return;
+  }
+
+  const allowedLevels = new Set(["expert", "strong", "working"]);
+  const seenSkillIds = new Set();
+  const domainIds = new Set((data.domains ?? []).map((d) => d.id));
+
+  for (const category of data.categories) {
+    ensureNonEmptyString(category.name, "stack.categories.name", filePath);
+    if (!Array.isArray(category.items)) {
+      report("STACK_ITEMS", "stack.categories.items must be an array", filePath);
+      continue;
+    }
+    for (const item of category.items) {
+      ensureNonEmptyString(item.id, "stack.items.id", filePath);
+      ensureNonEmptyString(item.name, "stack.items.name", filePath);
+      if (!allowedLevels.has(item.level)) {
+        report("STACK_LEVEL", "stack.items.level must be expert|strong|working", filePath);
+      }
+      if (!Array.isArray(item.domains) || item.domains.length === 0) {
+        report("STACK_DOMAINS_REF", "stack.items.domains must be a non-empty array", filePath);
+      } else {
+        for (const dom of item.domains) {
+          if (!domainIds.has(dom)) {
+            report("STACK_DOMAIN_INVALID", `stack.items.domains references unknown domain ${dom}`, filePath);
+          }
+        }
+      }
+      if (item.id) {
+        if (seenSkillIds.has(item.id)) {
+          report("STACK_ITEM_DUP", "stack.items ids must be unique across categories", filePath);
+        }
+        seenSkillIds.add(item.id);
+      }
+
+      if (item.evidence) {
+        const projectsRef = item.evidence.projects ?? [];
+        const writingRef = item.evidence.writing ?? [];
+        if (!Array.isArray(projectsRef) || !Array.isArray(writingRef)) {
+          report("STACK_EVIDENCE", "stack.items.evidence projects/writing must be arrays", filePath);
+        } else {
+          for (const pid of projectsRef) {
+            if (!projectIds.has(pid)) {
+              report("STACK_EVIDENCE_PROJECT", `unknown project id in evidence: ${pid}`, filePath);
+            }
+          }
+          for (const wid of writingRef) {
+            if (!writingIds.has(wid)) {
+              report("STACK_EVIDENCE_WRITING", `unknown writing id in evidence: ${wid}`, filePath);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 function main() {
   validateProfile();
   validateNav();
   validateProjects();
   validateWriting();
+  validateStack();
   failIfErrors();
 }
 

@@ -1,0 +1,7 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "total": 13,
+  "ok": 13,
+  "badCount": 0,
+  "bad": []
+}

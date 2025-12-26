@@ -12,6 +12,8 @@ import { cn } from "@/lib/utils";
 import {
   ArrowUpRight,
   Sparkles,
+  Info,
+  Star,
   BookOpen,
   Coffee,
   Keyboard,
@@ -21,7 +23,7 @@ import {
 // Content (config-driven)
 import { content } from "@/config/content.generated";
 import { projects } from "@/config/projects";
-import { techStack } from "@/config/tech-stack";
+import { techStack, techDomains } from "@/config/tech-stack";
 import { books } from "@/config/books";
 import { blogPosts } from "@/config/posts";
 import { thoughts } from "@/config/thoughts";
@@ -53,6 +55,7 @@ export function DeepDiveTabs() {
   const [detail, setDetail] = React.useState<{ type: string; id?: string; name?: string } | null>(null);
   const [detailOpen, setDetailOpen] = React.useState(false);
   const [expandedLifestyleId, setExpandedLifestyleId] = React.useState<string | null>(null);
+  const [selectedDomainId, setSelectedDomainId] = React.useState<string | null>(null);
 
 
   React.useEffect(() => {
@@ -102,6 +105,13 @@ export function DeepDiveTabs() {
     setDetailOpen(true);
   };
 
+  const jumpToTab = (tabId: TabId) => {
+    window.dispatchEvent(new CustomEvent("deepDiveTabChange", { detail: tabId }));
+    window.history.pushState(null, "", TAB_HASH[tabId]);
+    const deepDiveEl = document.querySelector("#deep-dive");
+    deepDiveEl?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   const closeDetail = () => {
     setDetailOpen(false);
     setTimeout(() => setDetail(null), 300);
@@ -142,12 +152,7 @@ export function DeepDiveTabs() {
               </div>
             </div>
 
-            <div
-              className={cn(
-                "card-glass p-6 md:p-8 transition-all duration-500",
-                "hover:bg-glass-panel/60"
-              )}
-            >
+            <div className="card-glass-static p-6 md:p-8">
               <div className="space-y-3">
                 <div className="text-[11px] font-mono text-muted-foreground/70 uppercase tracking-widest">
                   Current Focus
@@ -238,11 +243,24 @@ export function DeepDiveTabs() {
 
             <div className="space-y-6">
               <h4 className="text-xl font-semibold tracking-tight">Journey</h4>
-              <div className="relative border-l border-border/30 ml-2 space-y-8">
+              <div className="relative border-l border-border/30 ml-2 space-y-10">
                 {about.journey.map((step) => {
                   const isActive = "active" in step && step.active === true;
+                  const milestoneCount = step.milestones ? step.milestones.length : 0;
                   return (
-                    <div key={`${step.period}-${step.company}`} className="relative pl-8">
+                    <div
+                      key={step.id}
+                      className="relative pl-8 cursor-pointer"
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => openDetail("journey", step.id)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          openDetail("journey", step.id);
+                        }
+                      }}
+                    >
                       <div
                         className={cn(
                           "absolute -left-[6px] top-1.5 w-3 h-3 rounded-full border-4 border-background",
@@ -259,10 +277,53 @@ export function DeepDiveTabs() {
                         <div className={cn("text-sm", isActive ? "text-primary/80" : "text-muted-foreground")}>
                           {step.company}
                         </div>
+                        <div className="text-sm text-muted-foreground/90 leading-relaxed">
+                          {step.summary}
+                        </div>
+                        {milestoneCount > 0 && (
+                          <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-muted-foreground/60">
+                            <span className="inline-flex items-center gap-1">
+                              <Star className="h-3.5 w-3.5 text-primary/60" />
+                              Milestones
+                            </span>
+                            {step.milestones?.map((milestone, index) => (
+                              <button
+                                key={`${step.id}-${milestone.title}`}
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  openDetail("milestone", `${step.id}:${index}`);
+                                }}
+                                className="inline-flex items-center gap-1 rounded-full border border-white/10 px-2 py-1 text-[10px] text-muted-foreground/70 transition-colors hover:text-foreground/80 focus-visible:ring-2 focus-visible:ring-primary/20"
+                              >
+                                <span className="line-clamp-1">{milestone.title}</span>
+                              </button>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   );
                 })}
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <h4 className="text-xl font-semibold tracking-tight">Design Story</h4>
+              <p className="text-muted-foreground max-w-3xl text-lg leading-relaxed">
+                {about.site_story.short}
+              </p>
+              <div className="grid gap-4 md:grid-cols-2">
+                {about.site_story.long_outline.map((section) => (
+                  <div key={section.title} className="card-glass-static p-5 space-y-2">
+                    <div className="text-sm font-semibold tracking-tight text-foreground">
+                      {section.title}
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {section.body}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -447,63 +508,144 @@ export function DeepDiveTabs() {
               <div className="space-y-4">
                 <h3 className="text-3xl font-bold tracking-tight">Technical Stack</h3>
                 <p className="text-muted-foreground max-w-2xl text-lg">
-                  A curated collection of tools and technologies I use to build scalable data platforms.
+                  Expertise is clustered by domain, with evidence mapped to projects and writing.
                 </p>
               </div>
             </div>
 
-            <div className="grid gap-8">
-              {techStack.map((cat) => {
-                const Icon = cat.icon;
-                return (
-                  <motion.div
-                    key={cat.name}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.995 }}
-                    onClick={() => openDetail("stack", cat.name)}
-                    className="group flex flex-col md:flex-row gap-8 p-8 card-glass hover:bg-glass-panel/60 transition-all duration-500 cursor-pointer"
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        openDetail("stack", cat.name);
-                      }
-                    }}
+            <div className="grid gap-10 lg:grid-cols-[0.45fr_0.55fr]">
+              <div className="space-y-6">
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedDomainId(null)}
+                    className={cn(
+                      "rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-widest border transition-colors",
+                      !selectedDomainId
+                        ? "border-primary/30 text-primary"
+                        : "border-border/40 text-muted-foreground hover:text-foreground"
+                    )}
                   >
-                    <div className="md:w-1/3 space-y-4">
-                      <div className="inline-flex p-3 rounded-2xl bg-primary/5 text-primary border border-primary/10">
-                        <Icon className="h-6 w-6" />
-                      </div>
-                      <div className="space-y-2">
-                        <h4 className="text-2xl font-bold tracking-tight text-foreground">{cat.name}</h4>
-                        <p className="text-sm text-muted-foreground leading-relaxed italic border-l-2 border-primary/20 pl-4">
-                          {cat.description}
-                        </p>
-                        <div className="text-[11px] font-mono text-muted-foreground/60 uppercase tracking-widest">
-                          Click to expand
-                        </div>
-                      </div>
-                    </div>
+                    All Domains
+                  </button>
+                  {techDomains.map((domain) => (
+                    <button
+                      key={domain.id}
+                      type="button"
+                      onClick={() =>
+                        setSelectedDomainId((prev) => (prev === domain.id ? null : domain.id))
+                      }
+                      className={cn(
+                        "rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-widest border transition-colors",
+                        selectedDomainId === domain.id
+                          ? "border-primary/30 text-primary"
+                          : "border-border/40 text-muted-foreground hover:text-foreground"
+                      )}
+                    >
+                      {domain.label}
+                    </button>
+                  ))}
+                </div>
 
-                    <div className="md:w-2/3 flex flex-wrap content-start gap-3">
-                      {cat.items.map((t) => (
-                        <div key={t} className="group/item relative">
-                          <Badge
-                            variant="secondary"
-                            className="px-5 py-2.5 rounded-full text-sm font-medium bg-secondary/30 border border-transparent"
+                <div className="relative hidden lg:block h-[360px] rounded-3xl border border-border/20 bg-glass-panel/10 overflow-hidden">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(56,189,248,0.06),_transparent_60%)]" />
+                  {techDomains.map((domain) => {
+                    const isSelected = selectedDomainId === domain.id;
+                    return (
+                      <button
+                        key={domain.id}
+                        type="button"
+                        onClick={() =>
+                          setSelectedDomainId((prev) => (prev === domain.id ? null : domain.id))
+                        }
+                        className={cn(
+                          "absolute flex flex-col items-start gap-1 text-left",
+                          "rounded-2xl border px-4 py-3 transition-all duration-300",
+                          isSelected
+                            ? "border-primary/40 bg-primary/10 shadow-[0_0_30px_rgba(56,189,248,0.25)]"
+                            : "border-white/5 bg-glass-panel/30 hover:border-primary/30"
+                        )}
+                        style={{ top: `${domain.y}%`, left: `${domain.x}%`, transform: "translate(-50%, -50%)" }}
+                      >
+                        <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground/70">
+                          {domain.label}
+                        </span>
+                        <span className="text-sm text-muted-foreground/90">{domain.summary}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="flex items-center gap-4 text-[11px] font-mono uppercase tracking-widest text-muted-foreground/60">
+                  <span className="inline-flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-primary" /> Expert
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-primary/50" /> Strong
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-muted-foreground/40" /> Working
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-8">
+                {(["expert", "strong", "working"] as const).map((level) => {
+                  const items = techStack
+                    .flatMap((cat) => cat.items)
+                    .filter((item) =>
+                      selectedDomainId ? item.domains.includes(selectedDomainId) : true
+                    )
+                    .filter((item) => item.level === level);
+
+                  if (items.length === 0) return null;
+                  const title =
+                    level === "expert" ? "Primary Expertise" : level === "strong" ? "Strong Foundation" : "Working Knowledge";
+
+                  return (
+                    <div key={level} className="space-y-4">
+                      <h4 className="text-lg font-semibold tracking-tight">{title}</h4>
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        {items.map((item) => (
+                          <button
+                            key={item.id}
+                            type="button"
+                            onClick={() => openDetail("skill", item.id)}
+                            className={cn(
+                              "text-left rounded-2xl border px-4 py-4 transition-all duration-300",
+                              "bg-glass-panel/20 border-border/20 hover:border-primary/30 hover:bg-glass-panel/40"
+                            )}
                           >
-                            {t}
-                          </Badge>
-                        </div>
-                      ))}
+                            <div className="flex items-center justify-between gap-4">
+                              <div className="space-y-1">
+                                <div className="text-sm font-semibold tracking-tight text-foreground">{item.name}</div>
+                                <div className="text-xs text-muted-foreground">
+                                  {item.domains.map((domainId) => {
+                                    const domain = techDomains.find((d) => d.id === domainId);
+                                    return domain?.label ?? domainId;
+                                  }).join(" • ")}
+                                </div>
+                              </div>
+                              <span
+                                className={cn(
+                                  "text-[10px] font-mono uppercase tracking-widest",
+                                  level === "expert"
+                                    ? "text-primary"
+                                    : level === "strong"
+                                      ? "text-primary/70"
+                                      : "text-muted-foreground/70"
+                                )}
+                              >
+                                {level}
+                              </span>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                  </motion.div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           </div>
         );
@@ -559,11 +701,9 @@ export function DeepDiveTabs() {
 
             <div className="grid gap-6 md:grid-cols-2">
               {thoughts.map((thought) => (
-                <motion.div
+                <div
                   key={thought.id}
-                  whileHover={{ scale: 1.01, y: -2 }}
-                  whileTap={{ scale: 0.99 }}
-                  className="card-glass p-8 flex flex-col justify-between"
+                  className="card-glass-static p-8 flex flex-col justify-between"
                 >
                   <div className="space-y-6">
                     <div className="flex items-center justify-between text-[10px] font-mono text-muted-foreground/50 uppercase tracking-widest">
@@ -580,7 +720,7 @@ export function DeepDiveTabs() {
                     </div>
                     <Sparkles className="h-4 w-4 text-primary/40" />
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -591,10 +731,25 @@ export function DeepDiveTabs() {
     }
   };
 
-  const detailStack =
-    detail?.type === "stack" ? techStack.find((c) => c.name === detail.name) : undefined;
   const detailBook =
     detail?.type === "book" ? books.find((b) => b.id === detail.id) : undefined;
+  const detailJourney =
+    detail?.type === "journey" ? about.journey.find((j) => j.id === detail.id) : undefined;
+  const detailSkill =
+    detail?.type === "skill"
+      ? techStack.flatMap((cat) => cat.items).find((item) => item.id === detail.id)
+      : undefined;
+  const detailStory = detail?.type === "story" ? about.site_story : undefined;
+  const detailMilestone =
+    detail?.type === "milestone" && detail.id
+      ? (() => {
+        const [journeyId, indexRaw] = detail.id.split(":");
+        const journey = about.journey.find((item) => item.id === journeyId);
+        const index = Number(indexRaw);
+        const milestone = Number.isInteger(index) ? journey?.milestones?.[index] : undefined;
+        return milestone ? { journey, milestone } : undefined;
+      })()
+      : undefined;
 
   return (
     <div id="deep-dive" className="space-y-12 scroll-mt-40">
@@ -603,6 +758,14 @@ export function DeepDiveTabs() {
         <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
           Exploring the architectures, mental models, and tools behind my work.
         </p>
+        <button
+          type="button"
+          onClick={() => openDetail("story", "site")}
+          className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-mono uppercase tracking-widest text-muted-foreground/80 transition-colors hover:text-foreground/90 focus-visible:ring-2 focus-visible:ring-primary/20"
+        >
+          <Info className="h-4 w-4" />
+          About this portfolio
+        </button>
       </div>
 
       <Tabs
@@ -663,20 +826,6 @@ export function DeepDiveTabs() {
         }}
       >
         <DialogContent className="max-w-3xl rounded-[2.5rem] p-8 md:p-12 border-white/5 bg-glass-panel/60 backdrop-blur-3xl">
-          {detail?.type === "stack" && detailStack && (
-            <DialogHeader className="space-y-6">
-              <DialogTitle className="text-4xl font-bold tracking-tight">{detailStack.name}</DialogTitle>
-              <DialogDescription className="text-lg text-muted-foreground leading-relaxed">
-                {detailStack.description}
-              </DialogDescription>
-              <div className="flex flex-wrap gap-3">
-                {detailStack.items.map((t) => (
-                  <Badge key={t} variant="secondary" className="px-4 py-2 rounded-full font-medium">{t}</Badge>
-                ))}
-              </div>
-            </DialogHeader>
-          )}
-
           {detail?.type === "book" && detailBook && (
             <div className="grid gap-12 md:grid-cols-[0.4fr_0.6fr]">
               <div className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl">
@@ -703,6 +852,146 @@ export function DeepDiveTabs() {
                 </div>
               </DialogHeader>
             </div>
+          )}
+
+          {detail?.type === "journey" && detailJourney && (
+            <DialogHeader className="space-y-6">
+              <div className="space-y-2">
+                <DialogTitle className="text-3xl font-bold tracking-tight">{detailJourney.role}</DialogTitle>
+                <p className="text-lg text-primary/80">{detailJourney.company}</p>
+                <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest">{detailJourney.period}</p>
+              </div>
+              <DialogDescription className="text-lg text-muted-foreground leading-relaxed">
+                {detailJourney.summary}
+              </DialogDescription>
+              {detailJourney.highlights && detailJourney.highlights.length > 0 && (
+                <div className="space-y-3">
+                  <h5 className="text-sm font-mono text-muted-foreground uppercase tracking-widest">Highlights</h5>
+                  <ul className="space-y-2 text-muted-foreground">
+                    {detailJourney.highlights.map((item) => (
+                      <li key={item} className="leading-relaxed">• {item}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </DialogHeader>
+          )}
+
+          {detail?.type === "skill" && detailSkill && (
+            <DialogHeader className="space-y-6">
+              <div className="space-y-2">
+                <DialogTitle className="text-3xl font-bold tracking-tight">{detailSkill.name}</DialogTitle>
+                <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest">
+                  {detailSkill.level} • {detailSkill.domains.map((domainId) => {
+                    const domain = techDomains.find((d) => d.id === domainId);
+                    return domain?.label ?? domainId;
+                  }).join(" / ")}
+                </p>
+              </div>
+              {detailSkill.notes && (
+                <DialogDescription className="text-lg text-muted-foreground leading-relaxed">
+                  {detailSkill.notes}
+                </DialogDescription>
+              )}
+              <div className="space-y-4">
+                <h5 className="text-sm font-mono text-muted-foreground uppercase tracking-widest">Evidence</h5>
+                <div className="flex flex-wrap gap-2">
+                  {detailSkill.evidence.projects.map((pid) => (
+                    <button
+                      key={pid}
+                      type="button"
+                      onClick={() => {
+                        setDetailOpen(false);
+                        jumpToTab("projects");
+                      }}
+                      className="text-xs font-semibold uppercase tracking-widest text-primary"
+                    >
+                      Project: {pid}
+                    </button>
+                  ))}
+                  {detailSkill.evidence.writing.map((wid) => (
+                    <Link
+                      key={wid}
+                      href={`/writing/${wid}`}
+                      className="text-xs font-semibold uppercase tracking-widest text-primary"
+                    >
+                      Writing: {wid}
+                    </Link>
+                  ))}
+                  {detailSkill.evidence.projects.length === 0 && detailSkill.evidence.writing.length === 0 && (
+                    <span className="text-xs text-muted-foreground">No linked evidence yet.</span>
+                  )}
+                </div>
+              </div>
+            </DialogHeader>
+          )}
+
+          {detail?.type === "story" && detailStory && (
+            <DialogHeader className="space-y-6">
+              <div className="space-y-2">
+                <DialogTitle className="text-3xl font-bold tracking-tight">About this portfolio</DialogTitle>
+                <DialogDescription className="text-lg text-muted-foreground leading-relaxed">
+                  {detailStory.short}
+                </DialogDescription>
+              </div>
+              <div className="space-y-4">
+                {detailStory.long_outline.map((section) => (
+                  <div key={section.title} className="rounded-2xl border border-border/10 p-4 bg-secondary/20 space-y-2">
+                    <div className="text-sm font-mono text-muted-foreground uppercase tracking-widest">
+                      {section.title}
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {section.body}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </DialogHeader>
+          )}
+
+          {detail?.type === "milestone" && detailMilestone && (
+            <DialogHeader className="space-y-6">
+              <div className="space-y-2">
+                <DialogTitle className="text-3xl font-bold tracking-tight">
+                  {detailMilestone.milestone.title}
+                </DialogTitle>
+                <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest">
+                  {detailMilestone.milestone.date} • {detailMilestone.journey?.company}
+                </p>
+              </div>
+              <DialogDescription className="text-lg text-muted-foreground leading-relaxed">
+                {detailMilestone.milestone.detail}
+              </DialogDescription>
+              {(detailMilestone.milestone.evidence?.projects?.length || detailMilestone.milestone.evidence?.writing?.length) && (
+                <div className="space-y-4">
+                  <h5 className="text-sm font-mono text-muted-foreground uppercase tracking-widest">Evidence</h5>
+                  <div className="flex flex-wrap gap-2">
+                    {detailMilestone.milestone.evidence?.projects?.map((pid) => (
+                      <button
+                        key={pid}
+                        type="button"
+                        onClick={() => {
+                          setDetailOpen(false);
+                          jumpToTab("projects");
+                        }}
+                        className="text-xs font-semibold uppercase tracking-widest text-primary"
+                      >
+                        Project: {pid}
+                      </button>
+                    ))}
+                    {detailMilestone.milestone.evidence?.writing?.map((wid) => (
+                      <Link
+                        key={wid}
+                        href={`/writing/${wid}`}
+                        className="text-xs font-semibold uppercase tracking-widest text-primary"
+                      >
+                        Writing: {wid}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </DialogHeader>
           )}
         </DialogContent>
       </Dialog>

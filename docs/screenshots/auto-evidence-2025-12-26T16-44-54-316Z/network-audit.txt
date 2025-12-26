@@ -1,0 +1,6 @@
+Network audit
+- baseUrl: http://localhost:3000
+- total: 13
+- ok(<400): 13
+- bad(>=400): 0
+No 4xx/5xx responses observed.

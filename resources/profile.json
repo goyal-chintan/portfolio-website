@@ -57,10 +57,106 @@
       { "id": "center", "title": "Center", "value": "Vipassana", "detail": "The internal OS", "why": "Attention training shows up in incidents and tradeoffs: calmer response, clearer reasoning." }
     ],
     "journey": [
-      { "period": "2023 — Present", "role": "Senior Data & Platform Engineer", "company": "Plume Design Inc", "active": true },
-      { "period": "2021 — 2023", "role": "Senior Data & Platform Engineer", "company": "Morgan Stanley" },
-      { "period": "2019 — 2021", "role": "Data Engineer", "company": "Fractal Analytics" },
-      { "period": "2017 — 2019", "role": "Data Engineer", "company": "Infosys" }
-    ]
+      {
+        "id": "plume",
+        "period": "2023 — Present",
+        "role": "Senior Data & Platform Engineer",
+        "company": "Plume Design Inc",
+        "active": true,
+        "summary": "Scaled multi-cloud onboarding and cost-physics at ISP scale.",
+        "highlights": [
+          "Enabled 15M customers by onboarding ISPs to GCP while maintaining AWS parity.",
+          "Saved ~$2M in Databricks costs by shifting workloads to EKS and optimizing DBUs.",
+          "Designed deep archival for 50PB, unlocking ~150k USD/month savings."
+        ],
+        "milestones": [
+          {
+            "date": "2024",
+            "title": "Saved ~$2M in DBU spend",
+            "detail": "Re-architected workloads to EKS and optimized DBU usage.",
+            "evidence": { "projects": ["cost-optimization-50pb"], "writing": ["cost-optimization-50pb"] }
+          }
+        ]
+      },
+      {
+        "id": "morgan-stanley",
+        "period": "2021 — 2023",
+        "role": "Senior Data & Platform Engineer",
+        "company": "Morgan Stanley",
+        "summary": "Built self-service platforms and governance for global settlements.",
+        "highlights": [
+          "Reduced reporting turnaround by 1.5 weeks via a self-service data platform.",
+          "Improved OLTP latency by 40% through archival and indexing optimizations.",
+          "Won 3rd place in the firm-wide Technology Innovation Program."
+        ],
+        "milestones": [
+          {
+            "date": "2022",
+            "title": "Technology Innovation Program (3rd place)",
+            "detail": "Built a Neo4J knowledge graph prototype for fraud detection.",
+            "evidence": { "projects": [], "writing": [] }
+          }
+        ]
+      },
+      {
+        "id": "fractal",
+        "period": "2019 — 2021",
+        "role": "Data Engineer",
+        "company": "Fractal Analytics",
+        "summary": "Delivered national-scale data platforms for public health and enterprise.",
+        "highlights": [
+          "Built COVID-19 India platform; improved prediction accuracy by 45%.",
+          "Reduced infra cost by 40% on a European health-tech data platform.",
+          "Led cross-functional privacy/security discussions for movement data."
+        ],
+        "milestones": [
+          {
+            "date": "2020",
+            "title": "Corona Warrior (NASSCOM)",
+            "detail": "Recognized for rapid delivery of national COVID-19 data platform.",
+            "evidence": { "projects": ["covid-platform"], "writing": [] }
+          }
+        ]
+      },
+      {
+        "id": "infosys",
+        "period": "2017 — 2019",
+        "role": "Data Engineer",
+        "company": "Infosys",
+        "summary": "Built scalable ETL and Spark pipelines on large clusters.",
+        "highlights": [
+          "Optimized batch Hive loads for reliability on 500PB clusters."
+        ],
+        "milestones": [
+          {
+            "date": "2018",
+            "title": "S.M.A.R.T Award",
+            "detail": "Recognized for end-to-end solution delivery.",
+            "evidence": { "projects": [], "writing": [] }
+          }
+        ]
+      }
+    ],
+    "site_story": {
+      "short": "Deep Space is a product-quality portfolio: a calm interface that hides scale until you need it, so the work speaks first and the reasoning reveals itself when you ask.",
+      "long_outline": [
+        {
+          "title": "Why Deep Space",
+          "body": "Because the work lives in invisible systems and emergent behaviors—space is the clearest metaphor for scale, gravity, and rigor."
+        },
+        {
+          "title": "Why minimal navigation",
+          "body": "Confidence over clutter. A focused UI keeps the recruiter 10-second test intact while Deep Dive handles the details."
+        },
+        {
+          "title": "Why resources-driven",
+          "body": "Content in JSON/MD keeps the portfolio maintainable and honest, so updates don't degrade quality."
+        },
+        {
+          "title": "Why strict QA",
+          "body": "Polish is not optional; the definition of done includes visual, interaction, and build correctness."
+        }
+      ]
+    }
   }
 }

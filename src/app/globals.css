@@ -128,6 +128,18 @@
     border-color: hsla(0, 0%, 100%, 0.1);
   }
 
+  /* Static glass (no hover affordance) */
+  .card-glass-static {
+    @apply rounded-2xl border bg-glass-panel/40 backdrop-blur-[32px] shadow-lg ring-1 ring-inset ring-white/10;
+    border-color: hsla(0, 0%, 100%, 0.1);
+  }
+
+  .dark .card-glass-static {
+    @apply bg-glass-panel/30;
+    border-color: hsla(0, 0%, 100%, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+
   /* Cursor-following glow */
   .cursor-glow {
     position: absolute;

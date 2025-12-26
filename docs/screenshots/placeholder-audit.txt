@@ -1,0 +1,10 @@
+Placeholder audit
+- total requests: 13
+- href count: 16
+- suspicious hrefs: 0
+No obvious placeholder hrefs found.
+
+Text scan (best-effort)
+- javascript:void: 0
+- undefined: 0
+- TODO: 0

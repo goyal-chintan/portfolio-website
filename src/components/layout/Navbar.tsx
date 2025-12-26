@@ -90,7 +90,13 @@ export function Navbar() {
                         href={item.href}
                         onMouseEnter={() => setHovered(item.name)}
                         onMouseLeave={() => setHovered(null)}
-                        className="relative px-4 py-2 text-sm font-medium transition-colors"
+                        className={cn(
+                            "relative inline-flex items-center justify-center",
+                            "min-h-11 min-w-11 px-4 py-2",
+                            "text-sm font-medium transition-colors",
+                            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                        )}
+                        aria-label={item.name === "Home" ? "Home" : undefined}
                     >
                         {/* Active / Hover Background */}
                         <AnimatePresence>
@@ -173,7 +179,7 @@ function ThemeToggle() {
         <button
             onClick={() => setTheme(isDark ? "light" : "dark")}
             className={cn(
-                "relative flex items-center justify-center w-9 h-9 rounded-full",
+                "relative flex items-center justify-center w-11 h-11 rounded-full",
                 "text-muted-foreground hover:text-primary hover:bg-secondary",
                 "transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             )}

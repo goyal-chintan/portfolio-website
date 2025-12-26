@@ -1,0 +1,4 @@
+Placeholder href audit
+- total hrefs: 16
+- suspicious: 0
+No obvious placeholder hrefs found.

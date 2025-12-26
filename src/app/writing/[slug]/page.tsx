@@ -108,6 +108,22 @@ export default async function WritingPostPage({ params }: { params: Promise<{ sl
     );
   };
 
+  const extractOutline = (body?: string) => {
+    if (!body) return [];
+    return body
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter((line) => line.startsWith("## ") || line.startsWith("### "))
+      .map((line) => line.replace(/^###?\s/, ""))
+      .slice(0, 6);
+  };
+
+  const outline = post.status === "draft" ? extractOutline(post.body) : [];
+  const outlineItems =
+    outline.length > 0
+      ? outline
+      : ["Systems context and constraints", "Key architecture decisions", "Tradeoffs and alternatives", "Diagrams and flows", "Practical takeaways"];
+
   return (
     <div className="min-h-screen py-24">
       <div className="max-w-3xl mx-auto px-4 space-y-10">
@@ -148,14 +164,27 @@ export default async function WritingPostPage({ params }: { params: Promise<{ sl
           </p>
 
           {post.status === "draft" && (
-            <div className="rounded-2xl border border-primary/10 bg-primary/5 p-4 md:p-5">
+            <div className="rounded-2xl border border-primary/10 bg-primary/5 p-5 md:p-6 space-y-4">
               <div className="flex flex-wrap items-center gap-3">
                 <Badge variant="secondary" className="text-[11px] uppercase tracking-widest">
                   Work in progress
                 </Badge>
                 <span className="text-xs text-muted-foreground">
-                  This piece is being refined. Expect a final draft with diagrams and deeper tradeoffs soon.
+                  A refined draft is in progress — focused on clarity, diagrams, and tradeoffs.
                 </span>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                What’s coming: a tighter narrative, decision rationale, and the visuals that make the system legible.
+              </p>
+              <div className="space-y-2">
+                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground/70">
+                  Preview outline
+                </div>
+                <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+                  {outlineItems.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
               </div>
             </div>
           )}

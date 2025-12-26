@@ -1,18 +1,35 @@
 import { Layers, Database, Cloud, Cpu, type LucideIcon } from "lucide-react";
 import { content } from "@/config/content.generated";
 
+export type SkillLevel = "expert" | "strong" | "working";
+
+export interface TechDomain {
+  id: string;
+  label: string;
+  summary: string;
+  x: number;
+  y: number;
+}
+
+export interface TechItemEvidence {
+  projects: string[];
+  writing: string[];
+}
+
 export interface TechItem {
+  id: string;
   name: string;
-  icon: LucideIcon;
-  category: string;
-  proficiency: "expert" | "advanced" | "intermediate";
+  level: SkillLevel;
+  domains: string[];
+  evidence: TechItemEvidence;
+  notes?: string;
 }
 
 export interface TechCategory {
   name: string;
   description: string;
   icon: LucideIcon;
-  items: string[];
+  items: TechItem[];
 }
 
 const iconByName: Record<string, LucideIcon> = {
@@ -23,12 +40,27 @@ const iconByName: Record<string, LucideIcon> = {
   "Cloud, Storage, and Formats": Cloud,
 };
 
+export const techDomains: TechDomain[] = Array.from(content.stack.domains ?? []).map((domain) => ({
+  id: domain.id,
+  label: domain.label,
+  summary: domain.summary,
+  x: domain.x,
+  y: domain.y,
+}));
+
 export const techStack: TechCategory[] = content.stack.categories.map((category) => ({
   name: category.name,
   description: category.name,
   icon: iconByName[category.name] ?? Layers,
-  items: Array.from(category.items),
+  items: category.items.map((item) => ({
+    id: item.id,
+    name: item.name,
+    level: item.level,
+    domains: Array.from(item.domains ?? []),
+    evidence: {
+      projects: Array.from(item.evidence?.projects ?? []),
+      writing: Array.from(item.evidence?.writing ?? []),
+    },
+  })),
 }));
-
-
 

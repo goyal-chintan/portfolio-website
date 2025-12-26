@@ -28,7 +28,7 @@ export function SpaceBackground() {
                         transition={{ duration: 1.5 }}
                         className="absolute inset-0"
                     >
-                        <Starfield density={1.6} reducedMotion={reduceMotion} />
+                        <Starfield density={2.2} reducedMotion={reduceMotion} />
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -118,18 +118,20 @@ function Starfield({ density, reducedMotion }: { density: number; reducedMotion:
     const stars = React.useMemo(() => {
         const count = Math.floor(140 * density);
         return Array.from({ length: count }, (_, i) => {
-            const bright = Math.random() > 0.92;
+            const anchor = Math.random() > 0.985;
+            const bright = anchor || Math.random() > 0.9;
             const baseOpacity = Math.random() * 0.5 + 0.15;
             return {
                 id: i,
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
-                size: bright ? 2.5 : Math.random() > 0.8 ? 2 : 1,
-                opacity: bright ? 0.95 : baseOpacity,
-                duration: 0.5 + Math.random() * 2.5,
+                size: anchor ? 3.2 : bright ? 2.5 : Math.random() > 0.8 ? 2 : 1,
+                opacity: anchor ? 1 : bright ? 0.95 : baseOpacity,
+                duration: 0.6 + Math.random() * 2.8,
                 delay: Math.random() * 6,
                 phase: Math.random() * 0.5,
                 bright,
+                anchor,
             };
         });
     }, [density]);
@@ -139,7 +141,11 @@ function Starfield({ density, reducedMotion }: { density: number; reducedMotion:
             {stars.map((star) => (
                 <motion.div
                     key={star.id}
-                    className={cn("absolute rounded-full bg-white", star.bright && "shadow-[0_0_10px_rgba(255,255,255,0.6)]")}
+                    className={cn(
+                        "absolute rounded-full bg-white",
+                        star.bright && "shadow-[0_0_10px_rgba(255,255,255,0.6)]",
+                        star.anchor && "shadow-[0_0_18px_rgba(255,255,255,0.75)]"
+                    )}
                     style={{
                         top: star.top,
                         left: star.left,

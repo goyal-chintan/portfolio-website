@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Compass, Terminal } from "lucide-react";
 
 export function NowStatusCard() {
@@ -11,10 +10,7 @@ export function NowStatusCard() {
   });
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.01 }}
-      className="card-glass flex flex-col h-full justify-between p-6"
-    >
+    <div className="card-glass-static flex flex-col h-full justify-between p-6">
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-border/10 pb-4">
@@ -60,7 +56,11 @@ export function NowStatusCard() {
         </div>
         <span>SF // HQ</span>
       </div>
-    </motion.div>
+    </div>
   );
 }
+
+
+
+
 

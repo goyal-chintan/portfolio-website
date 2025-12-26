@@ -50,8 +50,8 @@ export default async function StackCategoryPage({ params }: { params: Promise<{ 
           <h2 className="text-xl font-semibold">Tools</h2>
           <div className="flex flex-wrap gap-2">
             {category.items.map((item) => (
-              <Badge key={item} variant="secondary" className="text-[11px]">
-                {item}
+              <Badge key={item.id} variant="secondary" className="text-[11px]">
+                {item.name}
               </Badge>
             ))}
           </div>
@@ -60,4 +60,3 @@ export default async function StackCategoryPage({ params }: { params: Promise<{ 
     </div>
   );
 }
-

@@ -147,24 +147,20 @@ export function StatsCard() {
   return (
     <div className="grid grid-cols-2 gap-y-12 gap-x-8">
       {content.profile.stats.map((stat) => (
-        <motion.div
+        <div
           key={stat.label}
-          whileHover={{ y: -4, scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="card-glass flex flex-col group cursor-default p-6"
+          className="card-glass-static flex flex-col cursor-default p-6"
         >
           <div className="flex items-baseline gap-1">
-            <span className="text-4xl md:text-5xl font-bold tracking-tighter text-foreground group-hover:text-primary transition-colors duration-300">
+            <span className="text-4xl md:text-5xl font-bold tracking-tighter text-foreground">
               {stat.value}
             </span>
-            <span className="text-accent text-lg font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">+</span>
           </div>
-          <span className="text-xs font-mono text-muted-foreground/60 uppercase tracking-[0.2em] mt-2 group-hover:text-muted-foreground transition-colors duration-300">
+          <span className="text-xs font-mono text-muted-foreground/60 uppercase tracking-[0.2em] mt-2">
             {stat.label.replace(" // ", " ")}
           </span>
-          <div className="mt-4 w-12 h-[1px] bg-border/20 group-hover:w-full group-hover:bg-primary/20 transition-all duration-500" />
-        </motion.div>
+          <div className="mt-4 w-12 h-[1px] bg-border/20" />
+        </div>
       ))}
     </div>
   );

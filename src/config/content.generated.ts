@@ -97,27 +97,124 @@ export const content = {
       ],
       "journey": [
         {
+          "id": "plume",
           "period": "2023 — Present",
           "role": "Senior Data & Platform Engineer",
           "company": "Plume Design Inc",
-          "active": true
+          "active": true,
+          "summary": "Scaled multi-cloud onboarding and cost-physics at ISP scale.",
+          "highlights": [
+            "Enabled 15M customers by onboarding ISPs to GCP while maintaining AWS parity.",
+            "Saved ~$2M in Databricks costs by shifting workloads to EKS and optimizing DBUs.",
+            "Designed deep archival for 50PB, unlocking ~150k USD/month savings."
+          ],
+          "milestones": [
+            {
+              "date": "2024",
+              "title": "Saved ~$2M in DBU spend",
+              "detail": "Re-architected workloads to EKS and optimized DBU usage.",
+              "evidence": {
+                "projects": [
+                  "cost-optimization-50pb"
+                ],
+                "writing": [
+                  "cost-optimization-50pb"
+                ]
+              }
+            }
+          ]
         },
         {
+          "id": "morgan-stanley",
           "period": "2021 — 2023",
           "role": "Senior Data & Platform Engineer",
-          "company": "Morgan Stanley"
+          "company": "Morgan Stanley",
+          "summary": "Built self-service platforms and governance for global settlements.",
+          "highlights": [
+            "Reduced reporting turnaround by 1.5 weeks via a self-service data platform.",
+            "Improved OLTP latency by 40% through archival and indexing optimizations.",
+            "Won 3rd place in the firm-wide Technology Innovation Program."
+          ],
+          "milestones": [
+            {
+              "date": "2022",
+              "title": "Technology Innovation Program (3rd place)",
+              "detail": "Built a Neo4J knowledge graph prototype for fraud detection.",
+              "evidence": {
+                "projects": [],
+                "writing": []
+              }
+            }
+          ]
         },
         {
+          "id": "fractal",
           "period": "2019 — 2021",
           "role": "Data Engineer",
-          "company": "Fractal Analytics"
+          "company": "Fractal Analytics",
+          "summary": "Delivered national-scale data platforms for public health and enterprise.",
+          "highlights": [
+            "Built COVID-19 India platform; improved prediction accuracy by 45%.",
+            "Reduced infra cost by 40% on a European health-tech data platform.",
+            "Led cross-functional privacy/security discussions for movement data."
+          ],
+          "milestones": [
+            {
+              "date": "2020",
+              "title": "Corona Warrior (NASSCOM)",
+              "detail": "Recognized for rapid delivery of national COVID-19 data platform.",
+              "evidence": {
+                "projects": [
+                  "covid-platform"
+                ],
+                "writing": []
+              }
+            }
+          ]
         },
         {
+          "id": "infosys",
           "period": "2017 — 2019",
           "role": "Data Engineer",
-          "company": "Infosys"
+          "company": "Infosys",
+          "summary": "Built scalable ETL and Spark pipelines on large clusters.",
+          "highlights": [
+            "Optimized batch Hive loads for reliability on 500PB clusters."
+          ],
+          "milestones": [
+            {
+              "date": "2018",
+              "title": "S.M.A.R.T Award",
+              "detail": "Recognized for end-to-end solution delivery.",
+              "evidence": {
+                "projects": [],
+                "writing": []
+              }
+            }
+          ]
         }
-      ]
+      ],
+      "site_story": {
+        "short": "Deep Space is a product-quality portfolio: a calm interface that hides scale until you need it, so the work speaks first and the reasoning reveals itself when you ask.",
+        "long_outline": [
+          {
+            "title": "Why Deep Space",
+            "body": "Because the work lives in invisible systems and emergent behaviors—space is the clearest metaphor for scale, gravity, and rigor."
+          },
+          {
+            "title": "Why minimal navigation",
+            "body": "Confidence over clutter. A focused UI keeps the recruiter 10-second test intact while Deep Dive handles the details."
+          },
+          {
+            "title": "Why resources-driven",
+            "body": "Content in JSON/MD keeps the portfolio maintainable and honest, so updates don't degrade quality."
+          },
+          {
+            "title": "Why strict QA",
+            "body": "Polish is not optional; the definition of done includes visual, interaction, and build correctness."
+          }
+        ]
+      }
     }
   },
   "nav": {
@@ -293,89 +390,838 @@ export const content = {
     ]
   },
   "stack": {
+    "domains": [
+      {
+        "id": "data-platforms",
+        "label": "Data Platforms",
+        "summary": "Build the substrate teams ship on.",
+        "x": 20,
+        "y": 35
+      },
+      {
+        "id": "streaming",
+        "label": "Streaming",
+        "summary": "Low-latency pipelines and stateful processing.",
+        "x": 42,
+        "y": 20
+      },
+      {
+        "id": "reliability",
+        "label": "Reliability / Observability",
+        "summary": "Measure, tune, and sustain production systems.",
+        "x": 60,
+        "y": 12
+      },
+      {
+        "id": "multicloud",
+        "label": "Multi-cloud Architecture",
+        "summary": "Parity across clouds without duplication.",
+        "x": 78,
+        "y": 30
+      },
+      {
+        "id": "governance",
+        "label": "Governance / Quality",
+        "summary": "Trust, lineage, and safe change.",
+        "x": 62,
+        "y": 58
+      }
+    ],
     "categories": [
       {
         "name": "Languages",
         "items": [
-          "Scala",
-          "Python",
-          "Java",
-          "SQL",
-          "Cypher",
-          "Bash",
-          "Perl"
+          {
+            "id": "scala",
+            "name": "Scala",
+            "level": "expert",
+            "domains": [
+              "data-platforms",
+              "streaming"
+            ],
+            "evidence": {
+              "projects": [
+                "covid-platform"
+              ],
+              "writing": [
+                "streaming-ingestion"
+              ]
+            }
+          },
+          {
+            "id": "python",
+            "name": "Python",
+            "level": "strong",
+            "domains": [
+              "data-platforms",
+              "governance"
+            ],
+            "evidence": {
+              "projects": [
+                "multicloud-platform"
+              ],
+              "writing": []
+            }
+          },
+          {
+            "id": "java",
+            "name": "Java",
+            "level": "strong",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "sql",
+            "name": "SQL",
+            "level": "expert",
+            "domains": [
+              "data-platforms",
+              "governance"
+            ],
+            "evidence": {
+              "projects": [
+                "cost-optimization-50pb"
+              ],
+              "writing": [
+                "cost-optimization-50pb"
+              ]
+            }
+          },
+          {
+            "id": "cypher",
+            "name": "Cypher",
+            "level": "working",
+            "domains": [
+              "governance"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "bash",
+            "name": "Bash",
+            "level": "strong",
+            "domains": [
+              "reliability"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "perl",
+            "name": "Perl",
+            "level": "working",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          }
         ]
       },
       {
         "name": "Data Frameworks",
         "items": [
-          "Spark",
-          "Databricks",
-          "Hadoop",
-          "EMR",
-          "EC2",
-          "Lambda",
-          "MapReduce",
-          "Spark MLlib",
-          "YARN",
-          "Sqoop",
-          "Kafka",
-          "GCP Dataproc",
-          "BigQuery",
-          "Pub/Sub"
+          {
+            "id": "spark",
+            "name": "Spark",
+            "level": "expert",
+            "domains": [
+              "data-platforms",
+              "streaming"
+            ],
+            "evidence": {
+              "projects": [
+                "cost-optimization-50pb"
+              ],
+              "writing": [
+                "streaming-ingestion"
+              ]
+            }
+          },
+          {
+            "id": "databricks",
+            "name": "Databricks",
+            "level": "strong",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [
+                "cost-optimization-50pb"
+              ],
+              "writing": [
+                "cost-optimization-50pb"
+              ]
+            }
+          },
+          {
+            "id": "hadoop",
+            "name": "Hadoop",
+            "level": "strong",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "emr",
+            "name": "EMR",
+            "level": "strong",
+            "domains": [
+              "data-platforms",
+              "multicloud"
+            ],
+            "evidence": {
+              "projects": [
+                "cost-optimization-50pb"
+              ],
+              "writing": []
+            }
+          },
+          {
+            "id": "ec2",
+            "name": "EC2",
+            "level": "strong",
+            "domains": [
+              "multicloud"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "lambda",
+            "name": "Lambda",
+            "level": "strong",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [
+                "covid-platform"
+              ],
+              "writing": []
+            }
+          },
+          {
+            "id": "mapreduce",
+            "name": "MapReduce",
+            "level": "working",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "spark-mllib",
+            "name": "Spark MLlib",
+            "level": "working",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "yarn",
+            "name": "YARN",
+            "level": "working",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "sqoop",
+            "name": "Sqoop",
+            "level": "working",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "kafka",
+            "name": "Kafka",
+            "level": "expert",
+            "domains": [
+              "streaming",
+              "reliability"
+            ],
+            "evidence": {
+              "projects": [
+                "multicloud-platform"
+              ],
+              "writing": [
+                "streaming-ingestion"
+              ]
+            }
+          },
+          {
+            "id": "gcp-dataproc",
+            "name": "GCP Dataproc",
+            "level": "strong",
+            "domains": [
+              "multicloud"
+            ],
+            "evidence": {
+              "projects": [
+                "multicloud-platform"
+              ],
+              "writing": []
+            }
+          },
+          {
+            "id": "bigquery",
+            "name": "BigQuery",
+            "level": "strong",
+            "domains": [
+              "multicloud",
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [
+                "multicloud-platform"
+              ],
+              "writing": [
+                "multicloud-architecture"
+              ]
+            }
+          },
+          {
+            "id": "pub-sub",
+            "name": "Pub/Sub",
+            "level": "strong",
+            "domains": [
+              "streaming",
+              "multicloud"
+            ],
+            "evidence": {
+              "projects": [
+                "multicloud-platform"
+              ],
+              "writing": []
+            }
+          }
         ]
       },
       {
         "name": "Databases and Table Formats",
         "items": [
-          "Hive",
-          "Snowflake",
-          "Delta Lake",
-          "Glue",
-          "Athena",
-          "Neo4J",
-          "DB2",
-          "Sybase",
-          "SQL Server",
-          "MySQL",
-          "Yugabyte"
+          {
+            "id": "hive",
+            "name": "Hive",
+            "level": "strong",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "snowflake",
+            "name": "Snowflake",
+            "level": "strong",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "delta-lake",
+            "name": "Delta Lake",
+            "level": "strong",
+            "domains": [
+              "data-platforms",
+              "governance"
+            ],
+            "evidence": {
+              "projects": [
+                "cost-optimization-50pb"
+              ],
+              "writing": []
+            }
+          },
+          {
+            "id": "glue",
+            "name": "Glue",
+            "level": "strong",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [
+                "covid-platform"
+              ],
+              "writing": []
+            }
+          },
+          {
+            "id": "athena",
+            "name": "Athena",
+            "level": "strong",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [
+                "covid-platform"
+              ],
+              "writing": []
+            }
+          },
+          {
+            "id": "neo4j",
+            "name": "Neo4J",
+            "level": "working",
+            "domains": [
+              "governance"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "db2",
+            "name": "DB2",
+            "level": "working",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "sybase",
+            "name": "Sybase",
+            "level": "working",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "sql-server",
+            "name": "SQL Server",
+            "level": "strong",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "mysql",
+            "name": "MySQL",
+            "level": "working",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "yugabyte",
+            "name": "Yugabyte",
+            "level": "working",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [
+                "multicloud-platform"
+              ],
+              "writing": []
+            }
+          }
         ]
       },
       {
         "name": "Orchestration and DevOps",
         "items": [
-          "Step Functions",
-          "Shell Scripting",
-          "Git",
-          "Autosys",
-          "Liquibase",
-          "Jenkins",
-          "Jira",
-          "Azure DevOps",
-          "Bitbucket",
-          "Airflow"
+          {
+            "id": "step-functions",
+            "name": "Step Functions",
+            "level": "strong",
+            "domains": [
+              "reliability"
+            ],
+            "evidence": {
+              "projects": [
+                "covid-platform"
+              ],
+              "writing": []
+            }
+          },
+          {
+            "id": "shell-scripting",
+            "name": "Shell Scripting",
+            "level": "strong",
+            "domains": [
+              "reliability"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "git",
+            "name": "Git",
+            "level": "strong",
+            "domains": [
+              "reliability"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "autosys",
+            "name": "Autosys",
+            "level": "working",
+            "domains": [
+              "reliability"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "liquibase",
+            "name": "Liquibase",
+            "level": "working",
+            "domains": [
+              "governance"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "jenkins",
+            "name": "Jenkins",
+            "level": "working",
+            "domains": [
+              "reliability"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "jira",
+            "name": "Jira",
+            "level": "working",
+            "domains": [
+              "reliability"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "azure-devops",
+            "name": "Azure DevOps",
+            "level": "working",
+            "domains": [
+              "reliability"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "bitbucket",
+            "name": "Bitbucket",
+            "level": "working",
+            "domains": [
+              "reliability"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "airflow",
+            "name": "Airflow",
+            "level": "strong",
+            "domains": [
+              "reliability"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          }
         ]
       },
       {
         "name": "Cloud, Storage, and Formats",
         "items": [
-          "AWS",
-          "Azure",
-          "HDFS",
-          "S3",
-          "EBS",
-          "ADLS",
-          "Blob Storage",
-          "Cloud Storage",
-          "Parquet",
-          "ORC",
-          "Delta",
-          "Avro",
-          "JSON",
-          "XML",
-          "CSV",
-          "Columnar",
-          "Linux"
+          {
+            "id": "aws",
+            "name": "AWS",
+            "level": "expert",
+            "domains": [
+              "multicloud",
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [
+                "cost-optimization-50pb"
+              ],
+              "writing": [
+                "cost-optimization-50pb"
+              ]
+            }
+          },
+          {
+            "id": "azure",
+            "name": "Azure",
+            "level": "strong",
+            "domains": [
+              "multicloud"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "hdfs",
+            "name": "HDFS",
+            "level": "working",
+            "domains": [
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "s3",
+            "name": "S3",
+            "level": "expert",
+            "domains": [
+              "multicloud",
+              "data-platforms"
+            ],
+            "evidence": {
+              "projects": [
+                "cost-optimization-50pb"
+              ],
+              "writing": []
+            }
+          },
+          {
+            "id": "ebs",
+            "name": "EBS",
+            "level": "working",
+            "domains": [
+              "multicloud"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "adls",
+            "name": "ADLS",
+            "level": "working",
+            "domains": [
+              "multicloud"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "blob-storage",
+            "name": "Blob Storage",
+            "level": "working",
+            "domains": [
+              "multicloud"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "cloud-storage",
+            "name": "Cloud Storage",
+            "level": "working",
+            "domains": [
+              "multicloud"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "parquet",
+            "name": "Parquet",
+            "level": "strong",
+            "domains": [
+              "governance"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "orc",
+            "name": "ORC",
+            "level": "working",
+            "domains": [
+              "governance"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "delta",
+            "name": "Delta",
+            "level": "strong",
+            "domains": [
+              "governance"
+            ],
+            "evidence": {
+              "projects": [
+                "cost-optimization-50pb"
+              ],
+              "writing": []
+            }
+          },
+          {
+            "id": "avro",
+            "name": "Avro",
+            "level": "working",
+            "domains": [
+              "governance"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "json",
+            "name": "JSON",
+            "level": "strong",
+            "domains": [
+              "governance"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "xml",
+            "name": "XML",
+            "level": "working",
+            "domains": [
+              "governance"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "csv",
+            "name": "CSV",
+            "level": "working",
+            "domains": [
+              "governance"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "columnar",
+            "name": "Columnar",
+            "level": "working",
+            "domains": [
+              "governance"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          },
+          {
+            "id": "linux",
+            "name": "Linux",
+            "level": "strong",
+            "domains": [
+              "reliability"
+            ],
+            "evidence": {
+              "projects": [],
+              "writing": []
+            }
+          }
         ]
       }
     ]
@@ -564,6 +1410,22 @@ export const content = {
       "summary": "How we made a data platform cloud-agnostic without breaking throughput, quality, or cost targets.",
       "body": "## Executive summary\nI led the architecture for a cloud-agnostic data platform so we could onboard large ISP customers on GCP while keeping AWS parity. The result: 15M customers onboarded, 30% infrastructure cost reduction, and 50% fewer data quality issues.\n\n## Why this mattered\nWe had a proven AWS platform with large-scale pipelines. A major ISP required GCP. We needed to support both clouds without creating two separate platforms or risking downtime.\n\n## Constraints and signals\n- Zero downtime for critical pipelines.\n- Ingestion volumes at 40 GB per hour, with strict latency and quality SLAs.\n- Cost targets and compliance requirements in two different cloud ecosystems.\n\n## Architecture (high level)\n- A cloud-agnostic platform layer that abstracts storage, compute, and orchestration differences.\n- Migration paths for streaming and batch workloads with parity testing.\n- Quality gates and lineage controls so both clouds produce identical outputs.\n\n## Decisions and tradeoffs\n- We prioritized portability over vendor-specific optimizations to reduce long-term operational risk.\n- We accepted slight performance overhead in exchange for consistent behavior across clouds.\n- We used a phased rollout with canary pipelines to validate parity.\n\n## What worked\n- Cloud-agnostic deployment patterns made onboarding faster and more predictable.\n- A clear cost-model comparison allowed us to select the best ingestion path for each workload.\n- Shared observability reduced the risk of hidden divergence between clouds.\n\n## What I would change\n- I would codify a portability test suite earlier to reduce manual checks.\n- I would invest sooner in automated cost telemetry per pipeline.\n\n## Key takeaways\n- Multi-cloud succeeds when the platform chooses consistency over cleverness.\n- A portability layer is only as strong as its validation system.\n- Treat cost as a first-class architectural signal, not a post-hoc metric.",
       "file": "multicloud-architecture.md"
+    },
+    {
+      "id": "portfolio-as-a-product",
+      "status": "published",
+      "title": "Portfolio as a Product: Deep Space Design Rationale",
+      "date": "2025-02-01",
+      "read_time": "8 min",
+      "tags": [
+        "Product",
+        "Design",
+        "Craft",
+        "Systems"
+      ],
+      "summary": "Why this portfolio is engineered like a product: interaction grammar, evidence-backed content, and a calm interface that reveals depth on demand.",
+      "body": "## Executive summary\nDeep Space treats a portfolio like a production product: clarity first, depth when asked. Every interaction is intentional, every surface has a role, and the content system keeps quality consistent over time.\n\n## Why Deep Space\nData platforms are invisible until they fail. The space metaphor makes scale, gravity, and precision feel natural without distracting from the work.\n\n## The interaction grammar\nEvery surface is either Navigate, Reveal, or Ambient. This removes guessing and makes the UI feel honest.\n\n## Evidence-first storytelling\nClaims are paired with proof: projects, writing, and measurable outcomes. Depth is available, but never forced.\n\n## The build contract\nContent lives in resources, and validation gates block placeholders and broken links. The definition of done includes QA and motion checks.\n\n## What changes over time\nProjects evolve, the stack shifts, and new writing appears. The system is built to adapt without eroding polish.",
+      "file": "portfolio-as-a-product.md"
     },
     {
       "id": "project-lumos",

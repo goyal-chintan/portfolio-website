@@ -1,24 +1,479 @@
 {
+  "domains": [
+    {
+      "id": "data-platforms",
+      "label": "Data Platforms",
+      "summary": "Build the substrate teams ship on.",
+      "x": 20,
+      "y": 35
+    },
+    {
+      "id": "streaming",
+      "label": "Streaming",
+      "summary": "Low-latency pipelines and stateful processing.",
+      "x": 42,
+      "y": 20
+    },
+    {
+      "id": "reliability",
+      "label": "Reliability / Observability",
+      "summary": "Measure, tune, and sustain production systems.",
+      "x": 60,
+      "y": 12
+    },
+    {
+      "id": "multicloud",
+      "label": "Multi-cloud Architecture",
+      "summary": "Parity across clouds without duplication.",
+      "x": 78,
+      "y": 30
+    },
+    {
+      "id": "governance",
+      "label": "Governance / Quality",
+      "summary": "Trust, lineage, and safe change.",
+      "x": 62,
+      "y": 58
+    }
+  ],
   "categories": [
     {
       "name": "Languages",
-      "items": ["Scala", "Python", "Java", "SQL", "Cypher", "Bash", "Perl"]
+      "items": [
+        {
+          "id": "scala",
+          "name": "Scala",
+          "level": "expert",
+          "domains": ["data-platforms", "streaming"],
+          "evidence": { "projects": ["covid-platform"], "writing": ["streaming-ingestion"] }
+        },
+        {
+          "id": "python",
+          "name": "Python",
+          "level": "strong",
+          "domains": ["data-platforms", "governance"],
+          "evidence": { "projects": ["multicloud-platform"], "writing": [] }
+        },
+        {
+          "id": "java",
+          "name": "Java",
+          "level": "strong",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "sql",
+          "name": "SQL",
+          "level": "expert",
+          "domains": ["data-platforms", "governance"],
+          "evidence": { "projects": ["cost-optimization-50pb"], "writing": ["cost-optimization-50pb"] }
+        },
+        {
+          "id": "cypher",
+          "name": "Cypher",
+          "level": "working",
+          "domains": ["governance"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "bash",
+          "name": "Bash",
+          "level": "strong",
+          "domains": ["reliability"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "perl",
+          "name": "Perl",
+          "level": "working",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": [], "writing": [] }
+        }
+      ]
     },
     {
       "name": "Data Frameworks",
-      "items": ["Spark", "Databricks", "Hadoop", "EMR", "EC2", "Lambda", "MapReduce", "Spark MLlib", "YARN", "Sqoop", "Kafka", "GCP Dataproc", "BigQuery", "Pub/Sub"]
+      "items": [
+        {
+          "id": "spark",
+          "name": "Spark",
+          "level": "expert",
+          "domains": ["data-platforms", "streaming"],
+          "evidence": { "projects": ["cost-optimization-50pb"], "writing": ["streaming-ingestion"] }
+        },
+        {
+          "id": "databricks",
+          "name": "Databricks",
+          "level": "strong",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": ["cost-optimization-50pb"], "writing": ["cost-optimization-50pb"] }
+        },
+        {
+          "id": "hadoop",
+          "name": "Hadoop",
+          "level": "strong",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "emr",
+          "name": "EMR",
+          "level": "strong",
+          "domains": ["data-platforms", "multicloud"],
+          "evidence": { "projects": ["cost-optimization-50pb"], "writing": [] }
+        },
+        {
+          "id": "ec2",
+          "name": "EC2",
+          "level": "strong",
+          "domains": ["multicloud"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "lambda",
+          "name": "Lambda",
+          "level": "strong",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": ["covid-platform"], "writing": [] }
+        },
+        {
+          "id": "mapreduce",
+          "name": "MapReduce",
+          "level": "working",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "spark-mllib",
+          "name": "Spark MLlib",
+          "level": "working",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "yarn",
+          "name": "YARN",
+          "level": "working",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "sqoop",
+          "name": "Sqoop",
+          "level": "working",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "kafka",
+          "name": "Kafka",
+          "level": "expert",
+          "domains": ["streaming", "reliability"],
+          "evidence": { "projects": ["multicloud-platform"], "writing": ["streaming-ingestion"] }
+        },
+        {
+          "id": "gcp-dataproc",
+          "name": "GCP Dataproc",
+          "level": "strong",
+          "domains": ["multicloud"],
+          "evidence": { "projects": ["multicloud-platform"], "writing": [] }
+        },
+        {
+          "id": "bigquery",
+          "name": "BigQuery",
+          "level": "strong",
+          "domains": ["multicloud", "data-platforms"],
+          "evidence": { "projects": ["multicloud-platform"], "writing": ["multicloud-architecture"] }
+        },
+        {
+          "id": "pub-sub",
+          "name": "Pub/Sub",
+          "level": "strong",
+          "domains": ["streaming", "multicloud"],
+          "evidence": { "projects": ["multicloud-platform"], "writing": [] }
+        }
+      ]
     },
     {
       "name": "Databases and Table Formats",
-      "items": ["Hive", "Snowflake", "Delta Lake", "Glue", "Athena", "Neo4J", "DB2", "Sybase", "SQL Server", "MySQL", "Yugabyte"]
+      "items": [
+        {
+          "id": "hive",
+          "name": "Hive",
+          "level": "strong",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "snowflake",
+          "name": "Snowflake",
+          "level": "strong",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "delta-lake",
+          "name": "Delta Lake",
+          "level": "strong",
+          "domains": ["data-platforms", "governance"],
+          "evidence": { "projects": ["cost-optimization-50pb"], "writing": [] }
+        },
+        {
+          "id": "glue",
+          "name": "Glue",
+          "level": "strong",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": ["covid-platform"], "writing": [] }
+        },
+        {
+          "id": "athena",
+          "name": "Athena",
+          "level": "strong",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": ["covid-platform"], "writing": [] }
+        },
+        {
+          "id": "neo4j",
+          "name": "Neo4J",
+          "level": "working",
+          "domains": ["governance"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "db2",
+          "name": "DB2",
+          "level": "working",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "sybase",
+          "name": "Sybase",
+          "level": "working",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "sql-server",
+          "name": "SQL Server",
+          "level": "strong",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "mysql",
+          "name": "MySQL",
+          "level": "working",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "yugabyte",
+          "name": "Yugabyte",
+          "level": "working",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": ["multicloud-platform"], "writing": [] }
+        }
+      ]
     },
     {
       "name": "Orchestration and DevOps",
-      "items": ["Step Functions", "Shell Scripting", "Git", "Autosys", "Liquibase", "Jenkins", "Jira", "Azure DevOps", "Bitbucket", "Airflow"]
+      "items": [
+        {
+          "id": "step-functions",
+          "name": "Step Functions",
+          "level": "strong",
+          "domains": ["reliability"],
+          "evidence": { "projects": ["covid-platform"], "writing": [] }
+        },
+        {
+          "id": "shell-scripting",
+          "name": "Shell Scripting",
+          "level": "strong",
+          "domains": ["reliability"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "git",
+          "name": "Git",
+          "level": "strong",
+          "domains": ["reliability"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "autosys",
+          "name": "Autosys",
+          "level": "working",
+          "domains": ["reliability"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "liquibase",
+          "name": "Liquibase",
+          "level": "working",
+          "domains": ["governance"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "jenkins",
+          "name": "Jenkins",
+          "level": "working",
+          "domains": ["reliability"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "jira",
+          "name": "Jira",
+          "level": "working",
+          "domains": ["reliability"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "azure-devops",
+          "name": "Azure DevOps",
+          "level": "working",
+          "domains": ["reliability"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "bitbucket",
+          "name": "Bitbucket",
+          "level": "working",
+          "domains": ["reliability"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "airflow",
+          "name": "Airflow",
+          "level": "strong",
+          "domains": ["reliability"],
+          "evidence": { "projects": [], "writing": [] }
+        }
+      ]
     },
     {
       "name": "Cloud, Storage, and Formats",
-      "items": ["AWS", "Azure", "HDFS", "S3", "EBS", "ADLS", "Blob Storage", "Cloud Storage", "Parquet", "ORC", "Delta", "Avro", "JSON", "XML", "CSV", "Columnar", "Linux"]
+      "items": [
+        {
+          "id": "aws",
+          "name": "AWS",
+          "level": "expert",
+          "domains": ["multicloud", "data-platforms"],
+          "evidence": { "projects": ["cost-optimization-50pb"], "writing": ["cost-optimization-50pb"] }
+        },
+        {
+          "id": "azure",
+          "name": "Azure",
+          "level": "strong",
+          "domains": ["multicloud"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "hdfs",
+          "name": "HDFS",
+          "level": "working",
+          "domains": ["data-platforms"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "s3",
+          "name": "S3",
+          "level": "expert",
+          "domains": ["multicloud", "data-platforms"],
+          "evidence": { "projects": ["cost-optimization-50pb"], "writing": [] }
+        },
+        {
+          "id": "ebs",
+          "name": "EBS",
+          "level": "working",
+          "domains": ["multicloud"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "adls",
+          "name": "ADLS",
+          "level": "working",
+          "domains": ["multicloud"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "blob-storage",
+          "name": "Blob Storage",
+          "level": "working",
+          "domains": ["multicloud"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "cloud-storage",
+          "name": "Cloud Storage",
+          "level": "working",
+          "domains": ["multicloud"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "parquet",
+          "name": "Parquet",
+          "level": "strong",
+          "domains": ["governance"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "orc",
+          "name": "ORC",
+          "level": "working",
+          "domains": ["governance"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "delta",
+          "name": "Delta",
+          "level": "strong",
+          "domains": ["governance"],
+          "evidence": { "projects": ["cost-optimization-50pb"], "writing": [] }
+        },
+        {
+          "id": "avro",
+          "name": "Avro",
+          "level": "working",
+          "domains": ["governance"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "json",
+          "name": "JSON",
+          "level": "strong",
+          "domains": ["governance"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "xml",
+          "name": "XML",
+          "level": "working",
+          "domains": ["governance"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "csv",
+          "name": "CSV",
+          "level": "working",
+          "domains": ["governance"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "columnar",
+          "name": "Columnar",
+          "level": "working",
+          "domains": ["governance"],
+          "evidence": { "projects": [], "writing": [] }
+        },
+        {
+          "id": "linux",
+          "name": "Linux",
+          "level": "strong",
+          "domains": ["reliability"],
+          "evidence": { "projects": [], "writing": [] }
+        }
+      ]
     }
   ]
 }
