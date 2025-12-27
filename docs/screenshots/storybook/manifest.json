@@ -1,0 +1,164 @@
+{
+  "storybookUrl": "http://localhost:6006",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "capturedAt": "2025-12-27T12:13:56.679Z",
+  "files": [
+    {
+      "id": "components-button--primary",
+      "title": "Components/Button",
+      "name": "Primary",
+      "theme": "dark",
+      "file": "components-button__primary--dark.png"
+    },
+    {
+      "id": "components-button--primary",
+      "title": "Components/Button",
+      "name": "Primary",
+      "theme": "light",
+      "file": "components-button__primary--light.png"
+    },
+    {
+      "id": "components-button--secondary",
+      "title": "Components/Button",
+      "name": "Secondary",
+      "theme": "dark",
+      "file": "components-button__secondary--dark.png"
+    },
+    {
+      "id": "components-button--secondary",
+      "title": "Components/Button",
+      "name": "Secondary",
+      "theme": "light",
+      "file": "components-button__secondary--light.png"
+    },
+    {
+      "id": "components-button--all-states",
+      "title": "Components/Button",
+      "name": "All States",
+      "theme": "dark",
+      "file": "components-button__all-states--dark.png"
+    },
+    {
+      "id": "components-button--all-states",
+      "title": "Components/Button",
+      "name": "All States",
+      "theme": "light",
+      "file": "components-button__all-states--light.png"
+    },
+    {
+      "id": "components-dialog-sheet--open",
+      "title": "Components/Dialog (Sheet)",
+      "name": "Open",
+      "theme": "dark",
+      "file": "components-dialog-sheet__open--dark.png"
+    },
+    {
+      "id": "components-dialog-sheet--open",
+      "title": "Components/Dialog (Sheet)",
+      "name": "Open",
+      "theme": "light",
+      "file": "components-dialog-sheet__open--light.png"
+    },
+    {
+      "id": "components-bar-navbar--centered",
+      "title": "Components/Bar (Navbar)",
+      "name": "Centered",
+      "theme": "dark",
+      "file": "components-bar-navbar__centered--dark.png"
+    },
+    {
+      "id": "components-bar-navbar--centered",
+      "title": "Components/Bar (Navbar)",
+      "name": "Centered",
+      "theme": "light",
+      "file": "components-bar-navbar__centered--light.png"
+    },
+    {
+      "id": "components-bar-navbar--docked",
+      "title": "Components/Bar (Navbar)",
+      "name": "Docked",
+      "theme": "dark",
+      "file": "components-bar-navbar__docked--dark.png"
+    },
+    {
+      "id": "components-bar-navbar--docked",
+      "title": "Components/Bar (Navbar)",
+      "name": "Docked",
+      "theme": "light",
+      "file": "components-bar-navbar__docked--light.png"
+    },
+    {
+      "id": "components-segmented-control--projects-active",
+      "title": "Components/Segmented Control",
+      "name": "Projects Active",
+      "theme": "dark",
+      "file": "components-segmented-control__projects-active--dark.png"
+    },
+    {
+      "id": "components-segmented-control--projects-active",
+      "title": "Components/Segmented Control",
+      "name": "Projects Active",
+      "theme": "light",
+      "file": "components-segmented-control__projects-active--light.png"
+    },
+    {
+      "id": "components-segmented-control--stack-active",
+      "title": "Components/Segmented Control",
+      "name": "Stack Active",
+      "theme": "dark",
+      "file": "components-segmented-control__stack-active--dark.png"
+    },
+    {
+      "id": "components-segmented-control--stack-active",
+      "title": "Components/Segmented Control",
+      "name": "Stack Active",
+      "theme": "light",
+      "file": "components-segmented-control__stack-active--light.png"
+    },
+    {
+      "id": "components-segmented-control--all-actives",
+      "title": "Components/Segmented Control",
+      "name": "All Actives",
+      "theme": "dark",
+      "file": "components-segmented-control__all-actives--dark.png"
+    },
+    {
+      "id": "components-segmented-control--all-actives",
+      "title": "Components/Segmented Control",
+      "name": "All Actives",
+      "theme": "light",
+      "file": "components-segmented-control__all-actives--light.png"
+    },
+    {
+      "id": "components-surfaces--glass-and-static",
+      "title": "Components/Surfaces",
+      "name": "Glass And Static",
+      "theme": "dark",
+      "file": "components-surfaces__glass-and-static--dark.png"
+    },
+    {
+      "id": "components-surfaces--glass-and-static",
+      "title": "Components/Surfaces",
+      "name": "Glass And Static",
+      "theme": "light",
+      "file": "components-surfaces__glass-and-static--light.png"
+    },
+    {
+      "id": "components-surfaces--interaction-types",
+      "title": "Components/Surfaces",
+      "name": "Interaction Types",
+      "theme": "dark",
+      "file": "components-surfaces__interaction-types--dark.png"
+    },
+    {
+      "id": "components-surfaces--interaction-types",
+      "title": "Components/Surfaces",
+      "name": "Interaction Types",
+      "theme": "light",
+      "file": "components-surfaces__interaction-types--light.png"
+    }
+  ]
+}

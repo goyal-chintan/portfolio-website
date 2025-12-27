@@ -1,6 +1,151 @@
 /* Auto-generated from /resources. Do not edit manually. */
 
 export const content = {
+  "copy": {
+    "global": {
+      "details": "Details",
+      "close": "Close",
+      "open": "Open",
+      "back": "Back",
+      "external": "External",
+      "openMissionBrief": "Open Mission Brief",
+      "openBookDetails": "Open Details"
+    },
+    "nav": {
+      "homeAria": "Home",
+      "contact": "Contact",
+      "toggleThemeAria": "Toggle theme"
+    },
+    "hero": {
+      "architectingPrefix": "Architecting",
+      "primaryCta": "View My Work",
+      "secondaryCta": "View Resume",
+      "availabilityBadge": "Available for projects"
+    },
+    "home": {
+      "impactKicker": "Impact // Global",
+      "statusKicker": "Status // Live"
+    },
+    "status": {
+      "activeLabel": "Active & Available",
+      "currentFocusLabel": "Current Focus",
+      "availabilityLabel": "Availability"
+    },
+    "deepDive": {
+      "title": "Deep Dive",
+      "subtitle": "Exploring the architectures, mental models, and tools behind my work.",
+      "storyButton": "About this portfolio"
+    },
+    "storySheet": {
+      "title": "About this portfolio",
+      "subtitle": "Built as a product. Crafted as an instrument.",
+      "intentTitle": "Intent",
+      "outlineTitle": "Outline",
+      "interactionTitle": "Interaction grammar",
+      "qualityTitle": "Quality bar",
+      "interactionA": "A - Navigate: click goes somewhere",
+      "interactionB": "B - Reveal: click opens depth",
+      "interactionC": "C - Ambient: informational only",
+      "qualityBullets": [
+        "Zero dead clicks (A/B/C honesty)",
+        "Hover <=150ms, press <=50ms",
+        "Theme transition 1000ms, no flash",
+        "Reduced motion supported",
+        "Zero console errors or overlays"
+      ],
+      "primaryCta": "View Work",
+      "secondaryCta": "Contact"
+    },
+    "tabs": {
+      "about": "About",
+      "projects": "Projects",
+      "writing": "Writing",
+      "stack": "Stack",
+      "library": "Library",
+      "thoughts": "Thoughts"
+    },
+    "about": {
+      "currentFocusTitle": "Current Focus",
+      "systemSpecsTitle": "System Specs",
+      "systemSpecsKicker": "Hardware + habits",
+      "journeyTitle": "Journey",
+      "milestonesLabel": "Milestones",
+      "designStoryTitle": "Design Story"
+    },
+    "projects": {
+      "featuredTitle": "Featured",
+      "openSourceTitle": "Open Source",
+      "professionalTitle": "Professional",
+      "privateNote": "Private - details on request"
+    },
+    "spotlight": {
+      "briefTitle": "Mission Brief",
+      "problem": "Problem",
+      "constraints": "Constraints",
+      "approach": "Approach",
+      "proof": "Proof",
+      "next": "What I'd do next",
+      "primaryCtaGithub": "Open GitHub",
+      "primaryCtaRequest": "Request details",
+      "secondaryCtaWriting": "Read design notes"
+    },
+    "stack": {
+      "title": "Technical Stack",
+      "subtitle": "Expertise is clustered by domain, with proof mapped to projects and writing.",
+      "allDomains": "All Domains",
+      "primaryExpertise": "Primary Expertise",
+      "strongFoundation": "Strong Foundation",
+      "workingKnowledge": "Working Knowledge",
+      "proofTitle": "Domain Proof",
+      "howToReadTitle": "How to read this",
+      "howToReadBody": "Select a domain to focus the lens. Matching skills brighten; others dim."
+    },
+    "writing": {
+      "title": "Writing",
+      "wipBadge": "Work in progress",
+      "backToWriting": "Back to Writing"
+    },
+    "library": {
+      "title": "Library",
+      "detailsLabel": "Details",
+      "emptyTitle": "Library (curating)",
+      "emptyBody": "A short list of books that shaped my systems thinking, with takeaways and notes."
+    },
+    "thoughts": {
+      "title": "Thoughts",
+      "emptyTitle": "Thoughts (collecting)",
+      "emptyBody": "Short observations and mental models, captured as I ship and learn."
+    },
+    "contact": {
+      "title": "Let's Connect",
+      "subtitle": "Open to architectural discussions, collaborative R&D, or a quick coffee to talk data systems.",
+      "primaryCta": "Initiate Conversation",
+      "responseLatency": "Response latency: Low",
+      "responseNote": "Typically responds within 24 standard hours",
+      "platform": {
+        "github": "GitHub",
+        "linkedin": "LinkedIn",
+        "twitter": "X",
+        "email": "Email"
+      },
+      "cards": {
+        "github": "Observe my craft",
+        "linkedin": "Professional orbit",
+        "twitter": "Stream of consciousness",
+        "email": "Direct transmission"
+      }
+    },
+    "resume": {
+      "title": "Resume",
+      "downloadPdf": "Download PDF"
+    },
+    "footer": {
+      "separator": "·",
+      "copyrightPrefix": "©",
+      "center": "Designed in the Void",
+      "right": "Crafted for clarity and depth."
+    }
+  },
   "profile": {
     "name": "Chintan Goyal",
     "title": "Senior Data and Platform Engineer",
@@ -395,6 +540,18 @@ export const content = {
         "id": "data-platforms",
         "label": "Data Platforms",
         "summary": "Build the substrate teams ship on.",
+        "proof": {
+          "projects": [
+            "cost-optimization-50pb",
+            "covid-platform",
+            "multicloud-platform",
+            "lumos"
+          ],
+          "writing": [
+            "cost-optimization-50pb",
+            "multicloud-architecture"
+          ]
+        },
         "x": 20,
         "y": 35
       },
@@ -402,6 +559,15 @@ export const content = {
         "id": "streaming",
         "label": "Streaming",
         "summary": "Low-latency pipelines and stateful processing.",
+        "proof": {
+          "projects": [
+            "covid-platform",
+            "multicloud-platform"
+          ],
+          "writing": [
+            "streaming-ingestion"
+          ]
+        },
         "x": 42,
         "y": 20
       },
@@ -409,6 +575,13 @@ export const content = {
         "id": "reliability",
         "label": "Reliability / Observability",
         "summary": "Measure, tune, and sustain production systems.",
+        "proof": {
+          "projects": [
+            "cost-optimization-50pb",
+            "multicloud-platform"
+          ],
+          "writing": []
+        },
         "x": 60,
         "y": 12
       },
@@ -416,6 +589,15 @@ export const content = {
         "id": "multicloud",
         "label": "Multi-cloud Architecture",
         "summary": "Parity across clouds without duplication.",
+        "proof": {
+          "projects": [
+            "multicloud-platform",
+            "cost-optimization-50pb"
+          ],
+          "writing": [
+            "multicloud-architecture"
+          ]
+        },
         "x": 78,
         "y": 30
       },
@@ -423,6 +605,15 @@ export const content = {
         "id": "governance",
         "label": "Governance / Quality",
         "summary": "Trust, lineage, and safe change.",
+        "proof": {
+          "projects": [
+            "lumos",
+            "cost-optimization-50pb"
+          ],
+          "writing": [
+            "project-lumos"
+          ]
+        },
         "x": 62,
         "y": 58
       }
@@ -1266,6 +1457,28 @@ export const content = {
         }
       ],
       "summary": "Deep archival strategy and compute portability for 50PB of data with substantial monthly savings.",
+      "spotlight": "secondary",
+      "spotlight_order": 2,
+      "brief": {
+        "thesis": "A cost-physics program that cut 50PB storage and compute spend without reliability regressions.",
+        "problem": "Cloud costs were scaling faster than usage, threatening margin and velocity.",
+        "constraints": [
+          "50PB footprint across multiple workloads.",
+          "No degradation in access latency or compliance posture.",
+          "Savings had to be measurable and durable."
+        ],
+        "approach": [
+          "Designed a deep archival strategy for cold data tiers.",
+          "Right-sized clusters and shifted select workloads to EKS.",
+          "Introduced lifecycle policies and cost governance guardrails."
+        ],
+        "proof": [
+          "Saved ~$150k/month in storage and compute.",
+          "Eliminated ~$2M/year in Databricks DBU spend."
+        ],
+        "next": "Automate cost anomaly detection and close the loop with policy-driven scaling.",
+        "writing_id": "cost-optimization-50pb"
+      },
       "body": "## Context\nCloud spend was rising with scale. We needed a long-term data lifecycle strategy without degrading access or reliability.\n\n## Constraints\n- 50PB of data across multiple workloads.\n- Business expectations for access, latency, and compliance.\n- Cost cuts must not reduce quality or resiliency.\n\n## What I built\n- Deep archival strategy for cold data.\n- Workload right-sizing and cluster optimization.\n- Migration of select workloads off Databricks to EKS-based clusters.\n\n## Impact\n- Identified and realized ~20% cost reduction, about 150k USD per month.\n- Saved ~2M USD in Databricks costs.\n\n## Stack\nCloud storage tiers, EKS-based compute, and cost governance workflows.",
       "file": "cost-optimization-50pb.md"
     },
@@ -1334,6 +1547,29 @@ export const content = {
         }
       ],
       "summary": "Pluggable, tech-agnostic metadata and data governance framework that unified scattered data assets.",
+      "spotlight": "primary",
+      "spotlight_order": 1,
+      "brief": {
+        "thesis": "A pluggable metadata and governance layer that made scattered data assets discoverable and trustworthy.",
+        "problem": "Teams lacked a single place for ownership, lineage, and quality, slowing delivery.",
+        "constraints": [
+          "Small team, limited calendar time.",
+          "Must integrate across heterogeneous stacks without rewrites.",
+          "Adoption depended on low-friction onboarding."
+        ],
+        "approach": [
+          "Defined a universal metadata contract with adapter-based ingestion.",
+          "Built lineage capture with versioned asset tracking.",
+          "Shipped a self-serve UI for governance workflows."
+        ],
+        "proof": [
+          "Saved 400+ hours/year in discovery and triage.",
+          "Unblocked 10 FTE across teams.",
+          "Promoted to priority platform initiative after internal demo."
+        ],
+        "next": "Open-source the core engine and scale the connector ecosystem.",
+        "writing_id": "project-lumos"
+      },
       "body": "## Context\nData assets were scattered across teams, with no single place for ownership, lineage, or documentation. Engineers lost time finding datasets and resolving data quality issues.\n\n## Constraints\n- Built as a side project with a small team on weekends.\n- Needed to work across different stacks and storage systems.\n- Adoption depended on low friction and clear value.\n\n## What I built\n- A metadata and cataloging layer for discovery and ownership.\n- Lineage and versioned assets for traceability.\n- A pluggable design so teams could integrate without rewrites.\n\n## Impact\n- Saved 400+ effort hours annually by reducing manual data discovery and bug triage.\n- Became the first-priority platform initiative after an internal demo.\n\n## Stack\nMetadata services, lineage pipelines, UI and API surfaces, and integration connectors.",
       "file": "lumos.md"
     },
@@ -1374,6 +1610,29 @@ export const content = {
         }
       ],
       "summary": "Cloud-agnostic data platform architecture to onboard large ISPs on GCP while maintaining AWS parity.",
+      "spotlight": "secondary",
+      "spotlight_order": 3,
+      "brief": {
+        "thesis": "A multi-cloud platform that preserved AWS parity while onboarding ISPs on GCP at scale.",
+        "problem": "New ISP customers required GCP, but the platform was AWS-native.",
+        "constraints": [
+          "Zero-downtime migration for critical pipelines.",
+          "Different cloud primitives and cost models.",
+          "Strict data quality and reliability SLAs."
+        ],
+        "approach": [
+          "Defined cloud-agnostic abstractions for storage and compute.",
+          "Built migration paths for streaming and batch workloads.",
+          "Added governance and observability guardrails to maintain parity."
+        ],
+        "proof": [
+          "Enabled onboarding for 15M customers.",
+          "Reduced infra cost by 30%.",
+          "Cut data quality issues by 50%."
+        ],
+        "next": "Harden portability tests and expand automated parity validation.",
+        "writing_id": "multicloud-architecture"
+      },
       "body": "## Context\nWe needed to onboard large ISP customers on GCP while keeping the existing AWS platform reliable and consistent. The platform had to be cloud-agnostic without breaking existing pipelines.\n\n## Constraints\n- Zero downtime migration for critical data flows.\n- Different cloud primitives and cost models.\n- High throughput ingestion and strict data quality expectations.\n\n## What I built\n- Multi-cloud architecture and deployment strategy for the data platform.\n- Migration paths for streaming and batch workloads.\n- Governance and reliability guardrails to keep parity across clouds.\n\n## Impact\n- Enabled onboarding for ISPs with 15M customers.\n- Reduced infrastructure cost by 30%.\n- Cut data quality issues by 50%.\n\n## Stack\nGCP and AWS, streaming pipelines, and platform-level abstractions for portability.",
       "file": "multicloud-platform.md"
     }

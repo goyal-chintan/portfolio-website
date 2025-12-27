@@ -9,6 +9,17 @@ export interface Project {
   tags: string[];
   status: "production" | "development" | "archived";
   featured: boolean;
+  spotlight?: "primary" | "secondary";
+  spotlightOrder?: number;
+  brief?: {
+    thesis: string;
+    problem: string;
+    constraints: string[];
+    approach: string[];
+    proof: string[];
+    next: string;
+    writingId?: string;
+  };
   links: {
     github?: string;
     demo?: string;
@@ -24,9 +35,28 @@ export interface Project {
   privacyNote?: string;
 }
 
+type RawSpotlightBrief = {
+  thesis: string;
+  problem: string;
+  constraints?: string[];
+  approach?: string[];
+  proof?: string[];
+  next: string;
+  writing_id?: string;
+};
+
 export const projects: Project[] = content.projects.map((project) => {
   const linkType = String(project.link?.primary?.type ?? "");
   const linkUrl = project.link?.primary?.url;
+  const rawSpotlight = (project as { spotlight?: "primary" | "secondary" | true }).spotlight;
+  const rawOrder = (project as { spotlight_order?: number | string }).spotlight_order;
+  const rawBrief = (project as { brief?: RawSpotlightBrief }).brief;
+  const spotlight =
+    rawSpotlight === "secondary"
+      ? "secondary"
+      : rawSpotlight === "primary" || rawSpotlight === true
+        ? "primary"
+        : undefined;
   return {
     id: project.id,
     title: project.name,
@@ -36,6 +66,19 @@ export const projects: Project[] = content.projects.map((project) => {
     tags: Array.from(project.tags ?? []),
     status: project.status,
     featured: true,
+    spotlight,
+    spotlightOrder: rawOrder ? Number(rawOrder) : undefined,
+    brief: rawBrief
+      ? {
+          thesis: rawBrief.thesis,
+          problem: rawBrief.problem,
+          constraints: Array.from(rawBrief.constraints ?? []),
+          approach: Array.from(rawBrief.approach ?? []),
+          proof: Array.from(rawBrief.proof ?? []),
+          next: rawBrief.next,
+          writingId: rawBrief.writing_id,
+        }
+      : undefined,
     links: {
       github: linkType === "github" ? linkUrl : undefined,
       resume: linkType === "resume" ? linkUrl : undefined,

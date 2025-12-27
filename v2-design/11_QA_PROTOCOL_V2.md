@@ -8,6 +8,12 @@ Rule: If any check fails → **REJECT** and loop.
 
 Every check must reference evidence artifacts (screenshots/videos/audit logs) per `v2-design/12_EVIDENCE_PACK_V2.md`.
 
+## 0.5) Design freeze rule (precondition)
+
+Before claiming a v2 QA “PASS”, the core visual system must be user-approved and frozen:
+- Follow `v2-design/27_DESIGN_FREEZE_PROTOCOL.md`
+- If the design is not frozen, QA may run, but results are treated as **HOLD** (not shippable).
+
 ## 1) Runtime & Stability (hard blockers)
 
 - **R1 Zero red overlays**: no Next.js red error screen during navigation.

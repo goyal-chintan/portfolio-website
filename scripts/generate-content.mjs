@@ -117,6 +117,7 @@ function writeOutput(data) {
 }
 
 function main() {
+  const copy = readJson("copy.json");
   const profile = readJson("profile.json");
   const nav = readJson("nav.json");
   const resume = readJson("resume.json");
@@ -126,7 +127,7 @@ function main() {
   const projects = readMarkdownDir("projects");
   const writing = readMarkdownDir("writing");
 
-  writeOutput({ profile, nav, resume, stack, library, thoughts, projects, writing });
+  writeOutput({ copy, profile, nav, resume, stack, library, thoughts, projects, writing });
   console.log(`Generated ${path.relative(ROOT, OUTPUT_PATH)}`);
 }
 

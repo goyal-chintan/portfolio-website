@@ -9,6 +9,7 @@ export interface TechDomain {
   summary: string;
   x: number;
   y: number;
+  proof: TechItemEvidence;
 }
 
 export interface TechItemEvidence {
@@ -46,6 +47,10 @@ export const techDomains: TechDomain[] = Array.from(content.stack.domains ?? [])
   summary: domain.summary,
   x: domain.x,
   y: domain.y,
+  proof: {
+    projects: Array.from(domain.proof?.projects ?? []),
+    writing: Array.from(domain.proof?.writing ?? []),
+  },
 }));
 
 export const techStack: TechCategory[] = content.stack.categories.map((category) => ({

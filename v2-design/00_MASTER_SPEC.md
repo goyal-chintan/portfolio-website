@@ -53,9 +53,12 @@ These are preserved unless explicitly changed via a Change Request:
 23) `v2-design/19_EXECUTION_CHECKLIST_V2.md`  
 24) `v2-design/26_IMPLEMENTATION_BLUEPRINT_FILE_BY_FILE.md`  
 25) `v2-design/20_GOVERNANCE_AND_EXTENSIBILITY_PROTOCOL.md`  
-26) `v2-design/14_DECISION_LOG.md` (append‑only)  
-27) `v2-design/15_CHANGE_REQUESTS.md` (append‑only)  
-28) `v2-design/16_LEVEL_ZERO_RATIONALE.md`
+26) `v2-design/27_DESIGN_FREEZE_PROTOCOL.md`  
+27) `v2-design/28_REVIEW_BOARD_AND_STORYBOOK_QA_SYSTEM.md`  
+28) `v2-design/29_DESIGN_DIRECTION_PACK_TEMPLATE.md`  
+29) `v2-design/14_DECISION_LOG.md` (append‑only)  
+30) `v2-design/15_CHANGE_REQUESTS.md` (append‑only)  
+31) `v2-design/16_LEVEL_ZERO_RATIONALE.md`
 
 ## Decision policy (non‑negotiable)
 

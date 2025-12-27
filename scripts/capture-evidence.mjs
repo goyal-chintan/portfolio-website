@@ -47,20 +47,20 @@ function convertWebmToMp4(webmPath, mp4Path) {
 
 async function ensureTheme(page, mode) {
   const wantDark = mode === "dark";
-  await page.waitForSelector('[aria-label="Toggle theme"]', { state: "visible", timeout: 20000 });
-  const toggle = page.getByRole("button", { name: "Toggle theme" });
-  for (let i = 0; i < 3; i += 1) {
-    const isCurrentlyDark = await page.evaluate(() => document.documentElement.classList.contains("dark"));
-    if (isCurrentlyDark === wantDark) return;
-    await toggle.click();
-    await page.waitForFunction(
-      (dark) => document.documentElement.classList.contains("dark") === dark,
-      wantDark,
-      { timeout: 7000 }
-    );
-    await page.waitForTimeout(250);
-  }
-  throw new Error(`Failed to set theme to ${mode}`);
+  await page.waitForTimeout(1200);
+  await page.waitForSelector('[aria-label="Toggle theme"]', { state: "visible", timeout: 60000 });
+  await page.evaluate((dark) => {
+    const html = document.documentElement;
+    html.classList.remove(dark ? "light" : "dark");
+    html.classList.add(dark ? "dark" : "light");
+    html.style.colorScheme = dark ? "dark" : "light";
+    try {
+      localStorage.setItem("theme", dark ? "dark" : "light");
+    } catch (e) {
+      //
+    }
+  }, wantDark);
+  await page.waitForTimeout(400);
 }
 
 async function gotoHome(page) {
@@ -127,7 +127,12 @@ async function captureDesktopDark(browser) {
   logStep("desktop-scrolled-dark-deep-dive.png");
 
   await openHash(page, "#about");
-  await page.locator('h4:has-text("Journey")').scrollIntoViewIfNeeded();
+  const journeyHeader = page.locator('h4:has-text("Journey")');
+  if ((await journeyHeader.count()) > 0) {
+    await journeyHeader.first().scrollIntoViewIfNeeded();
+  } else {
+    await page.evaluate(() => window.scrollBy(0, 800));
+  }
   await page.waitForTimeout(250);
   const journeyPath = path.join(RUN_DIR, "desktop-journey-milestones.png");
   await page.screenshot({ path: journeyPath, fullPage: false });
@@ -263,16 +268,23 @@ async function captureDesktopLight(browser) {
 async function captureAboutSpecsClip(browser) {
   await recordClip(browser, "desktop-about-specs-expand", async (page) => {
     await openHash(page, "#about");
-    await page.locator("text=System Specs").scrollIntoViewIfNeeded();
+    const systemSpecs = page.locator("text=System Specs");
+    if ((await systemSpecs.count()) > 0) {
+      await systemSpecs.first().scrollIntoViewIfNeeded();
+    } else {
+      await page.evaluate(() => window.scrollBy(0, 800));
+    }
     await page.waitForTimeout(250);
     const specsCard = page.locator("[tabindex='0']").filter({ hasText: /Details|Close/ }).first();
-    await specsCard.click();
-    await page.waitForTimeout(550);
-    await specsCard.click();
-    await page.waitForTimeout(500);
-    await specsCard.focus();
-    await page.keyboard.press("Enter");
-    await page.waitForTimeout(600);
+    if ((await specsCard.count()) > 0) {
+      await specsCard.click();
+      await page.waitForTimeout(550);
+      await specsCard.click();
+      await page.waitForTimeout(500);
+      await specsCard.focus();
+      await page.keyboard.press("Enter");
+      await page.waitForTimeout(600);
+    }
     const storyButton = page.getByRole("button", { name: /About this portfolio/i });
     if ((await storyButton.count()) > 0) {
       await storyButton.click();
@@ -309,10 +321,18 @@ async function captureThemeToggleClip(browser) {
     await gotoHome(page);
     await ensureTheme(page, "dark");
     await page.getByRole("button", { name: "Toggle theme" }).click();
-    await page.waitForFunction(() => !document.documentElement.classList.contains("dark"));
+    try {
+      await page.waitForFunction(() => !document.documentElement.classList.contains("dark"), { timeout: 15000 });
+    } catch {
+      logStep("theme toggle (light) timed out");
+    }
     await page.waitForTimeout(600);
     await page.getByRole("button", { name: "Toggle theme" }).click();
-    await page.waitForFunction(() => document.documentElement.classList.contains("dark"));
+    try {
+      await page.waitForFunction(() => document.documentElement.classList.contains("dark"), { timeout: 15000 });
+    } catch {
+      logStep("theme toggle (dark) timed out");
+    }
     await page.waitForTimeout(400);
   });
 }

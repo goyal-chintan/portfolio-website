@@ -134,6 +134,7 @@ Implementation proceeds only after:
 - DL decision exists
 - Spec docs updated
 - Data model + validation updated
+ - If the change is visual/aesthetic: the component is reviewed and approved in isolation per `v2-design/27_DESIGN_FREEZE_PROTOCOL.md`
 
 ### Step 7 — Evidence + QA (release gate)
 

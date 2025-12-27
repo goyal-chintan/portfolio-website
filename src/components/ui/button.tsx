@@ -6,7 +6,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "btn-shine relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 transform-gpu focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98] [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 transform-gpu focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98] [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -50,8 +50,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant,
       size,
       asChild = false,
-      onMouseMove,
-      onMouseLeave,
       ...props
     },
     ref
@@ -61,19 +59,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
-        onMouseMove={(e: React.MouseEvent<HTMLButtonElement>) => {
-          const el = e.currentTarget as unknown as HTMLElement;
-          const rect = el.getBoundingClientRect();
-          el.style.setProperty("--shine-x", `${e.clientX - rect.left}px`);
-          el.style.setProperty("--shine-y", `${e.clientY - rect.top}px`);
-          onMouseMove?.(e);
-        }}
-        onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
-          const el = e.currentTarget as unknown as HTMLElement;
-          el.style.removeProperty("--shine-x");
-          el.style.removeProperty("--shine-y");
-          onMouseLeave?.(e);
-        }}
         {...props}
       />
     );

@@ -1,31 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { siteConfig } from "@/config/site.config";
 import { content } from "@/config/content.generated";
 import { getActiveSocialLinks, getDocumentUrl } from "@/lib/config-helpers";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Github, Linkedin, Mail, X } from "lucide-react";
 
 export function Hero() {
-  const [roleIndex, setRoleIndex] = useState(0);
   const activeSocialLinks = getActiveSocialLinks();
   const resumeLink = getDocumentUrl("resume");
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRoleIndex((prev) => (prev + 1) % siteConfig.roles.length);
-    }, 4000); // Slower cycle for serious feel
-    return () => clearInterval(interval);
-  }, []);
+  const profile = content.profile;
+  const copy = content.copy;
 
   return (
-    <motion.div
+    <div
       id="hero"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className="flex flex-col justify-center py-12"
     >
       <div className="space-y-10 max-w-3xl">
@@ -33,45 +21,37 @@ export function Hero() {
         {/* Name and Title - Crisp, High-Contrast, Apple Tracking */}
         <div className="space-y-4">
           <h1 className="text-6xl md:text-8xl font-bold tracking-[-0.02em] text-foreground leading-[1.1]">
-            {siteConfig.name}
+            {profile.name}
           </h1>
 
           <div className="h-10 md:h-12 overflow-hidden flex items-baseline gap-3">
-            <span className="text-2xl md:text-3xl text-muted-foreground font-medium selection:bg-accent/30 tracking-tight">Architecting</span>
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={roleIndex}
-                initial={{ y: 24, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -24, opacity: 0 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} // Apple Bezier
-                className="text-2xl md:text-3xl text-foreground font-semibold tracking-[-0.02em]"
-              >
-                {siteConfig.roles[roleIndex]}
-              </motion.span>
-            </AnimatePresence>
+            <span className="text-2xl md:text-3xl text-muted-foreground font-medium selection:bg-accent/30 tracking-tight">
+              {copy.hero.architectingPrefix}
+            </span>
+            <span className="text-2xl md:text-3xl text-foreground font-semibold tracking-[-0.02em]">
+              {profile.title}
+            </span>
           </div>
         </div>
 
         {/* Tagline - Refined Leading */}
         <p className="text-xl md:text-2xl text-foreground/80 leading-relaxed max-w-2xl font-light tracking-tight">
-          {siteConfig.tagline}
+          {profile.tagline}
         </p>
 
         {/* Bio - Simplified & Clearer */}
         <p className="text-base text-muted-foreground leading-relaxed max-w-2xl">
-          {siteConfig.bio}
+          {profile.bio}
         </p>
 
         {/* Meta Bar - Enhanced Detail */}
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-mono pt-2">
-          {siteConfig.availability.status === "open" && (
+          {profile.availability.status === "open" && (
             <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[11px] font-bold uppercase tracking-widest">
               <span className="relative flex h-1.5 w-1.5 align-middle">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
               </span>
-              Available for projects
+              {copy.hero.availabilityBadge}
             </div>
           )}
         </div>
@@ -89,7 +69,7 @@ export function Hero() {
               window.history.pushState(null, "", "#projects");
             }}
           >
-            View My Work
+            {copy.hero.primaryCta}
             <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
           </Button>
 
@@ -101,7 +81,7 @@ export function Hero() {
               asChild
             >
               <a href={resumeLink} target="_blank" rel="noopener noreferrer">
-                View Resume
+                {copy.hero.secondaryCta}
               </a>
             </Button>
           )}
@@ -138,7 +118,7 @@ export function Hero() {
           </div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }
 

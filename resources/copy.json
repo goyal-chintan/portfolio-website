@@ -1,0 +1,145 @@
+{
+  "global": {
+    "details": "Details",
+    "close": "Close",
+    "open": "Open",
+    "back": "Back",
+    "external": "External",
+    "openMissionBrief": "Open Mission Brief",
+    "openBookDetails": "Open Details"
+  },
+  "nav": {
+    "homeAria": "Home",
+    "contact": "Contact",
+    "toggleThemeAria": "Toggle theme"
+  },
+  "hero": {
+    "architectingPrefix": "Architecting",
+    "primaryCta": "View My Work",
+    "secondaryCta": "View Resume",
+    "availabilityBadge": "Available for projects"
+  },
+  "home": {
+    "impactKicker": "Impact // Global",
+    "statusKicker": "Status // Live"
+  },
+  "status": {
+    "activeLabel": "Active & Available",
+    "currentFocusLabel": "Current Focus",
+    "availabilityLabel": "Availability"
+  },
+  "deepDive": {
+    "title": "Deep Dive",
+    "subtitle": "Exploring the architectures, mental models, and tools behind my work.",
+    "storyButton": "About this portfolio"
+  },
+  "storySheet": {
+    "title": "About this portfolio",
+    "subtitle": "Built as a product. Crafted as an instrument.",
+    "intentTitle": "Intent",
+    "outlineTitle": "Outline",
+    "interactionTitle": "Interaction grammar",
+    "qualityTitle": "Quality bar",
+    "interactionA": "A - Navigate: click goes somewhere",
+    "interactionB": "B - Reveal: click opens depth",
+    "interactionC": "C - Ambient: informational only",
+    "qualityBullets": [
+      "Zero dead clicks (A/B/C honesty)",
+      "Hover <=150ms, press <=50ms",
+      "Theme transition 1000ms, no flash",
+      "Reduced motion supported",
+      "Zero console errors or overlays"
+    ],
+    "primaryCta": "View Work",
+    "secondaryCta": "Contact"
+  },
+  "tabs": {
+    "about": "About",
+    "projects": "Projects",
+    "writing": "Writing",
+    "stack": "Stack",
+    "library": "Library",
+    "thoughts": "Thoughts"
+  },
+  "about": {
+    "currentFocusTitle": "Current Focus",
+    "systemSpecsTitle": "System Specs",
+    "systemSpecsKicker": "Hardware + habits",
+    "journeyTitle": "Journey",
+    "milestonesLabel": "Milestones",
+    "designStoryTitle": "Design Story"
+  },
+  "projects": {
+    "featuredTitle": "Featured",
+    "openSourceTitle": "Open Source",
+    "professionalTitle": "Professional",
+    "privateNote": "Private - details on request"
+  },
+  "spotlight": {
+    "briefTitle": "Mission Brief",
+    "problem": "Problem",
+    "constraints": "Constraints",
+    "approach": "Approach",
+    "proof": "Proof",
+    "next": "What I'd do next",
+    "primaryCtaGithub": "Open GitHub",
+    "primaryCtaRequest": "Request details",
+    "secondaryCtaWriting": "Read design notes"
+  },
+  "stack": {
+    "title": "Technical Stack",
+    "subtitle": "Expertise is clustered by domain, with proof mapped to projects and writing.",
+    "allDomains": "All Domains",
+    "primaryExpertise": "Primary Expertise",
+    "strongFoundation": "Strong Foundation",
+    "workingKnowledge": "Working Knowledge",
+    "proofTitle": "Domain Proof",
+    "howToReadTitle": "How to read this",
+    "howToReadBody": "Select a domain to focus the lens. Matching skills brighten; others dim."
+  },
+  "writing": {
+    "title": "Writing",
+    "wipBadge": "Work in progress",
+    "backToWriting": "Back to Writing"
+  },
+  "library": {
+    "title": "Library",
+    "detailsLabel": "Details",
+    "emptyTitle": "Library (curating)",
+    "emptyBody": "A short list of books that shaped my systems thinking, with takeaways and notes."
+  },
+  "thoughts": {
+    "title": "Thoughts",
+    "emptyTitle": "Thoughts (collecting)",
+    "emptyBody": "Short observations and mental models, captured as I ship and learn."
+  },
+  "contact": {
+    "title": "Let's Connect",
+    "subtitle": "Open to architectural discussions, collaborative R&D, or a quick coffee to talk data systems.",
+    "primaryCta": "Initiate Conversation",
+    "responseLatency": "Response latency: Low",
+    "responseNote": "Typically responds within 24 standard hours",
+    "platform": {
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "twitter": "X",
+      "email": "Email"
+    },
+    "cards": {
+      "github": "Observe my craft",
+      "linkedin": "Professional orbit",
+      "twitter": "Stream of consciousness",
+      "email": "Direct transmission"
+    }
+  },
+  "resume": {
+    "title": "Resume",
+    "downloadPdf": "Download PDF"
+  },
+  "footer": {
+    "separator": "·",
+    "copyrightPrefix": "©",
+    "center": "Designed in the Void",
+    "right": "Crafted for clarity and depth."
+  }
+}

@@ -126,9 +126,119 @@ const PLACEHOLDER_DOMAINS = [
   "localhost",
 ];
 
+const REJECT_TOKENS = ["TODO", "TBD", "lorem"];
+
+const REQUIRED_COPY_KEYS = [
+  "global.details",
+  "global.close",
+  "global.open",
+  "global.back",
+  "global.external",
+  "global.openMissionBrief",
+  "global.openBookDetails",
+  "nav.homeAria",
+  "nav.contact",
+  "nav.toggleThemeAria",
+  "hero.architectingPrefix",
+  "hero.primaryCta",
+  "hero.secondaryCta",
+  "hero.availabilityBadge",
+  "home.impactKicker",
+  "home.statusKicker",
+  "status.activeLabel",
+  "status.currentFocusLabel",
+  "status.availabilityLabel",
+  "deepDive.title",
+  "deepDive.subtitle",
+  "deepDive.storyButton",
+  "storySheet.title",
+  "storySheet.subtitle",
+  "storySheet.intentTitle",
+  "storySheet.outlineTitle",
+  "storySheet.interactionTitle",
+  "storySheet.qualityTitle",
+  "storySheet.interactionA",
+  "storySheet.interactionB",
+  "storySheet.interactionC",
+  "storySheet.primaryCta",
+  "storySheet.secondaryCta",
+  "tabs.about",
+  "tabs.projects",
+  "tabs.writing",
+  "tabs.stack",
+  "tabs.library",
+  "tabs.thoughts",
+  "about.currentFocusTitle",
+  "about.systemSpecsTitle",
+  "about.systemSpecsKicker",
+  "about.journeyTitle",
+  "about.milestonesLabel",
+  "about.designStoryTitle",
+  "projects.featuredTitle",
+  "projects.openSourceTitle",
+  "projects.professionalTitle",
+  "projects.privateNote",
+  "spotlight.briefTitle",
+  "spotlight.problem",
+  "spotlight.constraints",
+  "spotlight.approach",
+  "spotlight.proof",
+  "spotlight.next",
+  "spotlight.primaryCtaGithub",
+  "spotlight.primaryCtaRequest",
+  "spotlight.secondaryCtaWriting",
+  "stack.title",
+  "stack.subtitle",
+  "stack.allDomains",
+  "stack.primaryExpertise",
+  "stack.strongFoundation",
+  "stack.workingKnowledge",
+  "stack.proofTitle",
+  "stack.howToReadTitle",
+  "stack.howToReadBody",
+  "writing.title",
+  "writing.wipBadge",
+  "writing.backToWriting",
+  "library.title",
+  "library.detailsLabel",
+  "library.emptyTitle",
+  "library.emptyBody",
+  "thoughts.title",
+  "thoughts.emptyTitle",
+  "thoughts.emptyBody",
+  "contact.title",
+  "contact.subtitle",
+  "contact.primaryCta",
+  "contact.responseLatency",
+  "contact.responseNote",
+  "contact.platform.github",
+  "contact.platform.linkedin",
+  "contact.platform.twitter",
+  "contact.platform.email",
+  "contact.cards.github",
+  "contact.cards.linkedin",
+  "contact.cards.twitter",
+  "contact.cards.email",
+  "resume.title",
+  "resume.downloadPdf",
+  "footer.separator",
+  "footer.copyrightPrefix",
+  "footer.center",
+  "footer.right",
+];
+
 function containsPlaceholder(value) {
   if (typeof value !== "string") return false;
   return PLACEHOLDER_DOMAINS.some((token) => value.includes(token));
+}
+
+function getValue(obj, pathParts) {
+  return pathParts.reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : undefined), obj);
+}
+
+function hasRejectTokens(value) {
+  if (typeof value !== "string") return false;
+  return REJECT_TOKENS.some((token) => value.includes(token));
 }
 
 function ensureNonEmptyString(value, fieldName, filePath) {
@@ -297,6 +407,109 @@ function validateProfile() {
       ensureNonEmptyString(section.body, "about.site_story.long_outline.body", filePath);
     }
   }
+
+  if (typeof data.tagline === "string" && data.tagline.length > 96) {
+    report("PROFILE_TAGLINE_LEN", "profile.tagline must be <= 96 chars", filePath);
+  }
+  if (typeof data.bio === "string" && data.bio.length > 360) {
+    report("PROFILE_BIO_LEN", "profile.bio must be <= 360 chars", filePath);
+  }
+}
+
+function validateCopy() {
+  const { filePath, data } = readJson("copy.json");
+
+  for (const keyPath of REQUIRED_COPY_KEYS) {
+    const value = getValue(data, keyPath.split("."));
+    if (typeof value !== "string" || value.trim().length === 0) {
+      report("COPY_REQUIRED", `copy.${keyPath} must be a non-empty string`, filePath);
+      continue;
+    }
+    if (hasRejectTokens(value) || containsPlaceholder(value)) {
+      report("COPY_REJECT", `copy.${keyPath} contains reject tokens or placeholders`, filePath);
+    }
+  }
+
+  const qualityBullets = getValue(data, ["storySheet", "qualityBullets"]);
+  if (!Array.isArray(qualityBullets)) {
+    report("COPY_QUALITY_BULLETS", "copy.storySheet.qualityBullets must be an array", filePath);
+  } else {
+    if (qualityBullets.length < 4 || qualityBullets.length > 8) {
+      report("COPY_QUALITY_BULLETS", "copy.storySheet.qualityBullets must contain 4-8 items", filePath);
+    }
+    qualityBullets.forEach((bullet, index) => {
+      if (typeof bullet !== "string" || bullet.trim().length === 0) {
+        report("COPY_QUALITY_BULLETS", `copy.storySheet.qualityBullets[${index}] must be a non-empty string`, filePath);
+      }
+      if (hasRejectTokens(bullet) || containsPlaceholder(bullet)) {
+        report("COPY_REJECT", `copy.storySheet.qualityBullets[${index}] contains reject tokens or placeholders`, filePath);
+      }
+    });
+  }
+
+  const buttonKeys = [
+    "hero.primaryCta",
+    "hero.secondaryCta",
+    "deepDive.storyButton",
+    "storySheet.primaryCta",
+    "storySheet.secondaryCta",
+    "spotlight.primaryCtaGithub",
+    "spotlight.primaryCtaRequest",
+    "spotlight.secondaryCtaWriting",
+    "contact.primaryCta",
+    "writing.backToWriting",
+    "resume.downloadPdf",
+  ];
+  for (const keyPath of buttonKeys) {
+    const value = getValue(data, keyPath.split("."));
+    if (typeof value === "string" && value.length > 24) {
+      report("COPY_BUDGET", `copy.${keyPath} must be <= 24 chars`, filePath);
+    }
+  }
+
+  const microKeys = [
+    "global.details",
+    "global.close",
+    "global.open",
+    "global.back",
+    "global.external",
+    "global.openMissionBrief",
+    "global.openBookDetails",
+    "about.systemSpecsKicker",
+  ];
+  for (const keyPath of microKeys) {
+    const value = getValue(data, keyPath.split("."));
+    if (typeof value === "string" && value.length > 28) {
+      report("COPY_BUDGET", `copy.${keyPath} must be <= 28 chars`, filePath);
+    }
+  }
+
+  const tabKeys = [
+    "tabs.about",
+    "tabs.projects",
+    "tabs.writing",
+    "tabs.stack",
+    "tabs.library",
+    "tabs.thoughts",
+  ];
+  for (const keyPath of tabKeys) {
+    const value = getValue(data, keyPath.split("."));
+    if (typeof value === "string" && value.length > 10) {
+      report("COPY_BUDGET", `copy.${keyPath} must be <= 10 chars`, filePath);
+    }
+  }
+
+  const subtitleKeys = ["deepDive.subtitle", "library.emptyBody", "thoughts.emptyBody", "contact.subtitle"];
+  for (const keyPath of subtitleKeys) {
+    const value = getValue(data, keyPath.split("."));
+    if (typeof value === "string" && value.length > 110) {
+      report("COPY_BUDGET", `copy.${keyPath} must be <= 110 chars`, filePath);
+    }
+  }
+  const deepDiveSubtitle = getValue(data, ["deepDive", "subtitle"]);
+  if (typeof deepDiveSubtitle === "string" && deepDiveSubtitle.length > 96) {
+    report("COPY_BUDGET", "copy.deepDive.subtitle must be <= 96 chars", filePath);
+  }
 }
 
 function validateNav() {
@@ -328,6 +541,9 @@ function validateNav() {
 
 function validateProjects() {
   const entries = readMarkdownDir("projects");
+  const writingIds = new Set(readMarkdownDir("writing").map((entry) => entry.frontmatter.id).filter(Boolean));
+  const spotlightEntries = [];
+
   for (const { frontmatter, filePath } of entries) {
     const requiredKeys = [
       "id",
@@ -356,6 +572,24 @@ function validateProjects() {
       report("PROJECT_PLACEHOLDER", "placeholder domain detected in frontmatter", filePath);
     }
 
+    const spotlight = frontmatter.spotlight;
+    if (spotlight !== undefined) {
+      const isPrimary = spotlight === "primary" || spotlight === true;
+      const isSecondary = spotlight === "secondary";
+      if (!isPrimary && !isSecondary) {
+        report("PROJECT_SPOTLIGHT", "spotlight must be primary|secondary|true", filePath);
+      } else {
+        spotlightEntries.push({
+          filePath,
+          id: frontmatter.id,
+          isPrimary,
+          isSecondary,
+          order: frontmatter.spotlight_order,
+          brief: frontmatter.brief,
+        });
+      }
+    }
+
     if (frontmatter.open_source === true) {
       const linkType = frontmatter.link?.primary?.type;
       const linkUrl = frontmatter.link?.primary?.url;
@@ -371,6 +605,55 @@ function validateProjects() {
           "open_source projects must have github link or pending+resume+privacy_note",
           filePath
         );
+      }
+    }
+  }
+
+  if (spotlightEntries.length > 3) {
+    report("PROJECT_SPOTLIGHT_CAP", "total spotlight projects must be <= 3", "resources/projects");
+  }
+  const primaryCount = spotlightEntries.filter((entry) => entry.isPrimary).length;
+  const secondaryCount = spotlightEntries.filter((entry) => entry.isSecondary).length;
+  if (primaryCount > 1) {
+    report("PROJECT_SPOTLIGHT_PRIMARY", "at most one spotlight primary is allowed", "resources/projects");
+  }
+  if (secondaryCount > 0 && primaryCount === 0) {
+    report("PROJECT_SPOTLIGHT_PRIMARY", "secondary spotlights require a primary spotlight", "resources/projects");
+  }
+  if (spotlightEntries.length > 0) {
+    const needsOrder = spotlightEntries.length > 1;
+    const orders = spotlightEntries.map((entry) => entry.order).filter((value) => value !== undefined);
+    if (needsOrder) {
+      if (orders.length !== spotlightEntries.length) {
+        report("PROJECT_SPOTLIGHT_ORDER", "spotlight_order is required for all spotlights when multiple exist", "resources/projects");
+      } else {
+        const orderNumbers = orders.map((value) => Number(value));
+        const unique = new Set(orderNumbers);
+        const max = Math.max(...orderNumbers);
+        if (unique.size !== orderNumbers.length || max !== orderNumbers.length || Math.min(...orderNumbers) !== 1) {
+          report("PROJECT_SPOTLIGHT_ORDER", "spotlight_order must be unique and consecutive starting at 1", "resources/projects");
+        }
+      }
+    }
+    for (const entry of spotlightEntries) {
+      const brief = entry.brief;
+      if (!brief || typeof brief !== "object") {
+        report("PROJECT_SPOTLIGHT_BRIEF", "spotlight projects must include brief object", entry.filePath);
+        continue;
+      }
+      ensureNonEmptyString(brief.thesis, "brief.thesis", entry.filePath);
+      ensureNonEmptyString(brief.problem, "brief.problem", entry.filePath);
+      if (!Array.isArray(brief.approach) || brief.approach.length === 0) {
+        report("PROJECT_SPOTLIGHT_BRIEF", "brief.approach must be a non-empty array", entry.filePath);
+      }
+      if (!Array.isArray(brief.proof) || brief.proof.length === 0) {
+        report("PROJECT_SPOTLIGHT_BRIEF", "brief.proof must be a non-empty array", entry.filePath);
+      }
+      ensureNonEmptyString(brief.next, "brief.next", entry.filePath);
+      if (brief.writing_id) {
+        if (!writingIds.has(brief.writing_id)) {
+          report("PROJECT_SPOTLIGHT_WRITING", `brief.writing_id references unknown writing id ${brief.writing_id}`, entry.filePath);
+        }
       }
     }
   }
@@ -412,6 +695,26 @@ function validateStack() {
       ensureNonEmptyString(domain.summary, "stack.domains.summary", filePath);
       if (typeof domain.x !== "number" || typeof domain.y !== "number") {
         report("STACK_DOMAINS_COORD", "stack.domains x/y must be numbers", filePath);
+      }
+      if (!domain.proof || typeof domain.proof !== "object") {
+        report("STACK_DOMAIN_PROOF", "stack.domains.proof must exist", filePath);
+      } else {
+        const proofProjects = domain.proof.projects ?? [];
+        const proofWriting = domain.proof.writing ?? [];
+        if (!Array.isArray(proofProjects) || !Array.isArray(proofWriting)) {
+          report("STACK_DOMAIN_PROOF", "stack.domains.proof.projects and .writing must be arrays", filePath);
+        } else {
+          for (const pid of proofProjects) {
+            if (!projectIds.has(pid)) {
+              report("STACK_DOMAIN_PROOF_PROJECT", `unknown project id in domain proof: ${pid}`, filePath);
+            }
+          }
+          for (const wid of proofWriting) {
+            if (!writingIds.has(wid)) {
+              report("STACK_DOMAIN_PROOF_WRITING", `unknown writing id in domain proof: ${wid}`, filePath);
+            }
+          }
+        }
       }
       if (domain.id) {
         if (domainIds.has(domain.id)) {
@@ -483,6 +786,7 @@ function validateStack() {
 
 function main() {
   validateProfile();
+  validateCopy();
   validateNav();
   validateProjects();
   validateWriting();

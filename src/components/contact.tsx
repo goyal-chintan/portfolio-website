@@ -3,33 +3,34 @@
 import { content } from "@/config/content.generated";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
 import { Mail, Github, Linkedin, X, ArrowUpRight } from "lucide-react";
+
+const copy = content.copy;
 
 const socialLinks = [
   {
-    name: "GitHub",
+    name: copy.contact.platform.github,
     href: content.profile.social.github,
     icon: Github,
-    description: "Check out my code",
+    description: copy.contact.cards.github,
   },
   {
-    name: "LinkedIn",
+    name: copy.contact.platform.linkedin,
     href: content.profile.social.linkedin,
     icon: Linkedin,
-    description: "Let's connect professionally",
+    description: copy.contact.cards.linkedin,
   },
   {
-    name: "X",
+    name: copy.contact.platform.twitter,
     href: content.profile.social.twitter,
     icon: X,
-    description: "Follow my thoughts",
+    description: copy.contact.cards.twitter,
   },
   {
-    name: "Email",
+    name: copy.contact.platform.email,
     href: `mailto:${content.profile.social.email}`,
     icon: Mail,
-    description: "Get in touch directly",
+    description: copy.contact.cards.email,
   },
 ].filter((link) => Boolean(link.href));
 
@@ -37,24 +38,21 @@ export function ContactSection() {
   return (
     <section id="contact" className="space-y-12">
       <div className="space-y-4">
-        <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">Let&apos;s Connect</h2>
+        <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">{copy.contact.title}</h2>
         <p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
-          I’m always open to architectural discussions, collaborative R&D, or simply sharing a cup of coffee (virtual or real) to talk about the future of data.
+          {copy.contact.subtitle}
         </p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {socialLinks.map((link, index) => (
-          <motion.a
+        {socialLinks.map((link) => {
+          const isMail = link.href.startsWith("mailto:");
+          return (
+          <a
             key={link.name}
             href={link.href}
-            target={link.name !== "Email" ? "_blank" : undefined}
-            rel={link.name !== "Email" ? "noopener noreferrer" : undefined}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -6, scale: 1.02 }}
-            transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
+            target={isMail ? undefined : "_blank"}
+            rel={isMail ? undefined : "noopener noreferrer"}
             className={cn(
               "group relative p-8 rounded-[2rem] transition-all duration-500",
               "card-glass hover:bg-glass-panel/60 hover:border-primary/30",
@@ -72,14 +70,12 @@ export function ContactSection() {
                 {link.name}
               </h3>
               <p className="text-sm text-muted-foreground">
-                {link.name === "GitHub" ? "Observe my craft" :
-                  link.name === "LinkedIn" ? "Professional orbit" :
-                    link.name === "X" ? "Stream of consciousness" :
-                      "Direct transmission"}
+                {link.description}
               </p>
             </div>
-          </motion.a>
-        ))}
+          </a>
+        );
+        })}
       </div>
 
       {/* Primary CTA */}
@@ -91,12 +87,12 @@ export function ContactSection() {
         >
           <a href={`mailto:${content.profile.social.email}`}>
             <Mail className="h-5 w-5 mr-3" />
-            Initiate Conversation
+            {copy.contact.primaryCta}
           </a>
         </Button>
         <div className="flex flex-col">
-          <span className="text-sm font-medium text-foreground">Response latency: Low</span>
-          <span className="text-xs text-muted-foreground">Typically responds within 24 standard hours</span>
+          <span className="text-sm font-medium text-foreground">{copy.contact.responseLatency}</span>
+          <span className="text-xs text-muted-foreground">{copy.contact.responseNote}</span>
         </div>
       </div>
     </section>
@@ -110,9 +106,9 @@ export function ContactPreview() {
         <Mail className="h-6 w-6 text-muted-foreground" />
       </div>
       <div className="space-y-1">
-        <h3 className="font-semibold text-foreground">Let&apos;s Connect</h3>
+        <h3 className="font-semibold text-foreground">{copy.contact.title}</h3>
         <p className="text-sm text-muted-foreground">
-          Open to opportunities and collaborations
+          {copy.contact.subtitle}
         </p>
       </div>
       <div className="flex items-center gap-3">
@@ -120,8 +116,8 @@ export function ContactPreview() {
           <a
             key={link.name}
             href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+            rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
             className="p-2 rounded-lg bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
           >
             <link.icon className="h-4 w-4" />
@@ -131,7 +127,6 @@ export function ContactPreview() {
     </div>
   );
 }
-
 
 
 
