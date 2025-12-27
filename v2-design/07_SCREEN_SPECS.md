@@ -31,6 +31,7 @@ Instrument panel: content navigation and depth surfaces.
 
 ### 2.2 Header (Type B)
 - “About this portfolio” opens a Story sheet (30-second narrative).
+- Canonical spec: `v2-design/07B_PORTFOLIO_STORY_SHEET_SPEC.md`.
 
 ## 3) About tab (“Human OS”)
 
@@ -47,7 +48,7 @@ Required sections:
 Purpose: show impact and seriousness fast.
 
 Required:
-- Spotlight project (Mission Brief sheet + outbound CTA)
+- Featured spotlights (Mission Brief sheet + outbound CTA; capped set)
 - Two buckets: Open Source, Professional
 - Every project card is Type A (external/resume). No dead CTAs.
 
@@ -73,6 +74,7 @@ Writing detail page:
 ## 7) Library tab
 
 - Book cards are Type B (open book detail sheet) or Type A (if outbound), but not ambiguous.
+- If library is empty, render the v2 empty state (Type C) per `v2-design/17_UI_UX_SPEC_MATRIX.md`.
 
 ## 8) Thoughts tab
 
@@ -81,9 +83,10 @@ Either:
 - Quotes open detail sheets (B)
 Pick one; don’t mix.
 
+If thoughts are empty, render the v2 empty state (Type C) per `v2-design/17_UI_UX_SPEC_MATRIX.md`.
+
 ## 9) Contact section
 
 Purpose:
 - One obvious way to contact
 - Optional future: Offerings module (Reveal) that can later graduate to `/engage`
-

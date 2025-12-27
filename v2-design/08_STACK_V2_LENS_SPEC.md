@@ -34,8 +34,8 @@ Default skills:
 - no click-to-open sheet
 - no evidence chips per skill
 
-Optional exception (explicit):
-- Only “Primary Expertise” items may show a small “Details” affordance (Type B) if we want; otherwise keep all skills ambient.
+Locked default:
+- All skills remain **Type C (Ambient)** in v2. No per-skill sheets and no per-skill evidence links.
 
 ## 4) Desktop layout (1440px baseline)
 
@@ -44,6 +44,9 @@ Two-column:
 - Right: Skill tiers + Domain Proof panel
 
 No duplicated domain selector UI on desktop: map is primary.
+
+Rendering spec (deterministic):
+- `v2-design/25_STACK_CONSTELLATION_MAP_RENDERING_SPEC.md`
 
 ## 5) Mobile layout (~390px)
 
@@ -65,7 +68,7 @@ We use **subtle brightness + halo**:
 When a domain is selected:
 - Matching skills: 100% opacity, normal contrast
 - Non-matching skills: 35–50% opacity, reduced contrast
-- Non-matching should still be readable enough (no vanishing text)
+- Non-matching must remain readable (opacity must not go below **0.38**; see `v2-design/18_TOKENS_EXACT.md#6`)
 
 ## 7) Domain Proof (domain-level, not per skill)
 
@@ -75,15 +78,15 @@ When a domain is selected, show a panel:
 - Proof links:
   - Projects (max 3)
   - Writing (max 2)
-  - Resume anchors (optional)
+  - No resume anchors in v2 (keeps the proof surface calm and consistent)
 
 When no domain selected:
 - Show “How to read this” (1 short paragraph) + a hint: “Select a constellation to focus the lens.”
 
 ## 8) Motion
 
-- Domain select: 200–260ms emphasis transition (opacity/blur)
-- Map cluster selected: halo + label brighten (200ms)
+- Domain select: `var(--ds-dur-lens)` (240ms) emphasis transition (opacity/filter)
+- Map cluster selected: halo + label brighten (use `var(--ds-dur-lens)`)
 - No large layout animations; avoid reflow.
 
 ## 9) Accessibility
@@ -105,4 +108,3 @@ Validation must enforce:
 - referenced project/writing IDs exist
 - levels are valid
 - skills reference known domains
-

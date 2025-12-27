@@ -16,16 +16,19 @@
 
 ### 2.2 Durations
 
-- Micro hover/label: 150–200ms
-- Card lift: 200–240ms
-- Tab content transition: 280–340ms
-- Sheet/dialog open: 320–420ms
-- Theme transition: 850–1100ms
+- Micro hover/label: `var(--ds-dur-hover)` (180ms)
+- Card lift: `var(--ds-dur-hover)` (180ms)
+- Tab content transition: `var(--ds-dur-tab)` (320ms)
+- Sheet/dialog open: `var(--ds-dur-sheet)` (380ms)
+- Theme transition: `var(--ds-dur-theme)` (1000ms)
+- Bar docking glide: `var(--ds-dur-dock)` (480ms)
+- Stack lens emphasis: `var(--ds-dur-lens)` (240ms)
+- Gadget expand/collapse: `var(--ds-dur-expand)` (360ms)
 
 ## 3) Easing tokens
 
-- Default: cubic-bezier **[0.22, 1, 0.36, 1]**
-- Subtle settle spring: low bounce only (no rubbery).
+- Default: `var(--ds-ease)` (cubic-bezier **[0.22, 1, 0.36, 1]**)
+- No spring animations in v2 (determinism). If using Framer Motion, use `type: "tween"` with `ease: [0.22, 1, 0.36, 1]`.
 
 ## 4) Critical choreography specs
 
@@ -34,7 +37,7 @@
 Goal: no jank, no scroll jump.
 
 - Pill: moves with a “physical” glide (layout animation).
-- Content: fade + slight y shift (±10–12px).
+- Content: fade + slight y shift (±12px).
 - No auto-scroll on tab switch (only when user triggers from hero CTA).
 
 ### 4.2 Theme toggle (night → morning)
@@ -47,7 +50,7 @@ Goal: feel like a scene change, not a CSS class flip.
 
 #### 4.2.1 Theme choreography timeline (explicit)
 
-Total duration: **900–1100ms** (target 1000ms).
+Total duration: `var(--ds-dur-theme)` (**1000ms**).
 
 At **t=0ms** (toggle press):
 - press feedback triggers immediately (<= 50ms)

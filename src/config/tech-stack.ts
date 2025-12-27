@@ -64,3 +64,5 @@ export const techStack: TechCategory[] = content.stack.categories.map((category)
   })),
 }));
 
+
+

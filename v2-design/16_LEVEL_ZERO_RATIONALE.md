@@ -1,4 +1,4 @@
-# v2 Level‑Zero Rationale (50+ Checks)
+# v2 Level‑Zero Rationale (80+ Checks)
 
 This document answers the “why is this here, why does it look like this, why does it move like this?” question for every major surface.
 
@@ -68,8 +68,8 @@ Rule: if a surface cannot be defended with a user question it answers, it should
 
 ## I) Projects + Spotlight
 
-39) Projects need one “Spotlight” to express passion + depth.  
-40) Spotlight opens Mission Brief (Reveal) and exits via outbound CTA (Navigate).  
+39) Projects need a “Featured/Spotlight” surface to express passion + depth without adding pages.  
+40) Each featured item opens Mission Brief (Reveal) and exits via outbound CTA (Navigate).  
 41) Mission Brief is short, structured, and outcome-driven (no walls of text).  
 42) Private projects must clearly say “details on request” and route to Resume/Contact.  
 
@@ -94,3 +94,62 @@ Rule: if a surface cannot be defended with a user question it answers, it should
 53) Evidence must be consumable: screenshots must show the thing being judged.  
 54) Anything not covered by spec requires a Decision Log entry before implementation.  
 
+## M) Visual craft (Apple bar)
+
+55) Typography must privilege scanning: strong hierarchy, short line lengths, and no “grey-on-grey” body text.  
+56) Spacing must follow an 8‑pt rhythm; random paddings are a “template smell”.  
+57) Radii must be consistent across the product; mixed radii reads as stitched components.  
+58) Shadows must be used as depth cues, not decoration; too many shadow styles reads cheap.  
+59) Glass must never reduce text contrast; blur belongs behind text, not on it.  
+60) Light mode must feel like “morning haze”: soft base, deep navy text, and controlled highlights (no pure white fields).  
+61) Dark mode must feel like “depth”: near-black base with blue bias, layered atmosphere, and restrained accent glow (no neon).  
+62) The accent color must be used as a “signal” (active/selected/proof), not as continuous ornamentation.  
+63) Visual noise (grain/textures) above content is banned; it kills readability and makes the UI feel dusty.  
+
+## N) Microcopy (product tone)
+
+64) Labels must be verbs for actions (“Open brief”, “Download PDF”), nouns for categories (“Stack”, “Projects”).  
+65) Avoid apologetic copy (“sorry”, “coming soon”)—replace with confident framing (“Work in progress”, “Private—details on request”).  
+66) “Details/Close” affordances exist to remove guessing; never rely on implied affordances alone.  
+67) Any badge must have a reason: “Available” is signal; “DRAFT” is noise (unless required for truth).  
+
+## O) Space vibe (deep space, not a particle toy)
+
+68) Space background is context, not content; it must never compete with the hero headline.  
+69) Increase perceived “star density” via layers (many faint + few anchors), not by turning everything bright.  
+70) Constellation motifs belong where meaning exists (Stack domains); do not sprinkle constellation lines everywhere.  
+71) Motion in space is rare and purposeful; continuous movement reads like a screensaver.  
+72) If there is any delight motion (shooting stars, asteroid pass), it must be subtle and fully disabled by reduced motion.  
+
+## P) Stack meaning (avoid “skills spam”)
+
+73) A big list is not intelligence; intelligence is grouping + emphasis + proof.  
+74) Domain selection must not punish the user with reflow; stable layout preserves mental map.  
+75) Evidence belongs at the domain level (2–3 links), otherwise it becomes a click farm.  
+76) Expertise must be readable at a glance using weight/contrast/halo, not badges everywhere.  
+
+## Q) Projects meaning (CTO taste and prioritization)
+
+77) One **Primary Spotlight** plus up to 2 secondaries is enough to communicate passion and taste; unlimited spotlights becomes marketing.  
+78) The Mission Brief is designed to be read in < 90 seconds; if it requires scrolling a lot, it failed.  
+79) “Outbound-first” protects the portfolio from becoming a sprawling product; depth is revealed, not navigated.  
+
+## R) Future-proofing without IA drift
+
+80) Future consulting/engage flows must attach to Contact first; do not add navbar items for speculative features.  
+81) A future `/engage` route is allowed only for a product flow (pricing/scheduling), not for content browsing.  
+82) Any new surface must declare A/B/C type; any new route requires CR + evidence.  
+
+## S) Data interconnection (knowledge graph, but calm)
+
+83) Cross-links must be deterministic (IDs), validated at build time, and surfaced only where they reduce hunt time.  
+84) The “evidence graph” is for reviewers (proof paths), not for making every skill clickable.  
+85) Proof surfaces must cap link counts; infinite link lists reduce trust and increase cognitive load.  
+
+## T) Failure patterns Apple would reject (fast heuristics)
+
+86) Hover glow with no action (dead-click) → REJECT.  
+87) Active state unclear (tabs/domains) → REJECT.  
+88) Layout shift on interaction (filters/reflow) → REJECT.  
+89) Theme flash (white/black) → REJECT.  
+90) Inconsistent tokens (random radii/shadows) → REJECT.  

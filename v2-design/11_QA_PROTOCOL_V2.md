@@ -13,6 +13,11 @@ Every check must reference evidence artifacts (screenshots/videos/audit logs) pe
 - **R1 Zero red overlays**: no Next.js red error screen during navigation.
 - **R2 Zero console errors**: no `console.error` from React/Next.
 - **R3 Build gates pass**: `npm run content:validate` and `npm run build` succeed.
+- **R4 No third-party runtime dependencies**: no required requests to external origins (fonts, beacons); see `dependency-audit.txt`.
+
+Measurement guidance:
+- Prefer automated capture that records console output and explicitly checks for Next.js overlay selectors.
+- If manual: record steps and counts into `runtime-audit.txt` per `v2-design/12_EVIDENCE_PACK_V2.md`.
 
 ## 2) Visual Integrity
 
@@ -38,12 +43,22 @@ Every check must reference evidence artifacts (screenshots/videos/audit logs) pe
 - **M3 Reduced motion**: delight loops disabled; state fades allowed.
 - **M4 Theme transition**: no flash; feels like scene change.
 
+Timing acceptance (exact):
+- Tab transition: 280–340ms (target 320ms)
+- Sheet/dialog: 320–420ms (target 380ms)
+- Theme: 850–1100ms (target 1000ms)
+
+Jank rejection heuristics:
+- Any visible snap of the active pill.
+- Any frame where content “teleports” (appears without opacity ramp).
+
 ## 5) Content & Product
 
 - **C1 10-second test**: hero clearly communicates who/what/proof/next action.
 - **C2 CTA clarity**: primary CTA is singular and obvious.
 - **C3 Projects policy**: outbound-first; no internal project maze.
 - **C4 Stack clarity**: instantly communicates expertise tiers + domains.
+- **C5 Content decoupling**: no profile-specific strings hardcoded in `src/` (see `v2-design/10_CONTENT_MODEL_V2.md#4.4`).
 
 ## 6) Performance (budget checks)
 
@@ -54,9 +69,16 @@ Budgets (targets; measure with Lighthouse or Web Vitals):
 
 If these cannot be measured automatically, capture manual notes and treat as HOLD, not PASS.
 
+## 7) Determinism / Golden Master (required once baseline exists)
+
+Reference: `v2-design/21_DETERMINISM_AND_GOLDEN_MASTER.md`.
+
+- **G1 Golden master stability**: v2 evidence screenshots match the committed baseline for the same viewport/theme.
+- **G2 No accidental drift**: if baseline must change, it is documented via CR + Decision Log.
+- **G3 No time-based UI drift**: `time-drift-audit.txt` shows 0 matches for `new Date()` UI and `setInterval` copy cycling.
+
 ## 7) Release rule
 
 PASS requires:
 - all checks above proven with evidence
 - evidence pack complete
-

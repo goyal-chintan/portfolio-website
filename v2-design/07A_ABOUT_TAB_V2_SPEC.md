@@ -18,6 +18,10 @@ Order is fixed:
 4) Journey + Milestones — Type B  
 5) Design Story (short + outline cards) — Type C  
 
+Grid (locked):
+- Desktop (`>= lg`): System Specs gadgets render as a 2×2 grid.
+- Mobile: 1-column stack.
+
 ## 3) System Specs (gadgets) — Type B
 
 ### 3.1 Data requirements
@@ -37,7 +41,7 @@ Each card shows:
 
 **Cues**
 - pointer cursor
-- hover response within 150–200ms
+- hover response begins within ≤150ms (duration: `var(--ds-dur-hover)`)
 - focus ring visible
 
 ### 3.3 Open state (expanded)
@@ -58,9 +62,9 @@ Expanded content shows:
 ### 3.5 Motion spec
 
 - Expand/collapse:
-  - duration: 320–400ms
+  - duration: `var(--ds-dur-expand)` (360ms)
   - properties: height + opacity
-  - easing: `[0.22, 1, 0.36, 1]`
+  - easing: `var(--ds-ease)`
 
 ### 3.6 “No guessing” acceptance
 
@@ -99,7 +103,9 @@ Shows:
 Opening a role shows:
 - role + company + period
 - summary
-- optional highlights (2–3 bullets max)
+- highlights (conditional):
+  - If `highlights[]` exists and has items: render as bullets (max 3 shown; extra are dropped in v2).
+  - If absent/empty: do not render a “Highlights” header.
 
 Close behavior:
 - Escape closes
@@ -110,17 +116,21 @@ Close behavior:
 Milestones are displayed as a small cluster:
 - label: “Milestones” with a small star icon
 - each milestone rendered as a compact chip/button (Type B)
+  - max chips shown per role: 4
+  - if more than 4 milestones exist, render a 5th overflow chip: “+N” (Type B) that opens the Role sheet (scrolled to milestones)
 
 Milestone brief (open) shows:
 - title
 - date
 - 1-line detail
-- optional “Evidence” links (Type A)
+- evidence (conditional):
+  - If `evidence.projects[]` or `evidence.writing[]` exists and is non-empty: show an “Evidence” subheader and render links (Type A).
+  - If absent/empty: do not render the Evidence subheader.
 
 ### 4.5 Motion spec
 
-- Role sheet open: 320–420ms, opacity + y (±12px)
-- Milestone brief open: 280–360ms
+- Role sheet open: `var(--ds-dur-sheet)` (380ms), opacity + y (±12px)
+- Milestone brief open: `var(--ds-dur-tab)` (320ms)
 
 ## 5) Design Story (make craft discoverable)
 
@@ -143,4 +153,3 @@ Pass only if:
 - Expand/collapse animation is smooth (no snap, no layout jump).
 - Journey rows open reliably; milestones open reliably; Escape closes.
 - No element in About looks clickable without behavior.
-

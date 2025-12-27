@@ -9,11 +9,16 @@
 
 ## 2) Tokens (authoritative)
 
-These tokens are the design contract. Implementation should map to CSS variables.
+These tokens are the design contract. Implementation must map to CSS variables.
+
+**Authoritative numeric values live in** `v2-design/18_TOKENS_EXACT.md`.
 
 ### 2.1 Typography
 
-- Font family: current system choice (keep; do not introduce novelty fonts in v2).
+- Font family (locked for determinism):
+  - Sans: Inter
+  - Mono: JetBrains Mono
+  - Must be bundled as self-hosted fonts (no remote CSS `@import`); see `v2-design/21_DETERMINISM_AND_GOLDEN_MASTER.md#3.1`.
 - Scale:
   - Display: 64 / 56 / 48
   - H1: 40 / 36 / 32
@@ -31,14 +36,17 @@ Allowed spacing units: 4, 8, 12, 16, 24, 32, 40, 48, 64, 80, 96, 128.
 ### 2.3 Radii
 
 - Pill controls: 999px
-- Cards: 20–24px (pick one and keep consistent)
-- Sheets/dialogs: 28–40px (premium)
+- Cards: 24px (locked; `var(--ds-radius-card)`)
+- Sheets/dialogs: 36px (locked; `var(--ds-radius-sheet)`)
 
 ### 2.4 Borders and glass
 
 - Default border: 1px with low alpha, varies by theme.
 - Glass:
-  - blur: 16–28px depending on surface size
+  - blur uses token presets only (no ad-hoc blur values):
+    - card: `var(--ds-blur-card)` (18px)
+    - sheet: `var(--ds-blur-sheet)` (26px)
+    - bar: `var(--ds-blur-bar)` (22px)
   - background: theme‑aware translucent fill
   - never reduce text contrast
 
@@ -50,21 +58,23 @@ Define as variables and keep consistent:
 - `shadow-md`: `0 18px 50px rgba(0,0,0,0.35)`
 - `shadow-lg`: `0 30px 90px rgba(0,0,0,0.45)`
 
-Light mode should use softer shadows (lower alpha).
+Light mode uses the light-mode shadow presets from `v2-design/18_TOKENS_EXACT.md` (no ad-hoc shadows).
 
 ### 2.7 Glass presets (explicit)
 
 Dark:
 - glass background: `rgba(10,12,18,0.45)` (example)
 - glass border: `rgba(255,255,255,0.08)`
-- glass highlight: `rgba(255,255,255,0.06)` (optional top gradient)
+- glass highlight: `rgba(255,255,255,0.06)` (required top highlight)
 
 Light:
 - glass background: `rgba(255,255,255,0.55)`
 - glass border: `rgba(15,23,42,0.10)`
-- glass highlight: `rgba(255,255,255,0.70)` (optional top gradient)
+- glass highlight: `rgba(255,255,255,0.70)` (required top highlight)
 
-Note: These are target values; implementation may tune slightly but must preserve contrast.
+Token lock:
+- Values are locked by `v2-design/18_TOKENS_EXACT.md`.
+- Any change requires updating that file and recording it in `v2-design/14_DECISION_LOG.md`.
 
 ### 2.5 Color system
 
@@ -75,7 +85,7 @@ Dark:
 - `surface`: translucent glass, slight lift
 - `text`: off-white (not pure white)
 - `muted`: readable grey
-- `accent`: one signature hue (cyan/teal) + optional warm highlight for “Spotlight”
+- `accent`: one signature hue (cyan/teal) only (no secondary warm accent in v2)
 
 Light:
 - `bg`: soft fog (#E9EDF2‑like) with atmospheric gradient
@@ -87,26 +97,36 @@ Light:
 
 Goal: “vastness” without distraction.
 
+Deterministic rendering spec:
+- `v2-design/24_SPACE_BACKGROUND_RENDERING_SPEC.md`
+
 ### 3.1 Layering
 
-Dark:
-1) base gradient
-2) starfield (dense)
-3) anchor stars (few, brighter)
-4) faint constellation lines (optional, subtle)
-5) milky way band
-6) planet glow
-7) rare shooting stars (disabled on reduced motion)
+Dark (v2 ambient-only):
+1) base gradient (CSS)
+2) starfield canvas (dense; 1200 faint + 60 anchors; static)
+3) (reserved) constellation motifs are **Stack-only** (no global constellation lines in v2)
 
 Light:
 1) calm atmosphere gradients only
-2) zero obvious stars (unless extremely subtle)
+2) zero stars (no dots)
 
 ### 3.2 Starfield quality targets
 
 - Randomness must not form visible grids.
-- Twinkle variance per star (no synchronized blinking).
-- Star count may increase, but must not degrade scroll/input.
+- Star count is locked (see density targets); do not change without a Decision Log entry.
+- No twinkle in v2 (static stars only).
+
+**Density targets (deterministic, performance-aware)**
+- Dark mode:
+  - faint stars: **1200** (very small, low alpha)
+  - anchor stars: **60** (slightly larger, higher alpha; sparse)
+  - constellation lines: **0** in global background (Stack tab renders meaning-based constellations)
+- Light mode:
+  - stars: **0** (never obvious dots)
+
+**Performance guardrails**
+- Background is static in v2 (one draw on mount + redraw on resize/theme change).
 
 ## 4) Accessibility contrast targets
 
