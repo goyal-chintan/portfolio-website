@@ -22,6 +22,22 @@ This is a template. Copy it 5× for Gate 1 in:
 - (e.g., “depth is earned via contrast + specular, not neon”)
 - (e.g., “no texture/noise above text”)
 
+### A2) Reference anchors (required)
+
+Purpose: eliminate “invented aesthetics” and align review vocabulary across teams.
+
+Provide **exact links or source names** (not vibes):
+- **Apple official anchor (required)**:
+  - Example: WWDC25 session “Meet Liquid Glass” (Apple says it unifies platform design language)
+  - Example: Apple Developer docs “Liquid Glass” / “Adopting Liquid Glass”
+- **Space mood anchor (required)**:
+  - Example: NASA/JPL image references (used only as mood — not copied into UI)
+- **Non‑Apple product anchor (required)**:
+  - Example: Stripe docs UI, Linear app surfaces, etc.
+
+Rule:
+- If anchors are missing, the direction is rejected at Gate 1.
+
 ---
 
 ## B) Token delta (authoritative)
@@ -176,4 +192,3 @@ For each core component:
 - 1–2 sentence reason
 
 Record approval in Decision Log.
-

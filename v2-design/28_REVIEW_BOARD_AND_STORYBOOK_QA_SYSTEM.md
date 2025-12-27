@@ -134,8 +134,28 @@ Hard rule:
 - Candidates are not “vibes”; they are **material recipes + token values**.
  - Use the template: `v2-design/29_DESIGN_DIRECTION_PACK_TEMPLATE.md`
 
+Baseline note:
+- **“Liquid Glass” is an official Apple platform design language (WWDC25 + Apple Developer docs).**
+- In v2, Liquid Glass is allowed as a **fallback anchor direction** because it is already culturally “premium”, but it is **not** mandatory. The system must support non‑Liquid‑Glass concepts equally well.
+
 Stop condition:
 - If a candidate cannot be specified in tokens (colors/gradients/blur/shadow/radii/durations) → reject that candidate.
+
+### Gate 1.1 — Reference anchors (prevents invented aesthetics)
+
+Each candidate direction must include a “Reference anchors” section (in the direction pack) with:
+- **1× Apple official anchor** (e.g., Liquid Glass WWDC session or Apple Developer overview) — even if the direction is *not* Liquid Glass, this sets the baseline bar for craft.
+- **1× Space/astronomy aesthetic anchor** (the mood board for “deep space” without noise above text).
+- **1× Non‑Apple product anchor** (e.g., Stripe/Duolingo-level polish) to avoid “copy Apple UI” and encourage originality.
+
+Rule:
+- If a direction cannot point to anchors, it is not reviewable and is rejected at Gate 1.
+
+Practical Apple anchor examples (copy/paste into direction packs):
+- Apple Developer docs: `developer.apple.com/documentation/technologyoverviews/liquid-glass/`
+- Apple Developer docs: `developer.apple.com/documentation/technologyoverviews/adopting-liquid-glass/`
+- Apple Developer docs: `developer.apple.com/documentation/swiftui/applying-liquid-glass-to-custom-views/`
+- WWDC25 session: `developer.apple.com/videos/play/wwdc2025/219/` (“Meet Liquid Glass”)
 
 ### Gate 2 — Internal craft review (Design + Motion + UX + Eng + QA)
 Run this review **before** user sees anything.
